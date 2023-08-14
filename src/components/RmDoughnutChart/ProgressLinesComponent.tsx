@@ -23,7 +23,7 @@ interface ProgressLinesComponentProps {
     label: string;
     color: string;
     itemIdx: number;
-    onClickInProgressLines: (idx: number) => void;
+    href: string;
 }
 
 export const ProgressLinesComponent: React.FC<ProgressLinesComponentProps> = ({
@@ -32,7 +32,7 @@ export const ProgressLinesComponent: React.FC<ProgressLinesComponentProps> = ({
     label,
     color,
     itemIdx,
-    onClickInProgressLines,
+    href,
 }) => {
     //
 
@@ -47,10 +47,17 @@ export const ProgressLinesComponent: React.FC<ProgressLinesComponentProps> = ({
     return (
         <ProgressLinesContainer>
             <ProgressLines_MetricContainer>
-                <ProgressLines_Title
-                    onClick={() => onClickInProgressLines(itemIdx)}
-                >
-                    <Mui.Typography variant='body2'> {label}</Mui.Typography>
+                <ProgressLines_Title>
+                    <Mui.Typography variant='body2'>
+                        <a
+                            href={href}
+                            target='_blank'
+                            style={{ color: "black", textDecoration: "none" }}
+                        >
+                            {" "}
+                            {label}
+                        </a>
+                    </Mui.Typography>
                 </ProgressLines_Title>
                 <Mui.Typography variant='body2' sx={{ textAlign: "right" }}>
                     {" "}

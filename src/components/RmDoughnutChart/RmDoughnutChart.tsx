@@ -31,14 +31,14 @@ import {
 // @ts-ignore
 import ProgressLinesComponent from "./ProgressLinesComponent";
 
-export type DoughnutChartData = {
+export type DoughnutChartDataType = {
     chartName: string;
     chartMetric: string;
     values: [string, number, string][];
 };
 
 interface RmDoughnutChartProps extends BoxProps {
-    chartData: any;
+    chartData: DoughnutChartDataType;
     chartOptions: ChartWrapperOptions["options"];
     percentageUtilized: number;
     totalVehicles: number;
@@ -206,7 +206,18 @@ const RmDoughnutChart: React.FC<RmDoughnutChartProps> = ({
                     >
                         <Chart
                             chartType='PieChart'
-                            data={chartData}
+                            data={[
+                                [
+                                    chartData.chartName,
+                                    chartData.chartMetric,
+                                    {
+                                        role: "tooltip",
+                                        type: "string",
+                                        p: { html: true },
+                                    },
+                                ],
+                                ...chartData.values,
+                            ]}
                             options={{
                                 ...defaultPieChartOptions,
                                 ...chartOptions,
@@ -243,10 +254,7 @@ const RmDoughnutChart: React.FC<RmDoughnutChartProps> = ({
                 </Grid>
                 {/* PROGRESS */}
                 <Grid item xs={12} className=''>
-                    {chartData.map((item: any, idx: number) => {
-                        if (idx === 0) {
-                            return null;
-                        }
+                    {chartData.values.map((item: any, idx: number) => {
                         return (
                             <ProgressLinesComponent
                                 key={JSON.stringify(item)}
@@ -259,9 +267,7 @@ const RmDoughnutChart: React.FC<RmDoughnutChartProps> = ({
                                         : defaultColors[idx]
                                 }
                                 itemIdx={idx}
-                                onClickInProgressLines={() =>
-                                    console.log("ProgressLinesFn")
-                                }
+                                href={item[2]}
                             />
                         );
                     })}

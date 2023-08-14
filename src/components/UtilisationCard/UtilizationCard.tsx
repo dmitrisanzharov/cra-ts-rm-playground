@@ -2,9 +2,11 @@ import React from "react";
 import { Box, Card, CardContent, CardProps, Typography } from "@mui/material";
 import { ChartWrapperOptions } from "react-google-charts";
 import RmDoughnutChart from "../RmDoughnutChart/RmDoughnutChart";
-import generatePieChartTooltip from "./hooks";
+import generatePieChartTooltip, {
+    useUtilizationStatusDoughnutChartData,
+} from "./hooks";
 
-interface UtilizationCardProps extends CardProps {
+export interface UtilizationCardPropsInterface extends CardProps {
     numberOfRecords: number;
     // status
     statusAvailable: number;
@@ -13,7 +15,7 @@ interface UtilizationCardProps extends CardProps {
     statusOther: number;
     loading: boolean;
 }
-const UtilizationCard: React.FC<UtilizationCardProps> = ({
+const UtilizationCard: React.FC<UtilizationCardPropsInterface> = ({
     numberOfRecords,
     statusAvailable,
     statusOnRent,
@@ -24,6 +26,7 @@ const UtilizationCard: React.FC<UtilizationCardProps> = ({
 }) => {
     //
 
+    // * NO CHANGES NEEDED
     const chartOptions: ChartWrapperOptions["options"] = {
         colors: [
             // TODO: need to change colors
@@ -35,57 +38,67 @@ const UtilizationCard: React.FC<UtilizationCardProps> = ({
     };
 
     // TODO: need to be translated
-    const chartData = [
-        [
-            "Status",
-            "Amount",
-            {
-                role: "tooltip",
-                type: "string",
-                p: { html: true },
-            },
-        ],
-        [
-            "On Rent",
-            statusOnRent,
-            generatePieChartTooltip(
-                "label1",
-                statusOnRent,
-                "https://www.google.com",
-                "green"
-            ),
-        ],
-        [
-            "Available",
-            statusAvailable,
-            generatePieChartTooltip(
-                "label1",
-                statusOnRent,
-                "https://www.google.com",
-                "green"
-            ),
-        ],
-        [
-            "Nrm",
-            statusNRM,
-            generatePieChartTooltip(
-                "label1",
-                statusOnRent,
-                "https://www.google.com",
-                "green"
-            ),
-        ],
-        [
-            "Other",
-            statusOther,
-            generatePieChartTooltip(
-                "label1",
-                statusOnRent,
-                "https://www.google.com",
-                "green"
-            ),
-        ],
-    ];
+
+    const chartData = useUtilizationStatusDoughnutChartData({
+        numberOfRecords,
+        statusAvailable,
+        statusOnRent,
+        statusNRM,
+        statusOther,
+        loading,
+    });
+
+    // const chartData = [
+    //     [
+    //         "Status",
+    //         "Amount",
+    //         {
+    //             role: "tooltip",
+    //             type: "string",
+    //             p: { html: true },
+    //         },
+    //     ],
+    //     [
+    //         "On Rent",
+    //         statusOnRent,
+    //         generatePieChartTooltip(
+    //             "label1",
+    //             statusOnRent,
+    //             "https://www.google.com",
+    //             "green"
+    //         ),
+    //     ],
+    //     [
+    //         "Available",
+    //         statusAvailable,
+    //         generatePieChartTooltip(
+    //             "label1",
+    //             statusOnRent,
+    //             "https://www.google.com",
+    //             "green"
+    //         ),
+    //     ],
+    //     [
+    //         "Nrm",
+    //         statusNRM,
+    //         generatePieChartTooltip(
+    //             "label1",
+    //             statusOnRent,
+    //             "https://www.google.com",
+    //             "green"
+    //         ),
+    //     ],
+    //     [
+    //         "Other",
+    //         statusOther,
+    //         generatePieChartTooltip(
+    //             "label1",
+    //             statusOnRent,
+    //             "https://www.google.com",
+    //             "green"
+    //         ),
+    //     ],
+    // ];
 
     function calculatePercentageUtilized(): number {
         return Math.round((statusOnRent / numberOfRecords) * 100);

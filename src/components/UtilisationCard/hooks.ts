@@ -1,4 +1,5 @@
 // TODO:
+
 // import {
 //     RM_COLOR_BASE_GRAY_LIGHT_30,
 //     RM_COLOR_BASE_BLACK,
@@ -8,6 +9,121 @@
 //     RM_TYPOGRAPHY_FONT_FAMILY_SANS,
 //     RM_SIZE_FONT_SMALL,
 // } from "design-tokens";
+
+// import { getUrlParamName } from "@reactRootOld/hooks/filterUrlBindings";
+// import { TABLE_ID as FLEET_TABLE_ID } from "@reactRootOld/pages/FleetPage/FleetPage";
+// import {
+//     RM_COLOR_BASE_GRAY_MIDDLE,
+//     RM_COLOR_BASE_GREEN,
+//     RM_COLOR_BASE_ORANGE,
+//     RM_COLOR_BASE_RED,
+//     RM_COLOR_BUTTON_PRIMARY_DISABLED_FOREGROUND,
+// } from "design-tokens";
+// import { useTranslation } from "@hooks/translation";
+// import { generatePieChartTooltip } from "@reactRootOld/display/Chart/hooks";
+// import { DeviceStatus } from "./types";
+
+import React from "react";
+import { DoughnutChartDataType } from "../RmDoughnutChart/RmDoughnutChart"; // TODO: this should come from main component
+import { UtilizationCardPropsInterface } from "./UtilizationCard";
+
+export const useUtilizationStatusDoughnutChartData = (
+    utilzationStatus: UtilizationCardPropsInterface
+) => {
+    // TODO: const { t } = useTranslation();
+
+    //TODO: const { hash } = window.location;
+    // TODO: const urlParamName = getUrlParamName(FLEET_TABLE_ID, null, "ts_status");
+    return React.useMemo(() => {
+        // const [, queryString] = hash.split("?") || ["", ""];
+        // const query = new URLSearchParams(queryString);
+        // query.delete("urlParamName");
+        const outputData: DoughnutChartDataType = {
+            chartName: "Utilization Status",
+            chartMetric: "Vehicle Count",
+            values: [
+                [
+                    "On Rent", // t("ACTIVE"),
+                    utilzationStatus.statusOnRent,
+                    generatePieChartTooltip(
+                        "On Rent",
+                        // t("ACTIVE"),
+                        utilzationStatus.statusOnRent,
+                        // `#/fleet?${query.toString()}&${urlParamName}=Active`,
+                        // RM_COLOR_BASE_GREEN,
+                        "https://www.google.com",
+                        "green"
+                    ),
+                ],
+                [
+                    // t("LABEL_ISSUE"),
+                    // deviceStatus.issue,
+                    // generatePieChartTooltip(
+                    //     t("LABEL_ISSUE"),
+                    //     deviceStatus.issue,
+                    //     `#/fleet?${query.toString()}&${urlParamName}=Issue`,
+                    //     RM_COLOR_BASE_ORANGE
+                    // ),
+                    "Available",
+                    utilzationStatus.statusAvailable,
+                    generatePieChartTooltip(
+                        "Available",
+                        utilzationStatus.statusAvailable,
+                        "https://www.google.com",
+                        "blue"
+                    ),
+                ],
+                [
+                    // t("TS_UNAUTH_DISC"),
+                    // deviceStatus.disconnect,
+                    // generatePieChartTooltip(
+                    //     t("TS_UNAUTH_DISC"),
+                    //     deviceStatus.disconnect,
+                    //     `#/fleet?${query.toString()}&${urlParamName}=Disconnect`,
+                    //     RM_COLOR_BASE_RED
+                    // ),
+                    "Nrm",
+                    utilzationStatus.statusNRM,
+                    generatePieChartTooltip(
+                        "Nrm",
+                        utilzationStatus.statusNRM,
+                        "https://www.google.com",
+                        "violet"
+                    ),
+                ],
+                [
+                    // t("LABEL_OTHER"),
+                    // deviceStatus.other,
+                    // generatePieChartTooltip(
+                    //     t("LABEL_NO_TRACKER"),
+                    //     deviceStatus.untracked,
+                    //     null,
+                    //     RM_COLOR_BASE_GRAY_MIDDLE
+                    // ),
+                    "Other",
+                    utilzationStatus.statusOther,
+                    generatePieChartTooltip(
+                        "Other",
+                        utilzationStatus.statusOther,
+                        "https://www.google.com",
+                        "gray"
+                    ),
+                ],
+            ],
+        };
+        return outputData;
+    }, [
+        // deviceStatus.active,
+        // deviceStatus.disconnect,
+        // deviceStatus.untracked,
+        // deviceStatus.issue,
+        // hash,
+        // urlParamName,
+        // t,
+        // t("ACTIVE"),
+        utilzationStatus,
+    ]);
+};
 
 function generatePieChartTooltip(
     label: string,
