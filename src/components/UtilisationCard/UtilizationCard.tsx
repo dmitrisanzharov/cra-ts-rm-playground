@@ -3,6 +3,7 @@ import { Box, Card, CardContent, CardProps, Typography } from "@mui/material";
 import { ChartWrapperOptions } from "react-google-charts";
 import RmDoughnutChart from "../RmDoughnutChart/RmDoughnutChart";
 import { useUtilizationStatusDoughnutChartData } from "./hooks";
+import translations from "../../translation";
 
 export interface UtilizationCardPropsInterface extends CardProps {
     numberOfRecords: number;
@@ -23,8 +24,7 @@ const UtilizationCard: React.FC<UtilizationCardPropsInterface> = ({
     ...rest
 }) => {
     //
-
-    // * NO CHANGES NEEDED
+    const { t } = translations;
     const chartOptions: ChartWrapperOptions["options"] = {
         colors: [
             // TODO: need to change colors
