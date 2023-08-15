@@ -1,9 +1,16 @@
 import React from "react";
 import { Box, BoxProps, Skeleton, Typography, Grid } from "@mui/material";
 // import { useTranslation } from "@hooks/translation";
+import translations from "../../translation";
 import { Chart, ChartWrapperOptions } from "react-google-charts";
 import { CenterTextContainerSx } from "./styles";
 // import { RM_SIZE_FONT_BASE } from "design-tokens";
+import {
+    RM_COLOR_BASE_GREEN,
+    RM_COLOR_BASE_BLUE_MIDDLE,
+    RM_COLOR_BASE_VIOLET_MIDDLE,
+    RM_COLOR_BASE_GRAY_MIDDLE,
+} from "../../design-tokens/tokens";
 // @ts-ignore
 import ProgressLinesComponent from "./ProgressLinesComponent";
 import { utilizationStatusDoughnutChartDataHrefOnly } from "../UtilisationCard/hooks";
@@ -39,7 +46,6 @@ const DoughnutChartSkeleton: React.FC = () => {
                     display: "flex",
                     justifyContent: "flex-end",
                     alignItems: "center",
-                    pb: 0.5,
                 }}
             >
                 <Skeleton
@@ -56,7 +62,6 @@ const DoughnutChartSkeleton: React.FC = () => {
                                 display: "flex",
                                 justifyContent: "center",
                                 alignItems: "center",
-                                marginBottom: "20px",
                             }}
                             key={`a${el}b`}
                         >
@@ -97,14 +102,15 @@ const RmDoughnutChart: React.FC<RmDoughnutChartProps> = ({
     const [displayChart, setDisplayChart] = React.useState<boolean>(false);
 
     const defaultColors: any = [
-        // TODO: this can be imported
-        "green",
-        "blue",
-        "violet",
-        "gray",
+        RM_COLOR_BASE_GREEN,
+        RM_COLOR_BASE_BLUE_MIDDLE,
+        RM_COLOR_BASE_VIOLET_MIDDLE,
+        RM_COLOR_BASE_GRAY_MIDDLE,
     ];
 
     // const { t } = useTranslation();
+    const { t } = translations;
+
     const defaultPieChartOptions: ChartWrapperOptions["options"] = {
         pieHole: 0.85,
         is3D: false,
@@ -138,11 +144,12 @@ const RmDoughnutChart: React.FC<RmDoughnutChartProps> = ({
                                 {numberUtilized}
                             </Typography>
                             <Typography variant='caption'>
-                                of{" "}
+                                {t["LABEL_FROM"].toLowerCase()}{" "}
                                 {totalVehicles.toLocaleString(undefined, {
                                     maximumFractionDigits: 1,
                                 })}{" "}
-                                Vehicles are in use
+                                {/* TODO ADD THIS TO TRANSLATIONS */}
+                                {t["LAVEL_VEHICLES_IN_USE"].toLowerCase()}
                             </Typography>
                         </Box>
                     </Grid>
@@ -197,8 +204,7 @@ const RmDoughnutChart: React.FC<RmDoughnutChartProps> = ({
                                     {percentageUtilized}%
                                 </Typography>
                                 <Typography variant='caption'>
-                                    Utilisation
-                                    {/* TODO:  {t("LABEL_UTILISATION")} */}
+                                    {t["LABEL_UTILISATION"]}
                                 </Typography>
                             </Box>
                         </Box>

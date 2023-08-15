@@ -1,5 +1,3 @@
-// TODO:
-
 // import {
 //     RM_COLOR_BASE_GRAY_LIGHT_30,
 //     RM_COLOR_BASE_BLACK,
@@ -24,8 +22,24 @@
 // import { DeviceStatus } from "./types";
 
 import React from "react";
-import { DoughnutChartDataType } from "../RmDoughnutChart/RmDoughnutChart"; // TODO: this should come from main component
-import { UtilizationCardPropsInterface } from "./UtilizationCard";
+import { DoughnutChartDataType } from "../RmDoughnutChart/RmDoughnutChart";
+import {
+    UtilizationCardPropsInterface,
+    DATA_COLOUR_STATUS_ONRENT,
+    DATA_COLOUR_STATUS_AVAILABLE,
+    DATA_COLOUR_STATUS_NRM,
+    DATA_COLOUR_STATUS_UNKNOWN,
+} from "./UtilizationCard";
+import translations from "../../translation";
+import {
+    RM_COLOR_BASE_GRAY_LIGHT_30,
+    RM_COLOR_BASE_BLACK,
+    RM_COLOR_BASE_WHITE,
+    RM_COLOR_BUTTON_PRIMARY_ENABLED_BACKGROUND,
+    RM_COLOR_BUTTON_PRIMARY_ENABLED_FOREGROUND,
+    RM_TYPOGRAPHY_FONT_FAMILY_SANS,
+    RM_SIZE_FONT_SMALL,
+} from "../../design-tokens/tokens";
 
 export const utilizationStatusDoughnutChartDataHrefOnly = (
     idx: number
@@ -42,9 +56,10 @@ export const useUtilizationStatusDoughnutChartData = (
     utilzationStatus: UtilizationCardPropsInterface
 ) => {
     // TODO: const { t } = useTranslation();
-
     //TODO: const { hash } = window.location;
     // TODO: const urlParamName = getUrlParamName(FLEET_TABLE_ID, null, "ts_status");
+
+    const { t } = translations;
 
     return React.useMemo(() => {
         // const [, queryString] = hash.split("?") || ["", ""];
@@ -55,16 +70,16 @@ export const useUtilizationStatusDoughnutChartData = (
             chartMetric: "Vehicle Count",
             values: [
                 [
-                    "On Rent", // t("ACTIVE"),
+                    t["ONRENT"], // t("ACTIVE"),
                     utilzationStatus.statusOnRent,
                     generatePieChartTooltip(
-                        "On Rent",
+                        t["ONRENT"],
                         // t("ACTIVE"),
                         utilzationStatus.statusOnRent,
                         // `#/fleet?${query.toString()}&${urlParamName}=Active`,
                         // RM_COLOR_BASE_GREEN,
                         "https://www.google.com",
-                        "green"
+                        DATA_COLOUR_STATUS_ONRENT
                     ),
                 ],
                 [
@@ -76,13 +91,13 @@ export const useUtilizationStatusDoughnutChartData = (
                     //     `#/fleet?${query.toString()}&${urlParamName}=Issue`,
                     //     RM_COLOR_BASE_ORANGE
                     // ),
-                    "Available",
+                    t["AVAILABLE"],
                     utilzationStatus.statusAvailable,
                     generatePieChartTooltip(
-                        "Available",
+                        t["AVAILABLE"],
                         utilzationStatus.statusAvailable,
                         "https://www.google.com",
-                        "blue"
+                        DATA_COLOUR_STATUS_AVAILABLE
                     ),
                 ],
                 [
@@ -94,13 +109,13 @@ export const useUtilizationStatusDoughnutChartData = (
                     //     `#/fleet?${query.toString()}&${urlParamName}=Disconnect`,
                     //     RM_COLOR_BASE_RED
                     // ),
-                    "Nrm",
+                    t["NRM"],
                     utilzationStatus.statusNRM,
                     generatePieChartTooltip(
-                        "Nrm",
+                        t["NRM"],
                         utilzationStatus.statusNRM,
                         "https://www.google.com",
-                        "violet"
+                        DATA_COLOUR_STATUS_NRM
                     ),
                 ],
                 [
@@ -112,13 +127,13 @@ export const useUtilizationStatusDoughnutChartData = (
                     //     null,
                     //     RM_COLOR_BASE_GRAY_MIDDLE
                     // ),
-                    "Other",
+                    t["OTHER"],
                     utilzationStatus.statusOther,
                     generatePieChartTooltip(
-                        "Other",
+                        t["OTHER"],
                         utilzationStatus.statusOther,
                         "https://www.google.com",
-                        "gray"
+                        DATA_COLOUR_STATUS_UNKNOWN
                     ),
                 ],
             ],
@@ -134,6 +149,7 @@ export const useUtilizationStatusDoughnutChartData = (
         // urlParamName,
         // t,
         // t("ACTIVE"),
+        t,
         utilzationStatus,
     ]);
 };
@@ -144,14 +160,6 @@ function generatePieChartTooltip(
     href: string,
     color: string
 ) {
-    const RM_COLOR_BASE_GRAY_LIGHT_30 = "gray";
-    const RM_COLOR_BASE_BLACK = "black";
-    const RM_COLOR_BASE_WHITE = "white";
-    const RM_COLOR_BUTTON_PRIMARY_ENABLED_BACKGROUND = "#575756";
-    const RM_COLOR_BUTTON_PRIMARY_ENABLED_FOREGROUND = "white";
-    const RM_TYPOGRAPHY_FONT_FAMILY_SANS = "Roboto";
-    const RM_SIZE_FONT_SMALL = "0.75rem";
-
     return `<div style="
             background-color: ${RM_COLOR_BASE_WHITE};
             font-family: ${RM_TYPOGRAPHY_FONT_FAMILY_SANS};

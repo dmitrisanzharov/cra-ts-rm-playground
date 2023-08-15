@@ -1,5 +1,5 @@
 import { SxProps, styled } from "@mui/material";
-// TODO:  import { RM_COLOR_BASE_GRAY_LIGHT_80 } from "design-tokens";
+import { RM_COLOR_BASE_GRAY_LIGHT_80 } from "../../design-tokens/tokens";
 
 export const doughnutContainerSx: SxProps = {
     display: "flex",
@@ -64,7 +64,7 @@ export const ProgressLinesTrack = styled("div")`
     height: 4px;
     flex-shrink: 0;
     border-radius: 50px;
-    background: lightgray; // TODO: background;
+    background: ${RM_COLOR_BASE_GRAY_LIGHT_80};
 `;
 
 export const ProgressLinesTrackIndicator = styled("div")`

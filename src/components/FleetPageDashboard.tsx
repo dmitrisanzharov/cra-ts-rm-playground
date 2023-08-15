@@ -95,7 +95,7 @@ const FleetPageDashboard = (props: Props) => {
                 // loading={true}
                 loading={false}
             />
-            {/* <UtilizationCard
+            <UtilizationCard
                 sx={utilizationCardSx}
                 // todo FAKE DATA, to remove
                 numberOfRecords={677}
@@ -105,7 +105,7 @@ const FleetPageDashboard = (props: Props) => {
                 statusOther={20}
                 loading={true}
                 // loading={false}
-            /> */}
+            />
         </Box>
     );
 };

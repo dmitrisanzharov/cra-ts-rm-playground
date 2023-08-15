@@ -1585,6 +1585,7 @@ const translations = {
             "Please enter a valid vehicle (registration, vin or unitnr)",
         LABEL_VEHICLE_STATUS: "Vehicle Status",
         LABEL_VEHICLE_TYPE: "Vehicle Type",
+        LAVEL_VEHICLES_IN_USE: "Vehicles are in use",
         LABEL_VERSION: "Version",
         LABEL_VID: "VID",
         LABEL_VIDS: "{{LABEL_VID}}S",
