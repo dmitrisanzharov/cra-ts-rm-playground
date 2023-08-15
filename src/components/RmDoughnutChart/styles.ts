@@ -18,60 +18,20 @@ export const skeletonSx: SxProps = {
     mt: 0,
 };
 
-// OLD STYLES
-
-export const styles = {
-    DonutComboChartLight: {
-        width: "343px",
-        paddingBottom: "10px",
-    },
+export const CenterTextContainerSx: SxProps = {
+    position: "absolute",
+    borderRadius: "50%",
+    width: "63%",
+    height: "63%",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
 };
 
-export const ChartTitleAndMetricsContainer = styled("div")`
-    display: flex;
-    width: 343px;
-    padding: 0px 12px 8px 24px;
-    align-items: flex-start;
-`;
-
-export const ChartContainer = styled("div")`
-    display: flex;
-    padding: 12px 14px 14px 14px;
-    align-items: flex-start;
-    gap: 10px;
-`;
-
-export const TitleContainer = styled("div")`
-    display: flex;
-    height: 48px;
-    padding: 24px 0px;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    align-self: stretch;
-`;
-
-export const MetricContainer = styled("div")`
-    display: flex;
-    height: 36px;
-    align-items: flex-end;
-    align-self: stretch;
-`;
-export const MetricsAndSubtitleContainer = styled("div")`
-    display: flex;
-    padding: 4px 0px;
-    flex-direction: column;
-    align-items: flex-start;
-    align-self: stretch;
-`;
-
-export const DeterminateMetrics = styled("section")`
-    display: flex;
-    width: 100%;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 24px;
-`;
+// -----------------------------------------------------
+// --------  PROGRESS LINES STYLES -------------------
+// -----------------------------------------------------
 
 export const ProgressLinesContainer = styled("section")`
     display: flex;
@@ -81,18 +41,16 @@ export const ProgressLinesContainer = styled("section")`
     align-self: stretch;
 `;
 
-export const ProgressLines_MetricContainer = styled("div")`
+export const ProgressLinesMetricContainer = styled("div")`
     display: flex;
     height: 32px;
-    padding: 8px 0px 16px 0px;
     justify-content: center;
     align-items: center;
-    gap: 12px;
     align-self: stretch;
     width: 100%;
 `;
 
-export const ProgressLines_Title = styled("div")`
+export const ProgressLinesTitle = styled("div")`
     flex: 1 0 0;
     &:hover {
         cursor: pointer;
@@ -100,17 +58,16 @@ export const ProgressLines_Title = styled("div")`
     }
 `;
 
-export const ProgressLines_Track = styled("div")`
+export const ProgressLinesTrack = styled("div")`
     position: relative;
     width: 100%;
     height: 4px;
     flex-shrink: 0;
     border-radius: 50px;
     background: lightgray; // TODO: background;
-    margin-bottom: 20px;
 `;
 
-export const ProgressLines_Track_Indicator = styled("div")`
+export const ProgressLinesTrackIndicator = styled("div")`
     position: absolute;
     left: 0;
     top: 0;

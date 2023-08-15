@@ -1,20 +1,11 @@
 import React from "react";
-import * as Mui from "@mui/material";
+import { Typography } from "@mui/material";
 import {
-    doughnutContainerSx,
-    skeletonSx,
-    styles,
-    DeterminateMetrics,
-    ChartTitleAndMetricsContainer,
-    ChartContainer,
-    TitleContainer,
-    MetricContainer,
-    MetricsAndSubtitleContainer,
     ProgressLinesContainer,
-    ProgressLines_MetricContainer,
-    ProgressLines_Title,
-    ProgressLines_Track,
-    ProgressLines_Track_Indicator,
+    ProgressLinesMetricContainer,
+    ProgressLinesTitle,
+    ProgressLinesTrack,
+    ProgressLinesTrackIndicator,
 } from "./styles";
 
 interface ProgressLinesComponentProps {
@@ -22,7 +13,6 @@ interface ProgressLinesComponentProps {
     total: number;
     label: string;
     color: string;
-    itemIdx: number;
     href: string;
 }
 
@@ -31,7 +21,6 @@ export const ProgressLinesComponent: React.FC<ProgressLinesComponentProps> = ({
     total,
     label,
     color,
-    itemIdx,
     href,
 }) => {
     //
@@ -40,35 +29,32 @@ export const ProgressLinesComponent: React.FC<ProgressLinesComponentProps> = ({
         return Math.round((metric / total) * 100);
     };
 
-    // React.useEffect(() => {
-    //     console.log(metric, total, label, color, itemIdx);
-    // }, []);
-
     return (
-        <ProgressLinesContainer>
-            <ProgressLines_MetricContainer>
-                <ProgressLines_Title>
-                    <Mui.Typography variant='body2'>
+        <ProgressLinesContainer className=''>
+            <ProgressLinesMetricContainer>
+                <ProgressLinesTitle>
+                    <Typography variant='body2'>
                         <a
                             href={href}
                             target='_blank'
+                            rel='noreferrer'
                             style={{ color: "black", textDecoration: "none" }}
                         >
                             {" "}
                             {label}
                         </a>
-                    </Mui.Typography>
-                </ProgressLines_Title>
-                <Mui.Typography variant='body2' sx={{ textAlign: "right" }}>
+                    </Typography>
+                </ProgressLinesTitle>
+                <Typography variant='body2' sx={{ textAlign: "right" }}>
                     {" "}
                     {metric}
-                </Mui.Typography>
-            </ProgressLines_MetricContainer>
-            <ProgressLines_Track>
-                <ProgressLines_Track_Indicator
+                </Typography>
+            </ProgressLinesMetricContainer>
+            <ProgressLinesTrack>
+                <ProgressLinesTrackIndicator
                     sx={{ background: color, width: `${calcWidth()}%` }}
-                ></ProgressLines_Track_Indicator>
-            </ProgressLines_Track>
+                ></ProgressLinesTrackIndicator>
+            </ProgressLinesTrack>
         </ProgressLinesContainer>
     );
 };

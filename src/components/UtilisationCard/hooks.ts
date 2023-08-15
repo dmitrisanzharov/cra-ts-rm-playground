@@ -27,6 +27,17 @@ import React from "react";
 import { DoughnutChartDataType } from "../RmDoughnutChart/RmDoughnutChart"; // TODO: this should come from main component
 import { UtilizationCardPropsInterface } from "./UtilizationCard";
 
+export const utilizationStatusDoughnutChartDataHrefOnly = (
+    idx: number
+): string => {
+    return [
+        "https://www.google.com",
+        "https://www.google.com",
+        "https://www.google.com",
+        "https://www.google.com",
+    ][idx];
+};
+
 export const useUtilizationStatusDoughnutChartData = (
     utilzationStatus: UtilizationCardPropsInterface
 ) => {
@@ -34,6 +45,7 @@ export const useUtilizationStatusDoughnutChartData = (
 
     //TODO: const { hash } = window.location;
     // TODO: const urlParamName = getUrlParamName(FLEET_TABLE_ID, null, "ts_status");
+
     return React.useMemo(() => {
         // const [, queryString] = hash.split("?") || ["", ""];
         // const query = new URLSearchParams(queryString);
@@ -111,6 +123,7 @@ export const useUtilizationStatusDoughnutChartData = (
                 ],
             ],
         };
+
         return outputData;
     }, [
         // deviceStatus.active,

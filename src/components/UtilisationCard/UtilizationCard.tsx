@@ -2,9 +2,7 @@ import React from "react";
 import { Box, Card, CardContent, CardProps, Typography } from "@mui/material";
 import { ChartWrapperOptions } from "react-google-charts";
 import RmDoughnutChart from "../RmDoughnutChart/RmDoughnutChart";
-import generatePieChartTooltip, {
-    useUtilizationStatusDoughnutChartData,
-} from "./hooks";
+import { useUtilizationStatusDoughnutChartData } from "./hooks";
 
 export interface UtilizationCardPropsInterface extends CardProps {
     numberOfRecords: number;
@@ -37,8 +35,6 @@ const UtilizationCard: React.FC<UtilizationCardPropsInterface> = ({
         ],
     };
 
-    // TODO: need to be translated
-
     const chartData = useUtilizationStatusDoughnutChartData({
         numberOfRecords,
         statusAvailable,
@@ -48,88 +44,48 @@ const UtilizationCard: React.FC<UtilizationCardPropsInterface> = ({
         loading,
     });
 
-    // const chartData = [
-    //     [
-    //         "Status",
-    //         "Amount",
-    //         {
-    //             role: "tooltip",
-    //             type: "string",
-    //             p: { html: true },
-    //         },
-    //     ],
-    //     [
-    //         "On Rent",
-    //         statusOnRent,
-    //         generatePieChartTooltip(
-    //             "label1",
-    //             statusOnRent,
-    //             "https://www.google.com",
-    //             "green"
-    //         ),
-    //     ],
-    //     [
-    //         "Available",
-    //         statusAvailable,
-    //         generatePieChartTooltip(
-    //             "label1",
-    //             statusOnRent,
-    //             "https://www.google.com",
-    //             "green"
-    //         ),
-    //     ],
-    //     [
-    //         "Nrm",
-    //         statusNRM,
-    //         generatePieChartTooltip(
-    //             "label1",
-    //             statusOnRent,
-    //             "https://www.google.com",
-    //             "green"
-    //         ),
-    //     ],
-    //     [
-    //         "Other",
-    //         statusOther,
-    //         generatePieChartTooltip(
-    //             "label1",
-    //             statusOnRent,
-    //             "https://www.google.com",
-    //             "green"
-    //         ),
-    //     ],
-    // ];
-
     function calculatePercentageUtilized(): number {
         return Math.round((statusOnRent / numberOfRecords) * 100);
     }
 
     return (
-        <Card {...rest} className='' sx={{ minHeight: "530px" }}>
-            <CardContent>
+        <Card
+            {...rest}
+            sx={{
+                minHeight: "450px",
+                display: "flex",
+            }}
+            className=''
+        >
+            <CardContent
+                className=''
+                sx={{
+                    flex: 1,
+                    display: "flex",
+                    flexDirection: "column",
+                }}
+            >
                 <Typography gutterBottom variant='h6' component='div'>
                     {/* TODO: Translation */}
                     Utilisation
                 </Typography>
                 <Box
                     sx={{
+                        flex: 1,
                         display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
-                        width: "100%",
-                        aspectRatio: "1 / 1",
-                        justifyContent: "flex-start",
                     }}
                     className=''
                 >
-                    <RmDoughnutChart
-                        chartOptions={chartOptions}
-                        loading={loading}
-                        chartData={chartData}
-                        totalVehicles={numberOfRecords}
-                        percentageUtilized={calculatePercentageUtilized()}
-                        numberUtilized={statusOnRent}
-                    />
+                    <Box sx={{ flex: 1 }}>
+                        <RmDoughnutChart
+                            chartOptions={chartOptions}
+                            loading={loading}
+                            chartData={chartData}
+                            totalVehicles={numberOfRecords}
+                            percentageUtilized={calculatePercentageUtilized()}
+                            numberUtilized={statusOnRent}
+                        />
+                    </Box>
                 </Box>
             </CardContent>
         </Card>
