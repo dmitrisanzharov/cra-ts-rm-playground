@@ -3,7 +3,7 @@ import "./App.css";
 import { Box } from "@mui/material";
 
 // * COMPONENTS
-import FleetPageDashboard from "./components/FleetPageDashboard";
+import FleetPageDashboard from "./reactComponents/pages/FleetDashboardPage/FleetPageDashboard";
 import Blah from "./components/Blah/Blah";
 
 function App() {

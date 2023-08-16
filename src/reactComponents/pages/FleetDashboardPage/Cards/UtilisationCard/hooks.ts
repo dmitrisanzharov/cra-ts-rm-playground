@@ -22,7 +22,7 @@
 // import { DeviceStatus } from "./types";
 
 import React from "react";
-import { DoughnutChartDataType } from "../RmDoughnutChart/RmDoughnutChart";
+import { DoughnutChartDataType } from "../../../../display/Chart/RmDoughnutChart/RmDoughnutChart";
 import {
     UtilizationCardPropsInterface,
     DATA_COLOUR_STATUS_ONRENT,
@@ -30,7 +30,7 @@ import {
     DATA_COLOUR_STATUS_NRM,
     DATA_COLOUR_STATUS_UNKNOWN,
 } from "./UtilizationCard";
-import translations from "../../translation";
+import translations from "../../../../../translation/index";
 import {
     RM_COLOR_BASE_GRAY_LIGHT_30,
     RM_COLOR_BASE_BLACK,
@@ -39,7 +39,7 @@ import {
     RM_COLOR_BUTTON_PRIMARY_ENABLED_FOREGROUND,
     RM_TYPOGRAPHY_FONT_FAMILY_SANS,
     RM_SIZE_FONT_SMALL,
-} from "../../design-tokens/tokens";
+} from "../../../../../design-tokens/tokens";
 
 export const utilizationStatusDoughnutChartDataHrefOnly = (
     idx: number

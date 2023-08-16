@@ -2,7 +2,7 @@ import React from "react";
 import { SxProps, Box } from "@mui/material";
 
 // COMPONENTS
-import UtilizationCard from "./UtilisationCard/UtilizationCard";
+import UtilizationCard from "./Cards/UtilisationCard/UtilizationCard";
 
 // -----------------------------------------------------
 // --------  STYLES -------------------
