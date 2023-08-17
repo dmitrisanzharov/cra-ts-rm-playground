@@ -39,10 +39,21 @@ const FleetPageDashboard = (props: Props) => {
                 statusNRM={30}
                 statusOnRent={554}
                 statusOther={20}
-                loading={true}
-                // loading={false}
+                // loading={true}
+                loading={false}
             />
-            <NRMBreakdownCard loading={true} />
+            <UtilizationCard
+                sx={styles.utilizationCardSx}
+                // todo FAKE DATA, to remove
+                numberOfRecords={677}
+                statusAvailable={93}
+                statusNRM={30}
+                statusOnRent={554}
+                statusOther={20}
+                // loading={true}
+                loading={true}
+            />
+            {/* <NRMBreakdownCard loading={true} /> */}
             <DeviceStatusCard loading={true} />
             <DeviceIssuesCard loading={true} />
             <AnomalyBreakdownCard loading={true} />

@@ -1,17 +1,16 @@
 import React from "react";
 import { Box, Card, CardContent, CardProps, Typography } from "@mui/material";
-import { ChartWrapperOptions } from "react-google-charts";
+// import { ChartWrapperOptions } from "react-google-charts";
 // @ts-ignore
 // import { useTranslation } from "@hooks/translation";
 // @ts-ignore
 // import RmDoughnutChart from "@reactRootOld/display/Chart/RmDoughnutChart/RmDoughnutChart.tsx";
-import {
-    useUtilizationStatusDoughnutChartDataHrefsOnly,
-    useUtilizationStatusDoughnutChartData,
-} from "./hooks";
+import { useUtilizationStatusDoughnutChartHrefs } from "./hooks";
+//
 // * --------  START of VICTOR IMPORTS, WILL BE DELETED UPON APPROVAL -------------------
 import translation from "src/translation";
 import RmDoughnutChart from "../../charts/RmDoughnutChart/RmDoughnutChart";
+import { DoughnutChartDataType } from "src/components/charts/RmDoughnutChart/RmDoughnutChart";
 
 // * --------  END of VICTOR IMPORTS, WILL BE DELETED UPON APPROVAL -------------------
 
@@ -44,24 +43,26 @@ const UtilizationCard: React.FC<UtilizationCardPropsInterface> = ({
     // const { t } = useTranslation();
     const { t } = translation;
 
-    const chartOptions: ChartWrapperOptions["options"] = {
-        colors: [
-            DATA_COLOUR_STATUS_ONRENT,
-            DATA_COLOUR_STATUS_AVAILABLE,
-            DATA_COLOUR_STATUS_NRM,
-            DATA_COLOUR_STATUS_UNKNOWN,
-        ],
-    };
+    const chartColors: string[] = [
+        DATA_COLOUR_STATUS_ONRENT,
+        DATA_COLOUR_STATUS_AVAILABLE,
+        DATA_COLOUR_STATUS_NRM,
+        DATA_COLOUR_STATUS_UNKNOWN,
+    ];
 
-    const chartData = useUtilizationStatusDoughnutChartData({
-        statusAvailable,
-        statusOnRent,
-        statusNRM,
-        statusOther,
-    });
+    const chartData: DoughnutChartDataType = React.useMemo(
+        () => ({
+            values: [
+                [t["ONRENT"], statusOnRent],
+                [t["AVAILABLE"], statusAvailable],
+                [t["NRM"], statusNRM],
+                [t["OTHER"], statusOther],
+            ],
+        }),
+        [t, statusOnRent, statusAvailable, statusNRM, statusOther]
+    );
 
-    const progressLineHrefsArray =
-        useUtilizationStatusDoughnutChartDataHrefsOnly();
+    const progressLineHrefsArray = useUtilizationStatusDoughnutChartHrefs();
 
     function calculatePercentageUtilized(): number {
         return Math.round((statusOnRent / numberOfRecords) * 100);
@@ -100,7 +101,7 @@ const UtilizationCard: React.FC<UtilizationCardPropsInterface> = ({
                         }}
                     >
                         <RmDoughnutChart
-                            chartOptions={chartOptions}
+                            chartColors={chartColors}
                             loading={loading}
                             chartData={chartData}
                             totalVehicles={numberOfRecords}

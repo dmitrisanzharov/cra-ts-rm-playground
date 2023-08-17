@@ -2,7 +2,7 @@ import React from "react";
 import { Box, BoxProps, Skeleton, Typography, Grid } from "@mui/material";
 // @ts-ignore
 // import { useTranslation } from "@hooks/translation";
-import { Chart, ChartWrapperOptions } from "react-google-charts";
+// import { Chart, ChartWrapperOptions } from "react-google-charts";
 import { Doughnut } from "react-chartjs-2";
 // import {
 //     RM_COLOR_BASE_GREEN,
@@ -24,14 +24,12 @@ import {
 // * --------  END of VICTOR IMPORTS, WILL BE DELETED UPON APPROVAL -------------------
 
 export type DoughnutChartDataType = {
-    chartName: string;
-    chartMetric: string;
-    values: [string, number, string][];
+    values: [string, number][];
 };
 
 interface RmDoughnutChartProps extends BoxProps {
     chartData: DoughnutChartDataType;
-    chartOptions: ChartWrapperOptions["options"];
+    chartColors: string[];
     percentageUtilized: number;
     totalVehicles: number;
     numberUtilized: number;
@@ -97,7 +95,7 @@ const DoughnutChartSkeleton: React.FC = () => {
 
 const RmDoughnutChart: React.FC<RmDoughnutChartProps> = ({
     chartData,
-    chartOptions,
+    chartColors,
     totalVehicles,
     percentageUtilized,
     numberUtilized,
@@ -120,17 +118,35 @@ const RmDoughnutChart: React.FC<RmDoughnutChartProps> = ({
     // const { t } = useTranslation();
     const { t } = translation;
 
-    const defaultPieChartOptions: ChartWrapperOptions["options"] = {
-        pieHole: 0.85,
-        is3D: false,
-        legend: "none",
-        chartArea: {
-            left: 12.5,
-            top: 12.5,
-            bottom: 12.5,
-            right: 12.5,
+    const chartDataFinal = {
+        labels: chartData.values.map((el) => el[0]),
+        datasets: [
+            {
+                data: chartData.values.map((el) => el[1]),
+                backgroundColor: chartColors ? chartColors : defaultColors,
+            },
+        ],
+    };
+
+    const options = {
+        maintainAspectRatio: false,
+        cutoutPercentage: 82.5,
+        legend: {
+            display: false,
         },
-        pieSliceText: "none",
+        onClick: (evt: any, element: any) => {
+            if (element?.length > 0) {
+                // * note Element is an Object that has INDEX that corresponds to DATA and Label indexes that are passed as props
+                // console.log(element[0]._index);
+                window.open(
+                    progressLineHrefsArray[element[0]._index],
+                    "_blank"
+                );
+            }
+        },
+        onHover: (evt: any, element: any) => {
+            evt.target.style.cursor = element[0] ? "pointer" : "default";
+        },
     };
 
     React.useEffect(() => {
@@ -142,12 +158,20 @@ const RmDoughnutChart: React.FC<RmDoughnutChartProps> = ({
         }
     }, [loading]);
 
+    // React.useEffect(() => {
+    //     console.log(chartData);
+    // }, []);
+
     return (
         <Box sx={{ ...sx, height: "100%" }} {...rest}>
+            {/*  */}
             {loading ? <DoughnutChartSkeleton /> : null}
+            {/*  */}
             {displayChart && !loading && (
-                <Grid container sx={{ height: "100%" }}>
-                    <Grid item xs={5}>
+                <Grid container sx={{ height: "100%" }} className=''>
+                    {/* ----------------------------------------- */}
+                    {/* TEXT */}
+                    <Grid item xs={5} className=''>
                         <Box sx={{ pt: 2 }}>
                             <Typography variant='h4'>
                                 {numberUtilized}
@@ -163,61 +187,54 @@ const RmDoughnutChart: React.FC<RmDoughnutChartProps> = ({
                             </Typography>
                         </Box>
                     </Grid>
+                    {/* ----------------------------------------- */}
+                    {/* CHART */}
                     <Grid
                         item
                         xs={7}
                         sx={{
                             display: "flex",
-                            justifyContent: "flex-end",
-                            alignItems: "center",
                         }}
+                        className=''
                     >
                         <Box
                             sx={{
-                                position: "relative",
-                                height: `${DOUGHNUT_CHART_DEFAULT_HEIGHT_WIDTH}px`,
-                                width: `${DOUGHNUT_CHART_DEFAULT_HEIGHT_WIDTH}px`,
                                 display: "flex",
-                                justifyContent: "center",
+                                justifyContent: "flex-end",
                                 alignItems: "center",
+                                flex: 1,
                             }}
+                            className=''
                         >
-                            <Chart
-                                chartType='PieChart'
-                                data={[
-                                    [
-                                        chartData.chartName,
-                                        chartData.chartMetric,
-                                        {
-                                            role: "tooltip",
-                                            type: "string",
-                                            p: { html: true },
-                                        },
-                                    ],
-                                    ...chartData.values,
-                                ]}
-                                options={{
-                                    ...defaultPieChartOptions,
-                                    ...chartOptions,
-                                    tooltip: {
-                                        trigger: "selection",
-                                        isHtml: true,
-                                    },
+                            <Box
+                                className=''
+                                sx={{
+                                    position: "relative",
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                    height: `${DOUGHNUT_CHART_DEFAULT_HEIGHT_WIDTH}px`,
+                                    width: `${DOUGHNUT_CHART_DEFAULT_HEIGHT_WIDTH}px`,
                                 }}
-                                height='100%'
-                                width='100%'
-                            />
-                            <Box sx={CenterTextContainerSx}>
-                                <Typography variant='h6'>
-                                    {percentageUtilized}%
-                                </Typography>
-                                <Typography variant='caption'>
-                                    {/* {t("LABEL_UTILISATION")} */}
-                                    {t["LABEL_UTILISATION"]}
-                                </Typography>
+                            >
+                                <Doughnut
+                                    data={chartDataFinal}
+                                    options={options}
+                                />
+                                <Box sx={CenterTextContainerSx} className=''>
+                                    <Typography variant='h6'>
+                                        {percentageUtilized}%
+                                    </Typography>
+                                    <Typography variant='caption'>
+                                        {/* {t("LABEL_UTILISATION")} */}
+                                        {t["LABEL_UTILISATION"]}
+                                    </Typography>
+                                </Box>
                             </Box>
                         </Box>
                     </Grid>
+                    {/* ----------------------------------------- */}
+                    {/* PROGRESS LINES */}
                     <Grid
                         item
                         xs={12}
@@ -227,9 +244,10 @@ const RmDoughnutChart: React.FC<RmDoughnutChartProps> = ({
                             justifyContent: "space-between",
                             alignItems: "center",
                         }}
+                        className=''
                     >
                         {chartData.values.map(
-                            (item: [string, number, string], idx: number) => {
+                            (item: [string, number], idx: number) => {
                                 if (item[1] === 0) {
                                     return null;
                                 }
@@ -241,8 +259,8 @@ const RmDoughnutChart: React.FC<RmDoughnutChartProps> = ({
                                         label={item[0]}
                                         total={totalVehicles}
                                         color={
-                                            chartOptions.colors
-                                                ? chartOptions.colors[idx]
+                                            chartColors
+                                                ? chartColors[idx]
                                                 : defaultColors[idx]
                                         }
                                         href={progressLineHrefsArray[idx]}
