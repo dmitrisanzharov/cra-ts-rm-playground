@@ -1,10 +1,18 @@
 import React from "react";
 import { Box, Card, CardContent, CardProps, Typography } from "@mui/material";
 import { ChartWrapperOptions } from "react-google-charts";
-import RmDoughnutChart from "src/components/RmDoughnutChart/RmDoughnutChart";
-import { useUtilizationStatusDoughnutChartData } from "./hooks";
-import translations from "src/translation/index";
-// import { RM_COLOR_BASE_GRAY_LIGHT_20 } from "../../design-tokens/tokens";
+// @ts-ignore
+// import { useTranslation } from "@hooks/translation";
+// @ts-ignore
+// import RmDoughnutChart from "@reactRootOld/display/Chart/RmDoughnutChart/RmDoughnutChart.tsx";
+import {
+    useUtilizationStatusDoughnutChartDataHrefsOnly,
+    useUtilizationStatusDoughnutChartData,
+} from "./hooks";
+// * --------  START of VICTOR IMPORTS, WILL BE DELETED UPON APPROVAL -------------------
+import translation from "src/translation";
+import RmDoughnutChart from "../RmDoughnutChart/RmDoughnutChart";
+// * --------  END of VICTOR IMPORTS, WILL BE DELETED UPON APPROVAL -------------------
 
 export interface UtilizationCardPropsInterface extends CardProps {
     numberOfRecords: number;
@@ -32,7 +40,8 @@ const UtilizationCard: React.FC<UtilizationCardPropsInterface> = ({
     ...rest
 }) => {
     //
-    const { t } = translations;
+    // const { t } = useTranslation();
+    const { t } = translation;
 
     const chartOptions: ChartWrapperOptions["options"] = {
         colors: [
@@ -44,13 +53,14 @@ const UtilizationCard: React.FC<UtilizationCardPropsInterface> = ({
     };
 
     const chartData = useUtilizationStatusDoughnutChartData({
-        numberOfRecords,
         statusAvailable,
         statusOnRent,
         statusNRM,
         statusOther,
-        loading,
     });
+
+    const progressLineHrefsArray =
+        useUtilizationStatusDoughnutChartDataHrefsOnly();
 
     function calculatePercentageUtilized(): number {
         return Math.round((statusOnRent / numberOfRecords) * 100);
@@ -63,10 +73,8 @@ const UtilizationCard: React.FC<UtilizationCardPropsInterface> = ({
                 minHeight: "450px",
                 display: "flex",
             }}
-            className=''
         >
             <CardContent
-                className=''
                 sx={{
                     flex: 1,
                     display: "flex",
@@ -74,6 +82,7 @@ const UtilizationCard: React.FC<UtilizationCardPropsInterface> = ({
                 }}
             >
                 <Typography gutterBottom variant='h6' component='div'>
+                    {/* {t("LABEL_UTILISATION")} */}
                     {t["LABEL_UTILISATION"]}
                 </Typography>
                 <Box
@@ -81,9 +90,14 @@ const UtilizationCard: React.FC<UtilizationCardPropsInterface> = ({
                         flex: 1,
                         display: "flex",
                     }}
-                    className=''
                 >
-                    <Box sx={{ flex: 1 }}>
+                    <Box
+                        sx={{
+                            flex: 1,
+                            display: "flex",
+                            flexDirection: "column",
+                        }}
+                    >
                         <RmDoughnutChart
                             chartOptions={chartOptions}
                             loading={loading}
@@ -91,6 +105,7 @@ const UtilizationCard: React.FC<UtilizationCardPropsInterface> = ({
                             totalVehicles={numberOfRecords}
                             percentageUtilized={calculatePercentageUtilized()}
                             numberUtilized={statusOnRent}
+                            progressLineHrefsArray={progressLineHrefsArray}
                         />
                     </Box>
                 </Box>

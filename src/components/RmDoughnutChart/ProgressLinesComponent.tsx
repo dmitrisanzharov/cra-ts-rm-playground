@@ -8,7 +8,7 @@ import {
     ProgressLinesTrackIndicator,
 } from "./styles";
 
-interface ProgressLinesComponentProps {
+interface ProgressLinesComponentPropsInterface {
     metric: number;
     total: number;
     label: string;
@@ -16,13 +16,9 @@ interface ProgressLinesComponentProps {
     href: string;
 }
 
-export const ProgressLinesComponent: React.FC<ProgressLinesComponentProps> = ({
-    metric,
-    total,
-    label,
-    color,
-    href,
-}) => {
+export const ProgressLinesComponent: React.FC<
+    ProgressLinesComponentPropsInterface
+> = ({ metric, total, label, color, href }) => {
     //
 
     const calcWidth = (): number => {
@@ -30,7 +26,7 @@ export const ProgressLinesComponent: React.FC<ProgressLinesComponentProps> = ({
     };
 
     return (
-        <ProgressLinesContainer className=''>
+        <ProgressLinesContainer>
             <ProgressLinesMetricContainer>
                 <ProgressLinesTitle>
                     <Typography variant='body2'>
@@ -53,7 +49,7 @@ export const ProgressLinesComponent: React.FC<ProgressLinesComponentProps> = ({
             <ProgressLinesTrack>
                 <ProgressLinesTrackIndicator
                     sx={{ background: color, width: `${calcWidth()}%` }}
-                ></ProgressLinesTrackIndicator>
+                />
             </ProgressLinesTrack>
         </ProgressLinesContainer>
     );
