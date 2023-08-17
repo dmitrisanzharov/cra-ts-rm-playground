@@ -12,6 +12,8 @@ import {
 // * --------  START of VICTOR IMPORTS, WILL BE DELETED UPON APPROVAL -------------------
 import translation from "src/translation";
 import RmDoughnutChart from "../RmDoughnutChart/RmDoughnutChart";
+import RmDoughnutChartHorizontal from "../RmDoughnutChart/RmDoughnutChartHorizontal";
+
 // * --------  END of VICTOR IMPORTS, WILL BE DELETED UPON APPROVAL -------------------
 
 export interface UtilizationCardPropsInterface extends CardProps {
@@ -70,7 +72,7 @@ const UtilizationCard: React.FC<UtilizationCardPropsInterface> = ({
         <Card
             {...rest}
             sx={{
-                minHeight: "450px",
+                // minHeight: "450px",
                 display: "flex",
             }}
         >
@@ -98,7 +100,16 @@ const UtilizationCard: React.FC<UtilizationCardPropsInterface> = ({
                             flexDirection: "column",
                         }}
                     >
-                        <RmDoughnutChart
+                        {/* <RmDoughnutChart
+                            chartOptions={chartOptions}
+                            loading={loading}
+                            chartData={chartData}
+                            totalVehicles={numberOfRecords}
+                            percentageUtilized={calculatePercentageUtilized()}
+                            numberUtilized={statusOnRent}
+                            progressLineHrefsArray={progressLineHrefsArray}
+                        /> */}
+                        <RmDoughnutChartHorizontal
                             chartOptions={chartOptions}
                             loading={loading}
                             chartData={chartData}

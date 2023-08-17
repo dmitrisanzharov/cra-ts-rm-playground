@@ -16,12 +16,19 @@ export const gridContainer: SxProps = {
 };
 
 export const utilizationCardSx: SxProps = {
+    // gridColumn: {
+    //     xs: 1,
+    //     sm: 1,
+    //     md: 1,
+    //     lg: 1,
+    //     xl: 1,
+    // },
     gridColumn: {
-        xs: 1,
-        sm: 1,
-        md: 1,
-        lg: 1,
-        xl: 1,
+        xs: 2,
+        sm: 2,
+        md: 2,
+        lg: 2,
+        xl: 2,
     },
 };
 
