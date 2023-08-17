@@ -3,7 +3,13 @@ import { SxProps, Box } from "@mui/material";
 import * as styles from "./styles";
 
 // COMPONENTS
-import UtilizationCard from "src/components/UtilisationCard/UtilizationCard";
+// Cards
+import AnomalyBreakdownCard from "src/components/cards/AnomalyBreakdownCard/AnomalyBreakdownCard";
+import DeviceIssuesCard from "src/components/cards/DeviceIssuesCard/DeviceIssuesCard";
+import DeviceStatusCard from "src/components/cards/DeviceStatusCard/DeviceStatusCard";
+import NRMBreakdownCard from "src/components/cards/NRMBreakdownCard/NRMBreakdownCard";
+import SelectableTreemapCard from "src/components/cards/SelectableTreemapCard/SelectableTreemapCard";
+import UtilizationCard from "src/components/cards/UtilisationCard/UtilizationCard";
 
 // -----------------------------------------------------
 // --------  COMPONENT -------------------
@@ -36,6 +42,11 @@ const FleetPageDashboard = (props: Props) => {
                 loading={true}
                 // loading={false}
             />
+            <NRMBreakdownCard loading={true} />
+            <DeviceStatusCard loading={true} />
+            <DeviceIssuesCard loading={true} />
+            <AnomalyBreakdownCard loading={true} />
+            <SelectableTreemapCard loading={true} />
         </Box>
     );
 };

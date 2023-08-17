@@ -11,7 +11,7 @@ import { Chart, ChartWrapperOptions } from "react-google-charts";
 // } from "design-tokens";
 // @ts-ignore
 import { CenterTextContainerSx } from "./styles";
-import ProgressLinesComponent from "./ProgressLinesComponent";
+import ProgressLinesComponent from "./ProgressLinesComponentGoogleChart";
 // * --------  START of VICTOR IMPORTS, WILL BE DELETED UPON APPROVAL -------------------
 import translation from "src/translation";
 import {
@@ -43,35 +43,34 @@ export const DOUGHNUT_CHART_DEFAULT_HEIGHT_WIDTH = 145;
 const DoughnutChartSkeleton: React.FC = () => {
     return (
         <Grid container sx={{ height: "100%", display: "flex" }}>
+            <Grid item sm={6} sx={{ pt: 1 }}>
+                <Skeleton height={60} width={60} />
+                <Skeleton height={25} width='75%' />
+            </Grid>
             <Grid
                 item
-                xs={6}
+                sm={6}
                 sx={{
                     display: "flex",
-                    justifyContent: "center",
+                    justifyContent: "flex-end",
                     alignItems: "center",
                 }}
-                className='drr'
             >
                 <Skeleton
                     variant='circular'
-                    sx={{
-                        width: "90%",
-                        height: "auto",
-                        aspectRatio: "1 / 1",
-                    }}
+                    height={`${DOUGHNUT_CHART_DEFAULT_HEIGHT_WIDTH * 0.75}px`}
+                    width={`${DOUGHNUT_CHART_DEFAULT_HEIGHT_WIDTH * 0.75}px`}
                 />
             </Grid>
             <Grid
                 item
-                xs={6}
+                sm={12}
                 sx={{
                     flex: 1,
                     display: "flex",
                     flexDirection: "column",
                     justifyContent: "space-around",
                 }}
-                className='dbb'
             >
                 {Array.from({ length: 4 }, (_, idx) => idx).map((el) => {
                     return (
@@ -84,7 +83,7 @@ const DoughnutChartSkeleton: React.FC = () => {
                             key={`a${el}b`}
                         >
                             <Box sx={{ width: "100%" }}>
-                                <Skeleton height={45} width={"20%"} />
+                                <Skeleton height={45} width={85} />
                                 <Skeleton height={15} />
                             </Box>
                         </Box>
@@ -95,7 +94,7 @@ const DoughnutChartSkeleton: React.FC = () => {
     );
 };
 
-const RmDoughnutChartHorizontal: React.FC<RmDoughnutChartProps> = ({
+const RmDoughnutChart: React.FC<RmDoughnutChartProps> = ({
     chartData,
     chartOptions,
     totalVehicles,
@@ -257,4 +256,4 @@ const RmDoughnutChartHorizontal: React.FC<RmDoughnutChartProps> = ({
     );
 };
 
-export default RmDoughnutChartHorizontal;
+export default RmDoughnutChart;

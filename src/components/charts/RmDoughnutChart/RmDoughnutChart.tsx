@@ -3,6 +3,7 @@ import { Box, BoxProps, Skeleton, Typography, Grid } from "@mui/material";
 // @ts-ignore
 // import { useTranslation } from "@hooks/translation";
 import { Chart, ChartWrapperOptions } from "react-google-charts";
+import { Doughnut } from "react-chartjs-2";
 // import {
 //     RM_COLOR_BASE_GREEN,
 //     RM_COLOR_BASE_BLUE_MIDDLE,
@@ -43,13 +44,13 @@ export const DOUGHNUT_CHART_DEFAULT_HEIGHT_WIDTH = 145;
 const DoughnutChartSkeleton: React.FC = () => {
     return (
         <Grid container sx={{ height: "100%", display: "flex" }}>
-            <Grid item sm={6} sx={{ pt: 1 }}>
+            <Grid item xs={6} sx={{ pt: 1 }}>
                 <Skeleton height={60} width={60} />
                 <Skeleton height={25} width='75%' />
             </Grid>
             <Grid
                 item
-                sm={6}
+                xs={6}
                 sx={{
                     display: "flex",
                     justifyContent: "flex-end",
@@ -64,7 +65,7 @@ const DoughnutChartSkeleton: React.FC = () => {
             </Grid>
             <Grid
                 item
-                sm={12}
+                xs={12}
                 sx={{
                     flex: 1,
                     display: "flex",

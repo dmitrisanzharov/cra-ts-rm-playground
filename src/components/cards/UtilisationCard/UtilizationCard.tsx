@@ -11,8 +11,7 @@ import {
 } from "./hooks";
 // * --------  START of VICTOR IMPORTS, WILL BE DELETED UPON APPROVAL -------------------
 import translation from "src/translation";
-import RmDoughnutChart from "../RmDoughnutChart/RmDoughnutChart";
-import RmDoughnutChartHorizontal from "../RmDoughnutChart/RmDoughnutChartHorizontal";
+import RmDoughnutChart from "../../charts/RmDoughnutChart/RmDoughnutChart";
 
 // * --------  END of VICTOR IMPORTS, WILL BE DELETED UPON APPROVAL -------------------
 
@@ -100,16 +99,7 @@ const UtilizationCard: React.FC<UtilizationCardPropsInterface> = ({
                             flexDirection: "column",
                         }}
                     >
-                        {/* <RmDoughnutChart
-                            chartOptions={chartOptions}
-                            loading={loading}
-                            chartData={chartData}
-                            totalVehicles={numberOfRecords}
-                            percentageUtilized={calculatePercentageUtilized()}
-                            numberUtilized={statusOnRent}
-                            progressLineHrefsArray={progressLineHrefsArray}
-                        /> */}
-                        <RmDoughnutChartHorizontal
+                        <RmDoughnutChart
                             chartOptions={chartOptions}
                             loading={loading}
                             chartData={chartData}
@@ -118,6 +108,15 @@ const UtilizationCard: React.FC<UtilizationCardPropsInterface> = ({
                             numberUtilized={statusOnRent}
                             progressLineHrefsArray={progressLineHrefsArray}
                         />
+                        {/* <RmDoughnutChartHorizontal
+                            chartOptions={chartOptions}
+                            loading={loading}
+                            chartData={chartData}
+                            totalVehicles={numberOfRecords}
+                            percentageUtilized={calculatePercentageUtilized()}
+                            numberUtilized={statusOnRent}
+                            progressLineHrefsArray={progressLineHrefsArray}
+                        /> */}
                     </Box>
                 </Box>
             </CardContent>

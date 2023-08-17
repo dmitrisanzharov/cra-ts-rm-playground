@@ -25,7 +25,7 @@ import {
 } from "./UtilizationCard";
 //
 // * --------  VICTOR IMPORTS, WILL BE DELETED UPON APPROVAL -------------------
-import { DoughnutChartDataType } from "src/components/RmDoughnutChart/RmDoughnutChart";
+import { DoughnutChartDataType } from "src/components/charts/RmDoughnutChart/RmDoughnutChart";
 import translation from "src/translation";
 import {
     RM_COLOR_BASE_GRAY_LIGHT_30,

@@ -3,8 +3,7 @@ import "./App.css";
 import { Box } from "@mui/material";
 
 // * COMPONENTS
-import Blah from "src/components/Blah/Blah";
-import FleetPageDashboard from "src/components/FleetDashboardPage/FleetPageDashboard";
+import FleetPageDashboard from "src/components/pages/FleetDashboardPage/FleetPageDashboard";
 
 function App() {
     return (
