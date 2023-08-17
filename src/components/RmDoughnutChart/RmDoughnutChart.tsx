@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, BoxProps, Skeleton, Typography, Grid } from "@mui/material";
 // import { useTranslation } from "@hooks/translation";
-import translations from "../../../../translation";
+import translations from "../../translation";
 import { Chart, ChartWrapperOptions } from "react-google-charts";
 import { CenterTextContainerSx } from "./styles";
 // import { RM_SIZE_FONT_BASE } from "design-tokens";
@@ -10,10 +10,10 @@ import {
     RM_COLOR_BASE_BLUE_MIDDLE,
     RM_COLOR_BASE_VIOLET_MIDDLE,
     RM_COLOR_BASE_GRAY_MIDDLE,
-} from "../../../../design-tokens/tokens";
+} from "../../design-tokens/tokens";
 // @ts-ignore
 import ProgressLinesComponent from "./ProgressLinesComponent";
-import { utilizationStatusDoughnutChartDataHrefOnly } from "../../../pages/FleetDashboardPage/Cards/UtilisationCard/hooks";
+import { utilizationStatusDoughnutChartDataHrefOnly } from "src/components/UtilisationCard/hooks";
 
 export type DoughnutChartDataType = {
     chartName: string;

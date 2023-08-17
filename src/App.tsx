@@ -3,15 +3,15 @@ import "./App.css";
 import { Box } from "@mui/material";
 
 // * COMPONENTS
-import FleetPageDashboard from "./reactComponents/pages/FleetDashboardPage/FleetPageDashboard";
-import Blah from "./components/Blah/Blah";
+import Blah from "src/components/Blah/Blah";
+import FleetPageDashboard from "src/components/FleetDashboardPage/FleetPageDashboard";
 
 function App() {
     return (
         <Box sx={{ p: 3 }}>
+            {/* <Blah /> */}
+            {/* <hr /> */}
             <FleetPageDashboard />
-            {/* <hr />
-            <Blah /> */}
         </Box>
     );
 }

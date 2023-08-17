@@ -1,5 +1,5 @@
 import { SxProps, styled } from "@mui/material";
-import { RM_COLOR_BASE_GRAY_LIGHT_80 } from "../../../../design-tokens/tokens";
+import { RM_COLOR_BASE_GRAY_LIGHT_80 } from "../../design-tokens/tokens";
 
 export const doughnutContainerSx: SxProps = {
     display: "flex",

@@ -1,9 +1,9 @@
 import React from "react";
 import { Box, Card, CardContent, CardProps, Typography } from "@mui/material";
 import { ChartWrapperOptions } from "react-google-charts";
-import RmDoughnutChart from "../../../../display/Chart/RmDoughnutChart/RmDoughnutChart";
+import RmDoughnutChart from "src/components/RmDoughnutChart/RmDoughnutChart";
 import { useUtilizationStatusDoughnutChartData } from "./hooks";
-import translations from "../../../../../translation/index";
+import translations from "src/translation/index";
 // import { RM_COLOR_BASE_GRAY_LIGHT_20 } from "../../design-tokens/tokens";
 
 export interface UtilizationCardPropsInterface extends CardProps {
