@@ -1,22 +1,8 @@
 import { SxProps, styled } from "@mui/material";
-import { RM_COLOR_BASE_GRAY_LIGHT_80 } from "../../design-tokens/tokens";
+// import { RM_COLOR_BASE_GRAY_LIGHT_80 } from "design-tokens";
 
-export const doughnutContainerSx: SxProps = {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    width: "100%",
-    aspectRatio: "1 / 1",
-    justifyContent: "flex-start",
-};
-
-export const skeletonSx: SxProps = {
-    aspectRatio: "1 / 1",
-    flex: 1,
-    display: "flex",
-    m: 2,
-    mt: 0,
-};
+// * --------  VICTOR IMPORTS, WILL BE DELETED UPON APPROVAL -------------------
+import { RM_COLOR_BASE_GRAY_LIGHT_80 } from "src/design-tokens/tokens";
 
 export const CenterTextContainerSx: SxProps = {
     position: "absolute",
