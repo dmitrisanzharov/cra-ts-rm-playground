@@ -1,12 +1,12 @@
-import React from "react";
-import { Typography } from "@mui/material";
+import React from 'react';
+import { Typography } from '@mui/material';
 import {
     ProgressLinesContainer,
     ProgressLinesMetricContainer,
     ProgressLinesTitle,
     ProgressLinesTrack,
     ProgressLinesTrackIndicator,
-} from "./styles";
+} from './styles';
 
 interface ProgressLinesComponentPropsInterface {
     metric: number;
@@ -34,15 +34,13 @@ export const ProgressLinesComponent: React.FC<
                             href={href}
                             target='_blank'
                             rel='noreferrer'
-                            style={{ color: "black", textDecoration: "none" }}
+                            style={{ color: 'black', textDecoration: 'none' }}
                         >
-                            {" "}
                             {label}
                         </a>
                     </Typography>
                 </ProgressLinesTitle>
-                <Typography variant='body2' sx={{ textAlign: "right" }}>
-                    {" "}
+                <Typography variant='body2' sx={{ textAlign: 'right' }}>
                     {metric}
                 </Typography>
             </ProgressLinesMetricContainer>

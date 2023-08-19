@@ -1,18 +1,19 @@
-import React from "react";
-import { Box, Card, CardContent, CardProps, Typography } from "@mui/material";
+// * --------  START of VICTOR IMPORTS, WILL BE DELETED UPON APPROVAL -------------------
+import React from 'react';
+import { Box, Card, CardContent, CardProps, Typography } from '@mui/material';
+import { useUtilizationStatusDoughnutChartHrefs } from './hooks';
+import { t } from 'src/translation';
+import RmDoughnutChartWithLines from '../../charts/RmDoughnutChartWithLines/RmDoughnutChartWithLines';
+// * --------  END of VICTOR IMPORTS, WILL BE DELETED UPON APPROVAL -------------------
+//
+// import React from 'react';
+// import { Box, Card, CardContent, CardProps, Typography } from '@mui/material';
 // import { ChartWrapperOptions } from "react-google-charts";
 // @ts-ignore
 // import { useTranslation } from "@hooks/translation";
 // @ts-ignore
 // import RmDoughnutChart from "@reactRootOld/display/Chart/RmDoughnutChart/RmDoughnutChart.tsx";
-import { useUtilizationStatusDoughnutChartHrefs } from "./hooks";
-//
-// * --------  START of VICTOR IMPORTS, WILL BE DELETED UPON APPROVAL -------------------
-import translation from "src/translation";
-import RmDoughnutChart from "../../charts/RmDoughnutChart/RmDoughnutChart";
-import { DoughnutChartDataType } from "src/components/charts/RmDoughnutChart/RmDoughnutChart";
-
-// * --------  END of VICTOR IMPORTS, WILL BE DELETED UPON APPROVAL -------------------
+// import { useUtilizationStatusDoughnutChartHrefs } from './hooks';
 
 export interface UtilizationCardPropsInterface extends CardProps {
     numberOfRecords: number;
@@ -25,10 +26,10 @@ export interface UtilizationCardPropsInterface extends CardProps {
 }
 
 // TODO: Move this to design tokens OR import from: "@reactRootOld/organisms/MainMap/styles";
-export const DATA_COLOUR_STATUS_ONRENT = "#219653";
-export const DATA_COLOUR_STATUS_AVAILABLE = "#2F80ED";
-export const DATA_COLOUR_STATUS_NRM = "#9B51E0";
-export const DATA_COLOUR_STATUS_UNKNOWN = "#4F4F4F";
+export const DATA_COLOUR_STATUS_ONRENT = '#219653';
+export const DATA_COLOUR_STATUS_AVAILABLE = '#2F80ED';
+export const DATA_COLOUR_STATUS_NRM = '#9B51E0';
+export const DATA_COLOUR_STATUS_UNKNOWN = '#4F4F4F';
 
 const UtilizationCard: React.FC<UtilizationCardPropsInterface> = ({
     numberOfRecords,
@@ -41,7 +42,6 @@ const UtilizationCard: React.FC<UtilizationCardPropsInterface> = ({
 }) => {
     //
     // const { t } = useTranslation();
-    const { t } = translation;
 
     const chartColors: string[] = [
         DATA_COLOUR_STATUS_ONRENT,
@@ -50,74 +50,60 @@ const UtilizationCard: React.FC<UtilizationCardPropsInterface> = ({
         DATA_COLOUR_STATUS_UNKNOWN,
     ];
 
-    const chartData: DoughnutChartDataType = React.useMemo(
+    const chartData: { values: [string, number][] } = React.useMemo(
         () => ({
             values: [
-                [t["ONRENT"], statusOnRent],
-                [t["AVAILABLE"], statusAvailable],
-                [t["NRM"], statusNRM],
-                [t["OTHER"], statusOther],
+                [t('ONRENT'), statusOnRent],
+                [t('AVAILABLE'), statusAvailable],
+                [t('NRM'), statusNRM],
+                [t('OTHER'), statusOther],
             ],
         }),
-        [t, statusOnRent, statusAvailable, statusNRM, statusOther]
+        [statusOnRent, statusAvailable, statusNRM, statusOther]
     );
 
     const progressLineHrefsArray = useUtilizationStatusDoughnutChartHrefs();
-
-    function calculatePercentageUtilized(): number {
-        return Math.round((statusOnRent / numberOfRecords) * 100);
-    }
 
     return (
         <Card
             {...rest}
             sx={{
                 // minHeight: "450px",
-                display: "flex",
+                display: 'flex',
             }}
         >
             <CardContent
                 sx={{
                     flex: 1,
-                    display: "flex",
-                    flexDirection: "column",
+                    display: 'flex',
+                    flexDirection: 'column',
                 }}
             >
                 <Typography gutterBottom variant='h6' component='div'>
-                    {/* {t("LABEL_UTILISATION")} */}
-                    {t["LABEL_UTILISATION"]}
+                    {t('LABEL_UTILISATION')}
                 </Typography>
                 <Box
                     sx={{
                         flex: 1,
-                        display: "flex",
+                        display: 'flex',
                     }}
                 >
                     <Box
                         sx={{
                             flex: 1,
-                            display: "flex",
-                            flexDirection: "column",
+                            display: 'flex',
+                            flexDirection: 'column',
                         }}
                     >
-                        <RmDoughnutChart
+                        <RmDoughnutChartWithLines
                             chartColors={chartColors}
                             loading={loading}
                             chartData={chartData}
-                            totalVehicles={numberOfRecords}
-                            percentageUtilized={calculatePercentageUtilized()}
-                            numberUtilized={statusOnRent}
+                            totalNumber={numberOfRecords}
+                            mostImportantNumberToDisplay={statusOnRent}
+                            mainLabel={t('LABEL_UTILISATION')}
                             progressLineHrefsArray={progressLineHrefsArray}
                         />
-                        {/* <RmDoughnutChartHorizontal
-                            chartOptions={chartOptions}
-                            loading={loading}
-                            chartData={chartData}
-                            totalVehicles={numberOfRecords}
-                            percentageUtilized={calculatePercentageUtilized()}
-                            numberUtilized={statusOnRent}
-                            progressLineHrefsArray={progressLineHrefsArray}
-                        /> */}
                     </Box>
                 </Box>
             </CardContent>

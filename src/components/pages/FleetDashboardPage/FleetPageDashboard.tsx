@@ -1,15 +1,15 @@
-import React from "react";
-import { SxProps, Box } from "@mui/material";
-import * as styles from "./styles";
+import React from 'react';
+import { SxProps, Box } from '@mui/material';
+import * as styles from './styles';
 
 // COMPONENTS
 // Cards
-import AnomalyBreakdownCard from "src/components/cards/AnomalyBreakdownCard/AnomalyBreakdownCard";
-import DeviceIssuesCard from "src/components/cards/DeviceIssuesCard/DeviceIssuesCard";
-import DeviceStatusCard from "src/components/cards/DeviceStatusCard/DeviceStatusCard";
-import NRMBreakdownCard from "src/components/cards/NRMBreakdownCard/NRMBreakdownCard";
-import SelectableTreemapCard from "src/components/cards/SelectableTreemapCard/SelectableTreemapCard";
-import UtilizationCard from "src/components/cards/UtilisationCard/UtilizationCard";
+import AnomalyBreakdownCard from 'src/components/cards/AnomalyBreakdownCard/AnomalyBreakdownCard';
+import DeviceIssuesCard from 'src/components/cards/DeviceIssuesCard/DeviceIssuesCard';
+import DeviceStatusCard from 'src/components/cards/DeviceStatusCard/DeviceStatusCard';
+import NRMBreakdownCard from 'src/components/cards/NRMBreakdownCard/NRMBreakdownCard';
+import SelectableTreemapCard from 'src/components/cards/SelectableTreemapCard/SelectableTreemapCard';
+import UtilizationCard from 'src/components/cards/UtilisationCard/UtilizationCard';
 
 // -----------------------------------------------------
 // --------  COMPONENT -------------------
