@@ -3,7 +3,7 @@ import React from 'react';
 import { Box, Card, CardContent, CardProps, Typography } from '@mui/material';
 import { useUtilizationStatusDoughnutChartHrefs } from './hooks';
 import { t } from 'src/translation';
-import RmDoughnutChartWithLines from '../../charts/RmDoughnutChartWithLines/RmDoughnutChartWithLines';
+import DoughnutChartWithBreakdown from '../../charts/DoughnutChartWithBreakdown/DoughnutChartWithBreakdown';
 // * --------  END of VICTOR IMPORTS, WILL BE DELETED UPON APPROVAL -------------------
 //
 // import React from 'react';
@@ -95,7 +95,7 @@ const UtilizationCard: React.FC<UtilizationCardPropsInterface> = ({
                             flexDirection: 'column',
                         }}
                     >
-                        <RmDoughnutChartWithLines
+                        <DoughnutChartWithBreakdown
                             chartColors={chartColors}
                             loading={loading}
                             chartData={chartData}

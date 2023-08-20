@@ -30,7 +30,7 @@ import ProgressLinesComponent from './ProgressLinesComponent';
 
 export const DOUGHNUT_CHART_DEFAULT_HEIGHT_WIDTH = 145;
 
-const DoughnutChartWithLinesSkeleton: React.FC = () => {
+const DoughnutChartWithBreakdownSkeleton: React.FC = () => {
     return (
         <Grid container sx={{ height: '100%', display: 'flex' }}>
             <Grid item xs={6} sx={{ pt: 1 }}>
@@ -84,7 +84,7 @@ const DoughnutChartWithLinesSkeleton: React.FC = () => {
     );
 };
 
-interface RmDoughnutChartWithLinesProps extends BoxProps {
+interface DoughnutChartWithBreakdownProps extends BoxProps {
     chartData: { values: [string, number][] };
     chartColors: string[];
     totalNumber: number;
@@ -94,7 +94,7 @@ interface RmDoughnutChartWithLinesProps extends BoxProps {
     loading: boolean;
 }
 
-const RmDoughnutChartWithLines: React.FC<RmDoughnutChartWithLinesProps> = ({
+const DoughnutChartWithBreakdown: React.FC<DoughnutChartWithBreakdownProps> = ({
     chartData,
     chartColors,
     totalNumber,
@@ -157,7 +157,7 @@ const RmDoughnutChartWithLines: React.FC<RmDoughnutChartWithLinesProps> = ({
     return (
         <Box sx={{ ...sx, height: '100%' }} {...rest}>
             {/*  */}
-            {loading ? <DoughnutChartWithLinesSkeleton /> : null}
+            {loading ? <DoughnutChartWithBreakdownSkeleton /> : null}
             {/*  */}
             {!loading && (
                 <Grid container sx={{ height: '100%' }} className=''>
@@ -264,4 +264,4 @@ const RmDoughnutChartWithLines: React.FC<RmDoughnutChartWithLinesProps> = ({
     );
 };
 
-export default RmDoughnutChartWithLines;
+export default DoughnutChartWithBreakdown;
