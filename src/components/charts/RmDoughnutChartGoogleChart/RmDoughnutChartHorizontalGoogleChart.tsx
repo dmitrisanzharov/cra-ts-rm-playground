@@ -1,8 +1,8 @@
-import React from "react";
-import { Box, BoxProps, Skeleton, Typography, Grid } from "@mui/material";
+import React from 'react';
+import { Box, BoxProps, Skeleton, Typography, Grid } from '@mui/material';
 // @ts-ignore
 // import { useTranslation } from "@hooks/translation";
-import { Chart, ChartWrapperOptions } from "react-google-charts";
+import { Chart, ChartWrapperOptions } from 'react-google-charts';
 // import {
 //     RM_COLOR_BASE_GREEN,
 //     RM_COLOR_BASE_BLUE_MIDDLE,
@@ -10,16 +10,16 @@ import { Chart, ChartWrapperOptions } from "react-google-charts";
 //     RM_COLOR_BASE_GRAY_MIDDLE,
 // } from "design-tokens";
 // @ts-ignore
-import { CenterTextContainerSx } from "./styles";
-import ProgressLinesComponent from "./ProgressLinesComponentGoogleChart";
+import { CenterTextContainerSx } from './styles';
+import ProgressLinesComponent from './ProgressLinesComponentGoogleChart';
 // * --------  START of VICTOR IMPORTS, WILL BE DELETED UPON APPROVAL -------------------
-import translation from "src/translation";
+import { t } from 'src/translation';
 import {
     RM_COLOR_BASE_GREEN,
     RM_COLOR_BASE_BLUE_MIDDLE,
     RM_COLOR_BASE_VIOLET_MIDDLE,
     RM_COLOR_BASE_GRAY_MIDDLE,
-} from "src/design-tokens/tokens";
+} from 'src/design-tokens/tokens';
 // * --------  END of VICTOR IMPORTS, WILL BE DELETED UPON APPROVAL -------------------
 
 export type DoughnutChartDataType = {
@@ -30,7 +30,7 @@ export type DoughnutChartDataType = {
 
 interface RmDoughnutChartProps extends BoxProps {
     chartData: DoughnutChartDataType;
-    chartOptions: ChartWrapperOptions["options"];
+    chartOptions: ChartWrapperOptions['options'];
     percentageUtilized: number;
     totalVehicles: number;
     numberUtilized: number;
@@ -42,23 +42,23 @@ export const DOUGHNUT_CHART_DEFAULT_HEIGHT_WIDTH = 145;
 
 const DoughnutChartSkeleton: React.FC = () => {
     return (
-        <Grid container sx={{ height: "100%", display: "flex" }}>
+        <Grid container sx={{ height: '100%', display: 'flex' }}>
             <Grid
                 item
                 xs={6}
                 sx={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
                 }}
                 className='drr'
             >
                 <Skeleton
                     variant='circular'
                     sx={{
-                        width: "90%",
-                        height: "auto",
-                        aspectRatio: "1 / 1",
+                        width: '90%',
+                        height: 'auto',
+                        aspectRatio: '1 / 1',
                     }}
                 />
             </Grid>
@@ -67,9 +67,9 @@ const DoughnutChartSkeleton: React.FC = () => {
                 xs={6}
                 sx={{
                     flex: 1,
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "space-around",
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-around',
                 }}
                 className='dbb'
             >
@@ -77,14 +77,14 @@ const DoughnutChartSkeleton: React.FC = () => {
                     return (
                         <Box
                             sx={{
-                                display: "flex",
-                                justifyContent: "center",
-                                alignItems: "center",
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
                             }}
                             key={`a${el}b`}
                         >
-                            <Box sx={{ width: "100%" }}>
-                                <Skeleton height={45} width={"20%"} />
+                            <Box sx={{ width: '100%' }}>
+                                <Skeleton height={45} width={'20%'} />
                                 <Skeleton height={15} />
                             </Box>
                         </Box>
@@ -118,19 +118,18 @@ const RmDoughnutChartHorizontal: React.FC<RmDoughnutChartProps> = ({
     ];
 
     // const { t } = useTranslation();
-    const { t } = translation;
 
-    const defaultPieChartOptions: ChartWrapperOptions["options"] = {
+    const defaultPieChartOptions: ChartWrapperOptions['options'] = {
         pieHole: 0.85,
         is3D: false,
-        legend: "none",
+        legend: 'none',
         chartArea: {
             left: 12.5,
             top: 12.5,
             bottom: 12.5,
             right: 12.5,
         },
-        pieSliceText: "none",
+        pieSliceText: 'none',
     };
 
     React.useEffect(() => {
@@ -143,10 +142,10 @@ const RmDoughnutChartHorizontal: React.FC<RmDoughnutChartProps> = ({
     }, [loading]);
 
     return (
-        <Box sx={{ ...sx, height: "100%" }} {...rest}>
+        <Box sx={{ ...sx, height: '100%' }} {...rest}>
             {loading ? <DoughnutChartSkeleton /> : null}
             {displayChart && !loading && (
-                <Grid container sx={{ height: "100%" }}>
+                <Grid container sx={{ height: '100%' }}>
                     <Grid item xs={5}>
                         <Box sx={{ pt: 2 }}>
                             <Typography variant='h4'>
@@ -154,12 +153,12 @@ const RmDoughnutChartHorizontal: React.FC<RmDoughnutChartProps> = ({
                             </Typography>
                             <Typography variant='caption'>
                                 {/* {t("LABEL_FROM").toLowerCase()} */}
-                                {t["LABEL_FROM"].toLowerCase()}{" "}
+                                {t('LABEL_FROM').toLowerCase()}{' '}
                                 {totalVehicles.toLocaleString(undefined, {
                                     maximumFractionDigits: 1,
-                                })}{" "}
+                                })}{' '}
                                 {/* {t("LABEL_VEHICLES_IN_USE").toLowerCase()} */}
-                                {t["LABEL_VEHICLES_IN_USE"].toLowerCase()}
+                                {t('LABEL_VEHICLES_IN_USE').toLowerCase()}
                             </Typography>
                         </Box>
                     </Grid>
@@ -167,19 +166,19 @@ const RmDoughnutChartHorizontal: React.FC<RmDoughnutChartProps> = ({
                         item
                         xs={7}
                         sx={{
-                            display: "flex",
-                            justifyContent: "flex-end",
-                            alignItems: "center",
+                            display: 'flex',
+                            justifyContent: 'flex-end',
+                            alignItems: 'center',
                         }}
                     >
                         <Box
                             sx={{
-                                position: "relative",
+                                position: 'relative',
                                 height: `${DOUGHNUT_CHART_DEFAULT_HEIGHT_WIDTH}px`,
                                 width: `${DOUGHNUT_CHART_DEFAULT_HEIGHT_WIDTH}px`,
-                                display: "flex",
-                                justifyContent: "center",
-                                alignItems: "center",
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
                             }}
                         >
                             <Chart
@@ -189,8 +188,8 @@ const RmDoughnutChartHorizontal: React.FC<RmDoughnutChartProps> = ({
                                         chartData.chartName,
                                         chartData.chartMetric,
                                         {
-                                            role: "tooltip",
-                                            type: "string",
+                                            role: 'tooltip',
+                                            type: 'string',
                                             p: { html: true },
                                         },
                                     ],
@@ -200,7 +199,7 @@ const RmDoughnutChartHorizontal: React.FC<RmDoughnutChartProps> = ({
                                     ...defaultPieChartOptions,
                                     ...chartOptions,
                                     tooltip: {
-                                        trigger: "selection",
+                                        trigger: 'selection',
                                         isHtml: true,
                                     },
                                 }}
@@ -213,7 +212,7 @@ const RmDoughnutChartHorizontal: React.FC<RmDoughnutChartProps> = ({
                                 </Typography>
                                 <Typography variant='caption'>
                                     {/* {t("LABEL_UTILISATION")} */}
-                                    {t["LABEL_UTILISATION"]}
+                                    {t('LABEL_UTILISATION')}
                                 </Typography>
                             </Box>
                         </Box>
@@ -222,10 +221,10 @@ const RmDoughnutChartHorizontal: React.FC<RmDoughnutChartProps> = ({
                         item
                         xs={12}
                         sx={{
-                            display: "flex",
-                            flexDirection: "column",
-                            justifyContent: "space-between",
-                            alignItems: "center",
+                            display: 'flex',
+                            flexDirection: 'column',
+                            justifyContent: 'space-between',
+                            alignItems: 'center',
                         }}
                     >
                         {chartData.values.map(
