@@ -3009,5 +3009,5 @@ const data = {
 };
 
 export const t = (str) => {
-    return data[str] ? data[str] : 'DOES NOT EXIST';
+    return data[str] ? data[str] : 'DOES NOT EXIST - WTF!';
 };
