@@ -1,6 +1,14 @@
 // * --------  START of VICTOR IMPORTS, WILL BE DELETED UPON APPROVAL -------------------
 import React from 'react';
-import { Box, BoxProps, Skeleton, Typography, Grid } from '@mui/material';
+import {
+    Box,
+    BoxProps,
+    Skeleton,
+    Typography,
+    Grid,
+    useMediaQuery,
+} from '@mui/material';
+import { theme } from 'src/components/theme';
 import { Doughnut } from 'react-chartjs-2';
 import { t } from 'src/translation';
 import {
@@ -13,18 +21,26 @@ import { CenterTextContainerSx } from './styles';
 import ProgressLinesComponent from './ProgressLinesComponent';
 // * --------  END of VICTOR IMPORTS, WILL BE DELETED UPON APPROVAL -------------------
 // import React from 'react';
-// import { Box, BoxProps, Skeleton, Typography, Grid } from '@mui/material';
-// @ts-ignore
-// import { useTranslation } from "@hooks/translation";
-// import { Chart, ChartWrapperOptions } from "react-google-charts";
+// import {
+//     Box,
+//     BoxProps,
+//     Skeleton,
+//     Typography,
+//     Grid,
+//     useMediaQuery,
+// } from '@mui/material';
+// // @ts-ignore
+// import { theme } from '@reactRootOld/theme';
+// // @ts-ignore
+// import { useTranslation } from '@hooks/translation';
 // import { Doughnut } from 'react-chartjs-2';
 // import {
 //     RM_COLOR_BASE_GREEN,
 //     RM_COLOR_BASE_BLUE_MIDDLE,
 //     RM_COLOR_BASE_VIOLET_MIDDLE,
 //     RM_COLOR_BASE_GRAY_MIDDLE,
-// } from "design-tokens";
-// @ts-ignore
+// } from 'design-tokens';
+// // @ts-ignore
 // import { CenterTextContainerSx } from './styles';
 // import ProgressLinesComponent from './ProgressLinesComponent';
 
@@ -116,6 +132,8 @@ const DoughnutChartWithBreakdownHorizontal: React.FC<DoughnutChartWithBreakdownH
         RM_COLOR_BASE_VIOLET_MIDDLE,
         RM_COLOR_BASE_GRAY_MIDDLE,
     ];
+
+    const isScreenBiggerThanXs = useMediaQuery(theme.breakpoints.up('xs'));
 
     // const { t } = useTranslation();
 
@@ -226,6 +244,9 @@ const DoughnutChartWithBreakdownHorizontal: React.FC<DoughnutChartWithBreakdownH
                             flexDirection: 'column',
                             justifyContent: 'space-between',
                             alignItems: 'center',
+                            paddingLeft: `${
+                                isScreenBiggerThanXs ? '3vw' : '0'
+                            }`,
                         }}
                         className=''
                     >

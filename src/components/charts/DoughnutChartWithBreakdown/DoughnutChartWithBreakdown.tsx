@@ -11,6 +11,7 @@ import {
 } from 'src/design-tokens/tokens';
 import { CenterTextContainerSx } from './styles';
 import ProgressLinesComponent from './ProgressLinesComponent';
+import { theme } from 'src/components/theme';
 // * --------  END of VICTOR IMPORTS, WILL BE DELETED UPON APPROVAL -------------------
 // import React from 'react';
 // import { Box, BoxProps, Skeleton, Typography, Grid } from '@mui/material';
@@ -190,10 +191,10 @@ const DoughnutChartWithBreakdown: React.FC<DoughnutChartWithBreakdownProps> = ({
                                 alignItems: 'center',
                                 flex: 1,
                             }}
-                            className='dyy'
+                            className=''
                         >
                             <Box
-                                className='drr'
+                                className=''
                                 sx={{
                                     position: 'relative',
                                     display: 'flex',
