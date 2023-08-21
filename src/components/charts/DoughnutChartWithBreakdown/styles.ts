@@ -1,25 +1,26 @@
-import { SxProps, styled } from "@mui/material";
+import { SxProps, styled } from '@mui/material';
 // import { RM_COLOR_BASE_GRAY_LIGHT_80 } from "design-tokens";
 
 // * --------  VICTOR IMPORTS, WILL BE DELETED UPON APPROVAL -------------------
-import { RM_COLOR_BASE_GRAY_LIGHT_80 } from "src/design-tokens/tokens";
+import { RM_COLOR_BASE_GRAY_LIGHT_80 } from 'src/design-tokens/tokens';
 
 export const CenterTextContainerSx: SxProps = {
-    position: "absolute",
-    borderRadius: "50%",
-    width: "63%",
-    height: "63%",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
+    position: 'absolute',
+    borderRadius: '50%',
+    width: 'auto',
+    height: '60%',
+    aspectRatio: '1 / 1',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
 };
 
 // -----------------------------------------------------
 // --------  PROGRESS LINES STYLES -------------------
 // -----------------------------------------------------
 
-export const ProgressLinesContainer = styled("section")`
+export const ProgressLinesContainer = styled('section')`
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -27,7 +28,7 @@ export const ProgressLinesContainer = styled("section")`
     align-self: stretch;
 `;
 
-export const ProgressLinesMetricContainer = styled("div")`
+export const ProgressLinesMetricContainer = styled('div')`
     display: flex;
     height: 32px;
     justify-content: center;
@@ -36,7 +37,7 @@ export const ProgressLinesMetricContainer = styled("div")`
     width: 100%;
 `;
 
-export const ProgressLinesTitle = styled("div")`
+export const ProgressLinesTitle = styled('div')`
     flex: 1 0 0;
     &:hover {
         cursor: pointer;
@@ -44,7 +45,7 @@ export const ProgressLinesTitle = styled("div")`
     }
 `;
 
-export const ProgressLinesTrack = styled("div")`
+export const ProgressLinesTrack = styled('div')`
     position: relative;
     width: 100%;
     height: 4px;
@@ -53,7 +54,7 @@ export const ProgressLinesTrack = styled("div")`
     background: ${RM_COLOR_BASE_GRAY_LIGHT_80};
 `;
 
-export const ProgressLinesTrackIndicator = styled("div")`
+export const ProgressLinesTrackIndicator = styled('div')`
     position: absolute;
     left: 0;
     top: 0;

@@ -1,19 +1,46 @@
 // * --------  START of VICTOR IMPORTS, WILL BE DELETED UPON APPROVAL -------------------
 import React from 'react';
-import { Box, Card, CardContent, CardProps, Typography } from '@mui/material';
+import {
+    Box,
+    Card,
+    CardContent,
+    CardProps,
+    Typography,
+    useMediaQuery,
+} from '@mui/material';
 import { useUtilizationStatusDoughnutChartHrefs } from './hooks';
 import { t } from 'src/translation';
-import DoughnutChartWithBreakdown from '../../charts/DoughnutChartWithBreakdown/DoughnutChartWithBreakdown';
+import DoughnutChartWithBreakdown, {
+    DoughnutChartWithBreakdownHorizontal,
+} from '../../charts/DoughnutChartWithBreakdown';
+import { theme } from 'src/components/theme';
 // * --------  END of VICTOR IMPORTS, WILL BE DELETED UPON APPROVAL -------------------
 //
 // import React from 'react';
-// import { Box, Card, CardContent, CardProps, Typography } from '@mui/material';
-// import { ChartWrapperOptions } from "react-google-charts";
-// @ts-ignore
-// import { useTranslation } from "@hooks/translation";
-// @ts-ignore
-// import RmDoughnutChart from "@reactRootOld/display/Chart/RmDoughnutChart/RmDoughnutChart.tsx";
+// import {
+//     Box,
+//     Card,
+//     CardContent,
+//     CardProps,
+//     Typography,
+//     useMediaQuery,
+// } from '@mui/material';
+// // @ts-ignore
+// import { useTranslation } from '@hooks/translation';
+// // @ts-ignore
+// import DoughnutChartWithBreakdown, {
+//     DoughnutChartWithBreakdownHorizontal,
+// } from '@reactRootOld/display/Chart/DoughnutChartWithBreakdown';
+// // @ts-ignore
 // import { useUtilizationStatusDoughnutChartHrefs } from './hooks';
+// import {
+//     DATA_COLOUR_STATUS_ONRENT,
+//     DATA_COLOUR_STATUS_AVAILABLE,
+//     DATA_COLOUR_STATUS_NRM,
+//     DATA_COLOUR_STATUS_UNKNOWN,
+// } from '@reactRootOld/organisms/MainMap/styles';
+// // @ts-ignore
+// import { theme } from '@reactRootOld/theme';
 
 export interface UtilizationCardPropsInterface extends CardProps {
     numberOfRecords: number;
@@ -42,6 +69,8 @@ const UtilizationCard: React.FC<UtilizationCardPropsInterface> = ({
 }) => {
     //
     // const { t } = useTranslation();
+
+    const isScreenBiggerThanMd = useMediaQuery(theme.breakpoints.up('md'));
 
     const chartColors: string[] = [
         DATA_COLOUR_STATUS_ONRENT,
@@ -95,15 +124,27 @@ const UtilizationCard: React.FC<UtilizationCardPropsInterface> = ({
                             flexDirection: 'column',
                         }}
                     >
-                        <DoughnutChartWithBreakdown
-                            chartColors={chartColors}
-                            loading={loading}
-                            chartData={chartData}
-                            totalNumber={numberOfRecords}
-                            mostImportantNumberToDisplay={statusOnRent}
-                            mainLabel={t('LABEL_UTILISATION')}
-                            progressLineHrefsArray={progressLineHrefsArray}
-                        />
+                        {isScreenBiggerThanMd ? (
+                            <DoughnutChartWithBreakdown
+                                chartColors={chartColors}
+                                loading={loading}
+                                chartData={chartData}
+                                totalNumber={numberOfRecords}
+                                mostImportantNumberToDisplay={statusOnRent}
+                                mainLabel={t('LABEL_UTILISATION')}
+                                progressLineHrefsArray={progressLineHrefsArray}
+                            />
+                        ) : (
+                            <DoughnutChartWithBreakdownHorizontal
+                                chartColors={chartColors}
+                                loading={loading}
+                                chartData={chartData}
+                                totalNumber={numberOfRecords}
+                                mostImportantNumberToDisplay={statusOnRent}
+                                mainLabel={t('LABEL_UTILISATION')}
+                                progressLineHrefsArray={progressLineHrefsArray}
+                            />
+                        )}
                     </Box>
                 </Box>
             </CardContent>

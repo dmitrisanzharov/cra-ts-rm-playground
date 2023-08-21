@@ -16,9 +16,13 @@ interface ProgressLinesComponentPropsInterface {
     href: string;
 }
 
-export const ProgressLinesComponent: React.FC<
-    ProgressLinesComponentPropsInterface
-> = ({ metric, total, label, color, href }) => {
+export const ProgressLinesComponent: React.FC<ProgressLinesComponentPropsInterface> = ({
+    metric,
+    total,
+    label,
+    color,
+    href,
+}) => {
     //
 
     const calcWidth = (): number => {
@@ -29,7 +33,7 @@ export const ProgressLinesComponent: React.FC<
         <ProgressLinesContainer>
             <ProgressLinesMetricContainer>
                 <ProgressLinesTitle>
-                    <Typography variant='body2'>
+                    <Typography variant='body2' className=''>
                         <a
                             href={href}
                             target='_blank'
