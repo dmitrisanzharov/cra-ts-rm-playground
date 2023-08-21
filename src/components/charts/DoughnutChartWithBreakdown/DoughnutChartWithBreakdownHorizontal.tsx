@@ -30,37 +30,40 @@ import ProgressLinesComponent from './ProgressLinesComponent';
 
 export const DOUGHNUT_CHART_DEFAULT_HEIGHT_WIDTH = 145;
 
-const DoughnutChartWithBreakdownSkeleton: React.FC = () => {
+const DoughnutChartWithBreakdownHorizontalSkeleton: React.FC = () => {
     return (
-        <Grid container sx={{ height: '100%', display: 'flex' }}>
-            <Grid item xs={6} sx={{ pt: 1 }}>
-                <Skeleton height={60} width={60} />
-                <Skeleton height={25} width='75%' />
-            </Grid>
+        <Grid container sx={{ height: '100%', display: 'flex' }} className=''>
             <Grid
                 item
-                xs={6}
+                xs={5}
                 sx={{
                     display: 'flex',
-                    justifyContent: 'flex-end',
+                    justifyContent: 'center',
                     alignItems: 'center',
                 }}
+                className=''
             >
                 <Skeleton
                     variant='circular'
-                    height={`${DOUGHNUT_CHART_DEFAULT_HEIGHT_WIDTH * 0.75}px`}
-                    width={`${DOUGHNUT_CHART_DEFAULT_HEIGHT_WIDTH * 0.75}px`}
+                    sx={{
+                        width: '100%',
+                        height: 'auto',
+                        aspectRatio: '1 / 1',
+                    }}
                 />
             </Grid>
+
             <Grid
                 item
-                xs={12}
+                xs={7}
                 sx={{
                     flex: 1,
                     display: 'flex',
                     flexDirection: 'column',
-                    justifyContent: 'space-around',
+                    justifyContent: 'space-between',
+                    paddingLeft: '3vw',
                 }}
+                className=''
             >
                 {Array.from({ length: 4 }, (_, idx) => idx).map((el) => {
                     return (
@@ -71,6 +74,7 @@ const DoughnutChartWithBreakdownSkeleton: React.FC = () => {
                                 alignItems: 'center',
                             }}
                             key={`a${el}b`}
+                            className=''
                         >
                             <Box sx={{ width: '100%' }}>
                                 <Skeleton height={45} width={85} />
@@ -84,7 +88,7 @@ const DoughnutChartWithBreakdownSkeleton: React.FC = () => {
     );
 };
 
-interface DoughnutChartWithBreakdownProps extends BoxProps {
+interface DoughnutChartWithBreakdownHorizontalProps extends BoxProps {
     chartData: { values: [string, number][] };
     chartColors: string[];
     totalNumber: number;
@@ -94,7 +98,7 @@ interface DoughnutChartWithBreakdownProps extends BoxProps {
     loading: boolean;
 }
 
-const DoughnutChartWithBreakdown: React.FC<DoughnutChartWithBreakdownProps> = ({
+const DoughnutChartWithBreakdownHorizontal: React.FC<DoughnutChartWithBreakdownHorizontalProps> = ({
     chartData,
     chartColors,
     totalNumber,
@@ -127,6 +131,7 @@ const DoughnutChartWithBreakdown: React.FC<DoughnutChartWithBreakdownProps> = ({
 
     const options = {
         maintainAspectRatio: false,
+        aspectRatio: 1,
         cutoutPercentage: 82.5,
         legend: {
             display: false,
@@ -157,43 +162,33 @@ const DoughnutChartWithBreakdown: React.FC<DoughnutChartWithBreakdownProps> = ({
     return (
         <Box sx={{ ...sx, height: '100%' }} {...rest}>
             {/*  */}
-            {loading ? <DoughnutChartWithBreakdownSkeleton /> : null}
+            {loading ? <DoughnutChartWithBreakdownHorizontalSkeleton /> : null}
             {/*  */}
             {!loading && (
                 <Grid container sx={{ height: '100%' }} className=''>
-                    <Grid item xs={5} className=''>
-                        <Box sx={{ pt: 2 }}>
-                            <Typography variant='h4'>
-                                {mostImportantNumberToDisplay}
-                            </Typography>
-                            <Typography variant='caption'>
-                                {t('LABEL_FROM').toLowerCase()}{' '}
-                                {totalNumber.toLocaleString(undefined, {
-                                    maximumFractionDigits: 1,
-                                })}{' '}
-                                {mainLabel.toLowerCase()}
-                            </Typography>
-                        </Box>
-                    </Grid>
+                    {/* ----------------------------------------- */}
+                    {/* CHART */}
                     <Grid
                         item
-                        xs={7}
+                        xs={5}
                         sx={{
                             display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
                         }}
                         className=''
                     >
                         <Box
                             sx={{
                                 display: 'flex',
-                                justifyContent: 'flex-end',
+                                justifyContent: 'flex-start',
                                 alignItems: 'center',
                                 flex: 1,
                             }}
-                            className='dyy'
+                            className=''
                         >
                             <Box
-                                className='drr'
+                                className=''
                                 sx={{
                                     position: 'relative',
                                     display: 'flex',
@@ -225,7 +220,7 @@ const DoughnutChartWithBreakdown: React.FC<DoughnutChartWithBreakdownProps> = ({
                     {/* PROGRESS LINES */}
                     <Grid
                         item
-                        xs={12}
+                        xs={7}
                         sx={{
                             display: 'flex',
                             flexDirection: 'column',
@@ -264,4 +259,4 @@ const DoughnutChartWithBreakdown: React.FC<DoughnutChartWithBreakdownProps> = ({
     );
 };
 
-export default DoughnutChartWithBreakdown;
+export default DoughnutChartWithBreakdownHorizontal;

@@ -20,6 +20,17 @@ type Props = {};
 const FleetPageDashboard = (props: Props) => {
     return (
         <Box sx={styles.gridContainer}>
+            <UtilizationCard
+                sx={styles.utilizationCardSx}
+                // todo FAKE DATA, to remove
+                numberOfRecords={677}
+                statusAvailable={93}
+                statusNRM={30}
+                statusOnRent={554}
+                statusOther={0}
+                // loading={true}
+                loading={false}
+            />
             {/* <UtilizationCard
                 sx={styles.utilizationCardSx}
                 // todo FAKE DATA, to remove
@@ -29,30 +40,8 @@ const FleetPageDashboard = (props: Props) => {
                 statusOnRent={554}
                 statusOther={20}
                 // loading={true}
-                loading={false}
-            /> */}
-            <UtilizationCard
-                sx={styles.utilizationCardSx}
-                // todo FAKE DATA, to remove
-                numberOfRecords={677}
-                statusAvailable={93}
-                statusNRM={30}
-                statusOnRent={554}
-                statusOther={20}
-                // loading={true}
-                loading={false}
-            />
-            <UtilizationCard
-                sx={styles.utilizationCardSx}
-                // todo FAKE DATA, to remove
-                numberOfRecords={677}
-                statusAvailable={93}
-                statusNRM={30}
-                statusOnRent={554}
-                statusOther={20}
-                // loading={true}
                 loading={true}
-            />
+            /> */}
             {/* <NRMBreakdownCard loading={true} /> */}
             <DeviceStatusCard loading={true} />
             <DeviceIssuesCard loading={true} />

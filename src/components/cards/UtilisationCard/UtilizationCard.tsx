@@ -4,6 +4,7 @@ import { Box, Card, CardContent, CardProps, Typography } from '@mui/material';
 import { useUtilizationStatusDoughnutChartHrefs } from './hooks';
 import { t } from 'src/translation';
 import DoughnutChartWithBreakdown from '../../charts/DoughnutChartWithBreakdown/DoughnutChartWithBreakdown';
+import { DoughnutChartWithBreakdownHorizontal } from 'src/components/charts/DoughnutChartWithBreakdown';
 // * --------  END of VICTOR IMPORTS, WILL BE DELETED UPON APPROVAL -------------------
 //
 // import React from 'react';
@@ -95,7 +96,16 @@ const UtilizationCard: React.FC<UtilizationCardPropsInterface> = ({
                             flexDirection: 'column',
                         }}
                     >
-                        <DoughnutChartWithBreakdown
+                        {/* <DoughnutChartWithBreakdown
+                            chartColors={chartColors}
+                            loading={loading}
+                            chartData={chartData}
+                            totalNumber={numberOfRecords}
+                            mostImportantNumberToDisplay={statusOnRent}
+                            mainLabel={t('LABEL_UTILISATION')}
+                            progressLineHrefsArray={progressLineHrefsArray}
+                        /> */}
+                        <DoughnutChartWithBreakdownHorizontal
                             chartColors={chartColors}
                             loading={loading}
                             chartData={chartData}
