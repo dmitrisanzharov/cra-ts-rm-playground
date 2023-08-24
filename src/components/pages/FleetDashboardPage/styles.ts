@@ -12,7 +12,7 @@ export const gridContainer: SxProps = {
         lg: 'repeat(4, 1fr)',
         xl: 'repeat(5, 1fr)',
     },
-    gridAutoRows: 'fit-content(55vh)',
+    // gridAutoRows: 'fit-content(55vh)',
 };
 
 export const utilizationCardSx: SxProps = {
@@ -34,6 +34,13 @@ export const nrmBreakdownCardSx: SxProps = {
         xl: '3 / 5',
     },
 };
+
+// export const deviceStatusCardSx: SxProps = {
+//     gridColumn: {
+//         md: 'auto',
+//         lg: '1 / 3',
+//     },
+// };
 
 export const deviceIssuesCardSx: SxProps = {
     gridColumn: {

@@ -8,6 +8,7 @@ import {
     Grid,
     useMediaQuery,
 } from '@mui/material';
+import './styles.css';
 import { theme } from 'src/components/theme';
 import { Doughnut } from 'react-chartjs-2';
 import { t } from 'src/translation';
@@ -194,7 +195,7 @@ const DoughnutChartWithBreakdownHorizontal: React.FC<DoughnutChartWithBreakdownH
                             justifyContent: 'center',
                             alignItems: 'center',
                         }}
-                        className=''
+                        className='drr'
                     >
                         <Box
                             sx={{
@@ -202,23 +203,27 @@ const DoughnutChartWithBreakdownHorizontal: React.FC<DoughnutChartWithBreakdownH
                                 justifyContent: 'flex-start',
                                 alignItems: 'center',
                                 flex: 1,
+                                height: '100%',
+                                width: '100%',
                             }}
-                            className=''
+                            className='dyy'
                         >
                             <Box
-                                className=''
+                                className='dbb'
                                 sx={{
                                     position: 'relative',
                                     display: 'flex',
+                                    flex: 1,
                                     justifyContent: 'center',
                                     alignItems: 'center',
-                                    height: `${DOUGHNUT_CHART_DEFAULT_HEIGHT_WIDTH}px`,
-                                    width: `${DOUGHNUT_CHART_DEFAULT_HEIGHT_WIDTH}px`,
+                                    maxHeight: `${DOUGHNUT_CHART_DEFAULT_HEIGHT_WIDTH}px`,
+                                    maxWidth: `${DOUGHNUT_CHART_DEFAULT_HEIGHT_WIDTH}px`,
                                 }}
                             >
                                 <Doughnut
                                     data={chartDataFinal}
                                     options={options}
+                                    id='yo1'
                                 />
                                 <Box sx={CenterTextContainerSx} className=''>
                                     <Typography variant='h6'>
@@ -269,6 +274,7 @@ const DoughnutChartWithBreakdownHorizontal: React.FC<DoughnutChartWithBreakdownH
                                                 : defaultColors[idx]
                                         }
                                         href={progressLineHrefsArray[idx]}
+                                        componentVariant={'vertical'}
                                     />
                                 );
                             }

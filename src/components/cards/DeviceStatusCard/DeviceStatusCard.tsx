@@ -1,69 +1,53 @@
-import React from "react";
+import React from 'react';
 import {
     Box,
     Card,
     CardContent,
     CardProps,
-    Typography,
     Skeleton,
-} from "@mui/material";
-// import { useTranslation } from '@hooks/translation'
-// import { RM_COLOR_BASE_GRAY_MIDDLE, RM_COLOR_BASE_GREEN, RM_COLOR_BASE_ORANGE, RM_COLOR_BASE_RED, RM_COLOR_BUTTON_PRIMARY_DISABLED_FOREGROUND } from 'design-tokens';
-// import RmPieChart from '@reactRootOld/display/Chart/RmPieChart';
-// import { ChartWrapperOptions } from "react-google-charts";
-// import { useDeviceStatusPieChartData } from './hooks';
-import { DeviceStatusCardProps } from "./types";
-
-// const chartOptions: ChartWrapperOptions['options'] = {
-//     colors: [RM_COLOR_BASE_GREEN, RM_COLOR_BASE_ORANGE, RM_COLOR_BASE_RED, RM_COLOR_BASE_GRAY_MIDDLE, RM_COLOR_BUTTON_PRIMARY_DISABLED_FOREGROUND],
-// };
-
+    Typography,
+} from '@mui/material';
+interface DeviceStatusCardProps extends CardProps {
+    numberOfRecords: number;
+    loading: boolean;
+    deviceStatus: {
+        active: number;
+        issue: number;
+        disconnect: number;
+        untracked: number;
+        other: number;
+    };
+}
 const DeviceStatusCard: React.FC<any> = ({
+    numberOfRecords,
     loading,
     deviceStatus,
     ...rest
-}) => {
-    // const { t } = useTranslation();
-    // const chartData = useDeviceStatusPieChartData(deviceStatus);
-
-    return (
-        <Card {...rest}>
-            <CardContent>
-                <Typography gutterBottom variant='h6' component='div'>
-                    {/* {t("LABEL_DEVICE_STATUS")} */} Device Status
+}) => (
+    <Card {...rest}>
+        <CardContent>
+            <Typography gutterBottom variant='h6' component='div'>
+                Device Status
+            </Typography>
+            {!loading && (
+                <Typography variant='body2' color='text.secondary'>
+                    <pre>{JSON.stringify(deviceStatus, null, '\t')}</pre>
                 </Typography>
+            )}
+            {loading && (
                 <Box
                     sx={{
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
-                        width: "100%",
-                        aspectRatio: "1 / 1",
-                        justifyContent: "flex-start",
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
                     }}
                 >
-                    {/* <RmPieChart
-                        loading={loading}
-                        chartData={chartData}
-                        chartOptions={chartOptions}
-                    /> */}
-                    <>
-                        <Skeleton
-                            variant={"circular"}
-                            sx={{
-                                aspectRatio: "1 / 1",
-                                flex: 1,
-                                display: "flex",
-                                m: 2,
-                                mt: 0,
-                            }}
-                        />
-                        <Skeleton width='100%' sx={{ mt: -2 }} />
-                    </>
+                    <Skeleton variant='circular' height={220} width={220} />
+                    <Skeleton height={25} width={120} />
+                    <Skeleton height={25} width='100%' />
                 </Box>
-            </CardContent>
-        </Card>
-    );
-};
-
+            )}
+        </CardContent>
+    </Card>
+);
 export default DeviceStatusCard;
