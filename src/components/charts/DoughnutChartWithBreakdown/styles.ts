@@ -7,8 +7,8 @@ import { RM_COLOR_BASE_GRAY_LIGHT_80 } from 'src/design-tokens/tokens';
 export const CenterTextContainerSx: SxProps = {
     position: 'absolute',
     borderRadius: '50%',
-    width: 'auto',
-    height: '60%',
+    width: '50%',
+    height: 'auto',
     aspectRatio: '1 / 1',
     display: 'flex',
     flexDirection: 'column',
@@ -48,7 +48,6 @@ export const ProgressLinesTitle = styled('div')`
 export const ProgressLinesTrack = styled('div')`
     position: relative;
     width: 100%;
-    height: 4px;
     flex-shrink: 0;
     border-radius: 50px;
     background: ${RM_COLOR_BASE_GRAY_LIGHT_80};
@@ -58,7 +57,6 @@ export const ProgressLinesTrackIndicator = styled('div')`
     position: absolute;
     left: 0;
     top: 0;
-    height: 4px;
     flex-shrink: 0;
     border-radius: 50px;
 `;

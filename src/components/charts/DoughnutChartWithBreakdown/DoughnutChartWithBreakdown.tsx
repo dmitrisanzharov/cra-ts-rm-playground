@@ -1,6 +1,13 @@
 // * --------  START of VICTOR IMPORTS, WILL BE DELETED UPON APPROVAL -------------------
 import React from 'react';
-import { Box, BoxProps, Skeleton, Typography, Grid } from '@mui/material';
+import {
+    Box,
+    BoxProps,
+    Skeleton,
+    Typography,
+    Grid,
+    SkeletonProps,
+} from '@mui/material';
 import { Doughnut } from 'react-chartjs-2';
 import { t } from 'src/translation';
 import {
@@ -11,7 +18,6 @@ import {
 } from 'src/design-tokens/tokens';
 import { CenterTextContainerSx } from './styles';
 import ProgressLinesComponent from './ProgressLinesComponent';
-import { theme } from 'src/components/theme';
 // * --------  END of VICTOR IMPORTS, WILL BE DELETED UPON APPROVAL -------------------
 // import React from 'react';
 // import { Box, BoxProps, Skeleton, Typography, Grid } from '@mui/material';
@@ -29,38 +35,51 @@ import { theme } from 'src/components/theme';
 // import { CenterTextContainerSx } from './styles';
 // import ProgressLinesComponent from './ProgressLinesComponent';
 
-export const DOUGHNUT_CHART_DEFAULT_HEIGHT_WIDTH = 145;
+interface DoughnutChartWithBreakdownSkeletonProps extends SkeletonProps {
+    componentVariant: string;
+}
 
-const DoughnutChartWithBreakdownSkeleton: React.FC = () => {
+const DoughnutChartWithBreakdownSkeleton: React.FC<
+    DoughnutChartWithBreakdownSkeletonProps
+> = ({ variant = 'circular', componentVariant, ...rest }) => {
     return (
         <Grid container sx={{ height: '100%', display: 'flex' }}>
-            <Grid item xs={6} sx={{ pt: 1 }}>
-                <Skeleton height={60} width={60} />
-                <Skeleton height={25} width='75%' />
-            </Grid>
+            {componentVariant === 'vertical' && (
+                <Grid item xs={6} sx={{ pt: 1 }}>
+                    <Skeleton height={60} width={60} />
+                    <Skeleton height={25} width='75%' />
+                </Grid>
+            )}
             <Grid
                 item
-                xs={6}
+                xs={componentVariant === 'vertical' ? 6 : 5}
                 sx={{
                     display: 'flex',
-                    justifyContent: 'flex-end',
+                    justifyContent: `${
+                        componentVariant === 'vertical' ? 'flex-end' : 'center'
+                    }`,
                     alignItems: 'center',
                 }}
+                className=''
             >
                 <Skeleton
                     variant='circular'
-                    height={`${DOUGHNUT_CHART_DEFAULT_HEIGHT_WIDTH * 0.75}px`}
-                    width={`${DOUGHNUT_CHART_DEFAULT_HEIGHT_WIDTH * 0.75}px`}
+                    width='100%'
+                    height={'auto'}
+                    sx={{ aspectRatio: 1 }}
                 />
             </Grid>
             <Grid
                 item
-                xs={12}
+                xs={componentVariant === 'vertical' ? 12 : 7}
                 sx={{
                     flex: 1,
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'space-around',
+                    paddingLeft: `${
+                        componentVariant === 'horizontal' && '5vw'
+                    }`,
                 }}
             >
                 {Array.from({ length: 4 }, (_, idx) => idx).map((el) => {
@@ -70,6 +89,7 @@ const DoughnutChartWithBreakdownSkeleton: React.FC = () => {
                                 display: 'flex',
                                 justifyContent: 'center',
                                 alignItems: 'center',
+                                mb: 2,
                             }}
                             key={`a${el}b`}
                         >
@@ -93,6 +113,7 @@ interface DoughnutChartWithBreakdownProps extends BoxProps {
     mainLabel: string;
     progressLineHrefsArray: string[];
     loading: boolean;
+    componentVariant: string;
 }
 
 const DoughnutChartWithBreakdown: React.FC<DoughnutChartWithBreakdownProps> = ({
@@ -103,6 +124,7 @@ const DoughnutChartWithBreakdown: React.FC<DoughnutChartWithBreakdownProps> = ({
     mainLabel,
     progressLineHrefsArray,
     loading,
+    componentVariant = 'vertical',
     sx,
     ...rest
 }) => {
@@ -127,8 +149,9 @@ const DoughnutChartWithBreakdown: React.FC<DoughnutChartWithBreakdownProps> = ({
     };
 
     const options = {
+        responsive: true,
         maintainAspectRatio: false,
-        cutoutPercentage: 82.5,
+        cutoutPercentage: 85,
         legend: {
             display: false,
         },
@@ -158,27 +181,34 @@ const DoughnutChartWithBreakdown: React.FC<DoughnutChartWithBreakdownProps> = ({
     return (
         <Box sx={{ ...sx, height: '100%' }} {...rest}>
             {/*  */}
-            {loading ? <DoughnutChartWithBreakdownSkeleton /> : null}
-            {/*  */}
+            {loading && (
+                <DoughnutChartWithBreakdownSkeleton
+                    componentVariant={componentVariant}
+                />
+            )}
             {!loading && (
                 <Grid container sx={{ height: '100%' }} className=''>
-                    <Grid item xs={5} className=''>
-                        <Box sx={{ pt: 2 }}>
-                            <Typography variant='h4'>
-                                {mostImportantNumberToDisplay}
-                            </Typography>
-                            <Typography variant='caption'>
-                                {t('LABEL_FROM').toLowerCase()}{' '}
-                                {totalNumber.toLocaleString(undefined, {
-                                    maximumFractionDigits: 1,
-                                })}{' '}
-                                {mainLabel.toLowerCase()}
-                            </Typography>
-                        </Box>
-                    </Grid>
+                    {componentVariant === 'vertical' && (
+                        <Grid item xs={5} className=''>
+                            <Box sx={{ pt: 2 }}>
+                                <Typography variant='h4'>
+                                    {mostImportantNumberToDisplay}
+                                </Typography>
+                                <Typography variant='caption'>
+                                    {t('LABEL_FROM').toLowerCase()}{' '}
+                                    {totalNumber.toLocaleString(undefined, {
+                                        maximumFractionDigits: 1,
+                                    })}{' '}
+                                    {mainLabel.toLowerCase()}
+                                </Typography>
+                            </Box>
+                        </Grid>
+                    )}
+                    {/* ----------------------------------------- */}
+                    {/* CHART */}
                     <Grid
                         item
-                        xs={7}
+                        xs={componentVariant === 'vertical' ? 7 : 5}
                         sx={{
                             display: 'flex',
                         }}
@@ -186,30 +216,24 @@ const DoughnutChartWithBreakdown: React.FC<DoughnutChartWithBreakdownProps> = ({
                     >
                         <Box
                             sx={{
-                                display: 'flex',
-                                justifyContent: 'flex-end',
-                                alignItems: 'center',
                                 flex: 1,
+                                position: 'relative',
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                width: '100%',
+                                marginRight: `${componentVariant === 'vertical' ? '-15%' : '0%'}`
+                               
                             }}
                             className=''
                         >
-                            <Box
-                                className=''
-                                sx={{
-                                    position: 'relative',
-                                    display: 'flex',
-                                    justifyContent: 'center',
-                                    alignItems: 'center',
-                                    height: `${DOUGHNUT_CHART_DEFAULT_HEIGHT_WIDTH}px`,
-                                    width: `${DOUGHNUT_CHART_DEFAULT_HEIGHT_WIDTH}px`,
-                                }}
-                            >
                                 <Doughnut
                                     data={chartDataFinal}
                                     options={options}
+                                    id='DoughnutChartWithBreakdown'
                                 />
                                 <Box sx={CenterTextContainerSx} className=''>
-                                    <Typography variant='h6'>
+                                    <Typography variant={`${componentVariant === 'vertical' ? 'h6' : 'h5'}`}>
                                         {calculatePercentageOfTotal()}%
                                         {/* {t('PERCENTAGE_LABEL')} */}
                                         {/* this need to change to: t('percentageLabel', {value: 86}) */}
@@ -219,19 +243,21 @@ const DoughnutChartWithBreakdown: React.FC<DoughnutChartWithBreakdownProps> = ({
                                             mainLabel.slice(1)}
                                     </Typography>
                                 </Box>
-                            </Box>
                         </Box>
                     </Grid>
                     {/* ----------------------------------------- */}
                     {/* PROGRESS LINES */}
                     <Grid
                         item
-                        xs={12}
+                        xs={componentVariant === 'vertical' ? 12 : 7}
                         sx={{
                             display: 'flex',
                             flexDirection: 'column',
-                            justifyContent: 'space-between',
                             alignItems: 'center',
+                            rowGap: componentVariant === 'vertical' ? 2 : 3,
+                            paddingLeft: `${
+                                componentVariant === 'vertical' ? '0vw' : '3vw'
+                            }`,
                         }}
                         className=''
                     >
@@ -254,6 +280,7 @@ const DoughnutChartWithBreakdown: React.FC<DoughnutChartWithBreakdownProps> = ({
                                                 : defaultColors[idx]
                                         }
                                         href={progressLineHrefsArray[idx]}
+                                        componentVariant={componentVariant}
                                     />
                                 );
                             }
