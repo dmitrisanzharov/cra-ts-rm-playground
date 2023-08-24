@@ -60,8 +60,9 @@ const FleetPageDashboard = (props: Props) => {
                     'BADLY CRASHED - POTENTIAL WRITE OFF': 2,
                 }}
                 rowsToDisplay={5}
+                sx={styles.nrmBreakdownCardSx}
             />
-            <DeviceStatusCard loading={true} />
+            <DeviceStatusCard loading={true} sx={styles.deviceStatusCardSx} />
             <DeviceIssuesCard loading={true} sx={styles.deviceIssuesCardSx} />
             <AnomalyBreakdownCard loading={true} sx={styles.anomalyCardSx} />
             <SelectableTreemapCard loading={true} sx={styles.treemapCardSx} />

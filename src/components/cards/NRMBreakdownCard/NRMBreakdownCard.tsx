@@ -75,6 +75,7 @@ const NRMBreakdownCard: React.FC<NRMBreakdownCardProps> = ({
                     sx={{
                         flex: 1,
                         display: 'flex',
+                        width: '100%',
                     }}
                 >
                     {/* <DoughnutChartWithBreakdown
@@ -87,7 +88,7 @@ const NRMBreakdownCard: React.FC<NRMBreakdownCardProps> = ({
                         progressLineHrefsArray={progressLineHrefsArray}
                     /> */}
                     {loading && (
-                        <Box>
+                        <Box sx={{ width: '100%' }}>
                             <Skeleton height={25} />
                             <Skeleton height={25} />
                             <Skeleton height={25} />

@@ -12,7 +12,8 @@ export const gridContainer: SxProps = {
         lg: 'repeat(4, 1fr)',
         xl: 'repeat(5, 1fr)',
     },
-    // gridAutoRows: 'fit-content(55vh)',
+    // * please do NOT delete this one, might need in the future
+    // gridAutoRows: 'fit-content(55vh)'
 };
 
 export const utilizationCardSx: SxProps = {
@@ -29,18 +30,26 @@ export const nrmBreakdownCardSx: SxProps = {
     gridColumn: {
         xs: 1,
         sm: 1,
-        md: '3 / 4',
+        md: 1,
         lg: '3 / 5',
         xl: '3 / 5',
     },
 };
 
-// export const deviceStatusCardSx: SxProps = {
-//     gridColumn: {
-//         md: 'auto',
-//         lg: '1 / 3',
-//     },
-// };
+export const deviceStatusCardSx: SxProps = {
+    gridColumn: {
+        xs: 1,
+        sm: 1,
+        md: 'auto',
+        lg: 'auto',
+        xl: '5 / 6',
+    },
+    gridRow: {
+        md: 'auto',
+        lg: '2 / 3',
+        xl: 'auto',
+    },
+};
 
 export const deviceIssuesCardSx: SxProps = {
     gridColumn: {
@@ -52,8 +61,13 @@ export const deviceIssuesCardSx: SxProps = {
 export const anomalyCardSx: SxProps = {
     gridColumn: {
         md: 'auto',
-        lg: '1 / 3',
+        lg: '2 / 3',
         xl: '1 / 3',
+    },
+    gridRow: {
+        md: 'auto',
+        lg: '2 / 3',
+        xl: '2 / ',
     },
 };
 
