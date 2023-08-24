@@ -14,6 +14,7 @@ interface ProgressLinesComponentPropsInterface {
     label: string;
     color: string;
     href: string;
+    componentVariant: string;
 }
 
 export const ProgressLinesComponent: React.FC<ProgressLinesComponentPropsInterface> = ({
@@ -22,6 +23,8 @@ export const ProgressLinesComponent: React.FC<ProgressLinesComponentPropsInterfa
     label,
     color,
     href,
+    componentVariant,
+    ...rest
 }) => {
     //
 
@@ -30,10 +33,10 @@ export const ProgressLinesComponent: React.FC<ProgressLinesComponentPropsInterfa
     };
 
     return (
-        <ProgressLinesContainer>
+        <ProgressLinesContainer {...rest}>
             <ProgressLinesMetricContainer>
                 <ProgressLinesTitle>
-                    <Typography variant='body2' className=''>
+                    <Typography variant={`${componentVariant === 'vertical' ? 'body2' : 'body1'}`} className=''>
                         <a
                             href={href}
                             target='_blank'
@@ -44,13 +47,13 @@ export const ProgressLinesComponent: React.FC<ProgressLinesComponentPropsInterfa
                         </a>
                     </Typography>
                 </ProgressLinesTitle>
-                <Typography variant='body2' sx={{ textAlign: 'right' }}>
+                <Typography variant={`${componentVariant === 'vertical' ? 'body2' : 'body1'}`} sx={{ textAlign: 'right' }}>
                     {metric}
                 </Typography>
             </ProgressLinesMetricContainer>
-            <ProgressLinesTrack>
+            <ProgressLinesTrack sx={{height: `${componentVariant === 'vertical' ? '4px' : '6px'}`}}>
                 <ProgressLinesTrackIndicator
-                    sx={{ background: color, width: `${calcWidth()}%` }}
+                    sx={{ background: color, width: `${calcWidth()}%`, height: `${componentVariant === 'vertical' ? '4px' : '6px'}` }}
                 />
             </ProgressLinesTrack>
         </ProgressLinesContainer>

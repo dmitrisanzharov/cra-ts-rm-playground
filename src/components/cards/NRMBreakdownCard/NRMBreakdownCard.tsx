@@ -86,6 +86,19 @@ const NRMBreakdownCard: React.FC<NRMBreakdownCardProps> = ({
                         mainLabel={t('LABEL_UTILISATION')}
                         progressLineHrefsArray={progressLineHrefsArray}
                     /> */}
+                    {loading && (
+                        <Box>
+                            <Skeleton height={25} />
+                            <Skeleton height={25} />
+                            <Skeleton height={25} />
+                            <Skeleton height={25} />
+                            <Skeleton height={25} />
+                            <Skeleton height={25} />
+                            <Skeleton height={25} />
+                            <Skeleton height={25} />
+                            <Skeleton height={25} />
+                        </Box>
+                    )}
                 </Box>
             </CardContent>
         </Card>

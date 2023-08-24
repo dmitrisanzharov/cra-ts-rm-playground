@@ -27,7 +27,7 @@ const FleetPageDashboard = (props: Props) => {
                 statusAvailable={93}
                 statusNRM={30}
                 statusOnRent={554}
-                statusOther={0}
+                statusOther={20}
                 // loading={true}
                 loading={false}
             />
@@ -62,9 +62,9 @@ const FleetPageDashboard = (props: Props) => {
                 rowsToDisplay={5}
             />
             <DeviceStatusCard loading={true} />
-            <DeviceIssuesCard loading={true} />
-            <AnomalyBreakdownCard loading={true} />
-            <SelectableTreemapCard loading={true} />
+            <DeviceIssuesCard loading={true} sx={styles.deviceIssuesCardSx} />
+            <AnomalyBreakdownCard loading={true} sx={styles.anomalyCardSx} />
+            <SelectableTreemapCard loading={true} sx={styles.treemapCardSx} />
         </Box>
     );
 };

@@ -44,7 +44,6 @@ import { theme } from 'src/components/theme';
 
 export interface UtilizationCardPropsInterface extends CardProps {
     numberOfRecords: number;
-    // status
     statusAvailable: number;
     statusOnRent: number;
     statusNRM: number;
@@ -70,7 +69,7 @@ const UtilizationCard: React.FC<UtilizationCardPropsInterface> = ({
     //
     // const { t } = useTranslation();
 
-    const isScreenBiggerThanMd = useMediaQuery(theme.breakpoints.up('md'));
+    const isScreenBiggerThanSm = useMediaQuery(theme.breakpoints.up('sm'));
 
     const chartColors: string[] = [
         DATA_COLOUR_STATUS_ONRENT,
@@ -97,9 +96,10 @@ const UtilizationCard: React.FC<UtilizationCardPropsInterface> = ({
         <Card
             {...rest}
             sx={{
-                // minHeight: "450px",
                 display: 'flex',
+                ...rest.sx,
             }}
+            className='dgray'
         >
             <CardContent
                 sx={{
@@ -107,6 +107,7 @@ const UtilizationCard: React.FC<UtilizationCardPropsInterface> = ({
                     display: 'flex',
                     flexDirection: 'column',
                 }}
+                className='dyy'
             >
                 <Typography gutterBottom variant='h6' component='div'>
                     {t('LABEL_UTILISATION')}
@@ -124,7 +125,7 @@ const UtilizationCard: React.FC<UtilizationCardPropsInterface> = ({
                             flexDirection: 'column',
                         }}
                     >
-                        {isScreenBiggerThanMd ? (
+                        {
                             <DoughnutChartWithBreakdown
                                 chartColors={chartColors}
                                 loading={loading}
@@ -133,18 +134,13 @@ const UtilizationCard: React.FC<UtilizationCardPropsInterface> = ({
                                 mostImportantNumberToDisplay={statusOnRent}
                                 mainLabel={t('LABEL_UTILISATION')}
                                 progressLineHrefsArray={progressLineHrefsArray}
+                                componentVariant={
+                                    isScreenBiggerThanSm
+                                        ? 'horizontal'
+                                        : 'vertical'
+                                }
                             />
-                        ) : (
-                            <DoughnutChartWithBreakdownHorizontal
-                                chartColors={chartColors}
-                                loading={loading}
-                                chartData={chartData}
-                                totalNumber={numberOfRecords}
-                                mostImportantNumberToDisplay={statusOnRent}
-                                mainLabel={t('LABEL_UTILISATION')}
-                                progressLineHrefsArray={progressLineHrefsArray}
-                            />
-                        )}
+                        }
                     </Box>
                 </Box>
             </CardContent>
