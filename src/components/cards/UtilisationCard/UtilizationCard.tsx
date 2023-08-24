@@ -44,7 +44,6 @@ import { theme } from 'src/components/theme';
 
 export interface UtilizationCardPropsInterface extends CardProps {
     numberOfRecords: number;
-    // status
     statusAvailable: number;
     statusOnRent: number;
     statusNRM: number;
@@ -69,8 +68,6 @@ const UtilizationCard: React.FC<UtilizationCardPropsInterface> = ({
 }) => {
     //
     // const { t } = useTranslation();
-
-    loading = false;
 
     const isScreenBiggerThanSm = useMediaQuery(theme.breakpoints.up('sm'));
 
@@ -109,7 +106,6 @@ const UtilizationCard: React.FC<UtilizationCardPropsInterface> = ({
                     flex: 1,
                     display: 'flex',
                     flexDirection: 'column',
-                    // p: 4,
                 }}
                 className='dyy'
             >

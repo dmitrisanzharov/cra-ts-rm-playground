@@ -113,7 +113,7 @@ interface DoughnutChartWithBreakdownProps extends BoxProps {
     mainLabel: string;
     progressLineHrefsArray: string[];
     loading: boolean;
-    componentVariant: string;
+    componentVariant: 'vertical' | 'horizontal';
 }
 
 const DoughnutChartWithBreakdown: React.FC<DoughnutChartWithBreakdownProps> = ({
@@ -124,7 +124,7 @@ const DoughnutChartWithBreakdown: React.FC<DoughnutChartWithBreakdownProps> = ({
     mainLabel,
     progressLineHrefsArray,
     loading,
-    componentVariant = 'vertical',
+    componentVariant,
     sx,
     ...rest
 }) => {
@@ -158,14 +158,16 @@ const DoughnutChartWithBreakdown: React.FC<DoughnutChartWithBreakdownProps> = ({
         onClick: (evt: any, element: any) => {
             if (element?.length > 0) {
                 // * note Element is an Object that has INDEX that corresponds to DATA and Label indexes that are passed as props
-                window.open(
-                    progressLineHrefsArray[element[0]._index],
-                    '_blank'
-                );
+                if (progressLineHrefsArray[element[0]._index]) {
+                    window.open(
+                        progressLineHrefsArray[element[0]._index],
+                        '_blank'
+                    );
+                }
             }
         },
-        onHover: (evt: any, element: any) => {
-            evt.target.style.cursor = element[0] ? 'pointer' : 'default';
+        onHover: (event: any, element: any) => {
+            event.target.style.cursor = element[0] ? 'pointer' : 'default';
         },
     };
 
@@ -222,27 +224,37 @@ const DoughnutChartWithBreakdown: React.FC<DoughnutChartWithBreakdownProps> = ({
                                 justifyContent: 'center',
                                 alignItems: 'center',
                                 width: '100%',
-                                marginRight: `${componentVariant === 'vertical' ? '-15%' : '0%'}`
-                               
+                                marginRight: `${
+                                    componentVariant === 'vertical'
+                                        ? '-15%'
+                                        : '0%'
+                                }`,
                             }}
                             className=''
                         >
-                                <Doughnut
-                                    data={chartDataFinal}
-                                    options={options}
-                                    id='DoughnutChartWithBreakdown'
-                                />
-                                <Box sx={CenterTextContainerSx} className=''>
-                                    <Typography variant={`${componentVariant === 'vertical' ? 'h6' : 'h5'}`}>
-                                        {calculatePercentageOfTotal()}%
-                                        {/* {t('PERCENTAGE_LABEL')} */}
-                                        {/* this need to change to: t('percentageLabel', {value: 86}) */}
-                                    </Typography>
-                                    <Typography variant='caption'>
-                                        {mainLabel.charAt(0).toUpperCase() +
-                                            mainLabel.slice(1)}
-                                    </Typography>
-                                </Box>
+                            <Doughnut
+                                data={chartDataFinal}
+                                options={options}
+                                id='DoughnutChartWithBreakdown'
+                            />
+                            <Box sx={CenterTextContainerSx} className=''>
+                                <Typography
+                                    variant={`${
+                                        componentVariant === 'vertical'
+                                            ? 'h6'
+                                            : 'h5'
+                                    }`}
+                                >
+                                    {calculatePercentageOfTotal()}%
+                                    {/* {t('PERCENTAGE_LABEL', {
+                                        value: calculatePercentageOfTotal(),
+                                    })} */}
+                                </Typography>
+                                <Typography variant='caption'>
+                                    {mainLabel.charAt(0).toUpperCase() +
+                                        mainLabel.slice(1)}
+                                </Typography>
+                            </Box>
                         </Box>
                     </Grid>
                     {/* ----------------------------------------- */}
