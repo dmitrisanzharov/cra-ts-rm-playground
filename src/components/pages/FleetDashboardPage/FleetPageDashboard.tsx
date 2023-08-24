@@ -42,7 +42,25 @@ const FleetPageDashboard = (props: Props) => {
                 // loading={true}
                 loading={true}
             /> */}
-            {/* <NRMBreakdownCard loading={true} /> */}
+            <NRMBreakdownCard
+                loading={true}
+                numberOfRecords={677}
+                nrmBreakdown={{
+                    'SALES DEMO': 3,
+                    'SERVICE IN PROGRESS': 1,
+                    'MECHANICAL REPAIR IN PROGRESS': 8,
+                    'WARRANTY RECALL': 8,
+                    TYRES: 3,
+                    'AWAITING DECISION': 2,
+                    'TYRE TRACKING': 1,
+                    'RUNNER - DEL/COL': 1,
+                    'STAFF CARS': 6,
+                    'PROBLEM - TO BE ADDRESSED': 7,
+                    'DOE TEST': 2,
+                    'BADLY CRASHED - POTENTIAL WRITE OFF': 2,
+                }}
+                rowsToDisplay={5}
+            />
             <DeviceStatusCard loading={true} />
             <DeviceIssuesCard loading={true} />
             <AnomalyBreakdownCard loading={true} />
