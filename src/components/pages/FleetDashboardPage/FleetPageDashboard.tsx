@@ -31,17 +31,6 @@ const FleetPageDashboard = (props: Props) => {
                 // loading={true}
                 loading={false}
             />
-            {/* <UtilizationCard
-                sx={styles.utilizationCardSx}
-                // todo FAKE DATA, to remove
-                numberOfRecords={677}
-                statusAvailable={93}
-                statusNRM={30}
-                statusOnRent={554}
-                statusOther={20}
-                // loading={true}
-                loading={true}
-            /> */}
             <NRMBreakdownCard
                 loading={true}
                 numberOfRecords={677}

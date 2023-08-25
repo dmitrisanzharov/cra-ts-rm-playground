@@ -29,8 +29,8 @@ export const utilizationCardSx: SxProps = {
 export const nrmBreakdownCardSx: SxProps = {
     gridColumn: {
         xs: 1,
-        sm: 1,
-        md: 1,
+        sm: '1 / 2',
+        md: '3 / 5',
         lg: '3 / 5',
         xl: '3 / 5',
     },
@@ -39,7 +39,7 @@ export const nrmBreakdownCardSx: SxProps = {
 export const deviceStatusCardSx: SxProps = {
     gridColumn: {
         xs: 1,
-        sm: 1,
+        sm: '2 / 3',
         md: 'auto',
         lg: 'auto',
         xl: '5 / 6',
