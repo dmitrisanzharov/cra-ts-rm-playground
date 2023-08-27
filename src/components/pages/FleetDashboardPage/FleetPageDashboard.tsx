@@ -18,6 +18,8 @@ import UtilizationCard from 'src/components/cards/UtilisationCard/UtilizationCar
 type Props = {};
 
 const FleetPageDashboard = (props: Props) => {
+    const loadingProp = false;
+
     return (
         <Box sx={styles.gridContainer}>
             <UtilizationCard
@@ -29,10 +31,10 @@ const FleetPageDashboard = (props: Props) => {
                 statusOnRent={554}
                 statusOther={20}
                 // loading={true}
-                loading={false}
+                loading={loadingProp}
             />
             <NRMBreakdownCard
-                loading={false}
+                loading={loadingProp}
                 numberOfRecords={677}
                 nrmBreakdown={{
                     'SALES DEMO': 3,

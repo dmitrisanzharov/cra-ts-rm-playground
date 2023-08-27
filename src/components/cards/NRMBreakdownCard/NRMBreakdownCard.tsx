@@ -1,9 +1,17 @@
 // * --------  START of VICTOR IMPORTS, WILL BE DELETED UPON APPROVAL -------------------
 import React from 'react';
-import { Box, Card, CardContent, CardProps, Typography } from '@mui/material';
+import {
+    Box,
+    Card,
+    CardContent,
+    CardProps,
+    Typography,
+    useMediaQuery,
+} from '@mui/material';
 import { t } from 'src/translation';
 import DoughnutChartWithBreakdown from 'src/components/charts/DoughnutChartWithBreakdown';
 import { useNRMBreakdownCardHrefs } from './hooks';
+import { theme } from 'src/components/theme';
 // * --------  END of VICTOR IMPORTS, WILL BE DELETED UPON APPROVAL -------------------
 //
 // import React from "react";
@@ -31,7 +39,7 @@ const NRMBreakdownCard: React.FC<NRMBreakdownCardProps> = ({
 }) => {
     //
 
-    loading = false;
+    const isScreenBiggerThanSm = useMediaQuery(theme.breakpoints.up('sm'));
 
     const chartColors = [
         '#420075',
@@ -101,7 +109,9 @@ const NRMBreakdownCard: React.FC<NRMBreakdownCardProps> = ({
                         }
                         mainLabel={t('NRM_VEHICLES')}
                         progressLineHrefsArray={progressLineHrefsArray}
-                        componentVariant={'vertical'}
+                        componentVariant={
+                            isScreenBiggerThanSm ? 'horizontal' : 'vertical'
+                        }
                     />
                     {/* {loading && (
                         <Box sx={{ width: '100%' }}>
