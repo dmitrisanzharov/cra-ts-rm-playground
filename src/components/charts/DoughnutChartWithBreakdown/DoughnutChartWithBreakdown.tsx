@@ -215,6 +215,7 @@ const DoughnutChartWithBreakdown: React.FC<DoughnutChartWithBreakdownProps> = ({
                         sx={{
                             display: 'flex',
                         }}
+                        className='drr'
                     >
                         <Box
                             sx={{
@@ -230,6 +231,7 @@ const DoughnutChartWithBreakdown: React.FC<DoughnutChartWithBreakdownProps> = ({
                                         : '0%'
                                 }`,
                             }}
+                            className='dbb'
                         >
                             <Doughnut data={chartDataFinal} options={options} />
                             <Box sx={CenterTextContainerSx}>

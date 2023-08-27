@@ -1,15 +1,9 @@
 // * --------  START of VICTOR IMPORTS, WILL BE DELETED UPON APPROVAL -------------------
 import React from 'react';
-import {
-    Box,
-    Card,
-    CardContent,
-    CardProps,
-    Skeleton,
-    Typography,
-} from '@mui/material';
+import { Box, Card, CardContent, CardProps, Typography } from '@mui/material';
 import { t } from 'src/translation';
 import DoughnutChartWithBreakdown from 'src/components/charts/DoughnutChartWithBreakdown';
+import { useNRMBreakdownCardHrefs } from './hooks';
 // * --------  END of VICTOR IMPORTS, WILL BE DELETED UPON APPROVAL -------------------
 //
 // import React from "react";
@@ -37,17 +31,7 @@ const NRMBreakdownCard: React.FC<NRMBreakdownCardProps> = ({
 }) => {
     //
 
-    const prepareDataForDoughnutChartWithBreakdown = React.useMemo(() => {
-        // * sort highest to smallest
-        let start = Object.entries(nrmBreakdown).sort(
-            ([_, a], [__, b]) => b - a
-        );
-        // * slice based on rowsToDisplayProp
-        start.splice(rowsToDisplay);
-
-        const finalData = start.map(([label, number]) => {});
-        console.log('data', finalData);
-    }, [nrmBreakdown]);
+    loading = false;
 
     const chartColors = [
         '#420075',
@@ -59,35 +43,67 @@ const NRMBreakdownCard: React.FC<NRMBreakdownCardProps> = ({
         '#CB8AFF',
     ];
 
+    const prepareDataForDoughnutChartWithBreakdown = React.useMemo(() => {
+        // * sort highest to smallest
+        let data = Object.entries(nrmBreakdown).sort(
+            ([_, a], [__, b]) => b - a
+        );
+
+        // * collapse labels to 'Other' label if X > 5;
+        if (data.length > 5) {
+            let dataLeft = data.slice(0, 4);
+            let dataRight = data
+                .slice(4)
+                .reduce((accumulator, [label, value]) => {
+                    accumulator = accumulator + value;
+                    return accumulator;
+                }, 0);
+
+            data = [...dataLeft, ['OTHER', dataRight]];
+        }
+
+        // * refactor the label into THIS_FORMAT_FOR_TRANSLATIONS
+        const finalData: [string, number][] = data.map(([label, number]) => {
+            label = label.replaceAll(' ', '_');
+            console.log('label: ', label);
+            if (label === 'OTHER') {
+                return [t(label), number];
+            }
+
+            return [t(`LABEL_${label}`), number];
+        });
+        return finalData;
+    }, [nrmBreakdown]);
+
+    const calculateTotalVehiclesInNrm = React.useMemo(() => {
+        return Object.values(nrmBreakdown).reduce((accumulator, value) => {
+            accumulator += value;
+            return accumulator;
+        }, 0);
+    }, [nrmBreakdown]);
+
+    const progressLineHrefsArray = useNRMBreakdownCardHrefs();
+
     return (
         <Card {...rest}>
-            <CardContent
-                sx={{
-                    flex: 1,
-                    display: 'flex',
-                    flexDirection: 'column',
-                }}
-            >
+            <CardContent>
                 <Typography gutterBottom variant='h6' component='div'>
                     {`${t('NRM')} ${t('LABEL_BREAKDOWN')}`}
                 </Typography>
-                <Box
-                    sx={{
-                        flex: 1,
-                        display: 'flex',
-                        width: '100%',
-                    }}
-                >
-                    {/* <DoughnutChartWithBreakdown
+                <Box>
+                    <DoughnutChartWithBreakdown
                         chartColors={chartColors}
                         loading={loading}
                         chartData={prepareDataForDoughnutChartWithBreakdown}
                         totalNumber={numberOfRecords}
-                        mostImportantNumberToDisplay={statusOnRent}
-                        mainLabel={t('LABEL_UTILISATION')}
+                        mostImportantNumberToDisplay={
+                            calculateTotalVehiclesInNrm
+                        }
+                        mainLabel={t('NRM_VEHICLES')}
                         progressLineHrefsArray={progressLineHrefsArray}
-                    /> */}
-                    {loading && (
+                        componentVariant={'vertical'}
+                    />
+                    {/* {loading && (
                         <Box sx={{ width: '100%' }}>
                             <Skeleton height={25} />
                             <Skeleton height={25} />
@@ -99,7 +115,7 @@ const NRMBreakdownCard: React.FC<NRMBreakdownCardProps> = ({
                             <Skeleton height={25} />
                             <Skeleton height={25} />
                         </Box>
-                    )}
+                    )} */}
                 </Box>
             </CardContent>
         </Card>

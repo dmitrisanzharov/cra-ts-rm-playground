@@ -32,7 +32,7 @@ const FleetPageDashboard = (props: Props) => {
                 loading={false}
             />
             <NRMBreakdownCard
-                loading={true}
+                loading={false}
                 numberOfRecords={677}
                 nrmBreakdown={{
                     'SALES DEMO': 3,
