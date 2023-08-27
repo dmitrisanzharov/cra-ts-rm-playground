@@ -50,7 +50,6 @@ const FleetPageDashboard = (props: Props) => {
                     'DOE TEST': 2,
                     'BADLY CRASHED - POTENTIAL WRITE OFF': 2,
                 }}
-                rowsToDisplay={5}
                 sx={styles.nrmBreakdownCardSx}
             />
             <DeviceStatusCard loading={true} sx={styles.deviceStatusCardSx} />

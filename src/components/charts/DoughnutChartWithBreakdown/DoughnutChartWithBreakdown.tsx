@@ -113,6 +113,7 @@ interface DoughnutChartWithBreakdownProps extends BoxProps {
     chartData: [string, number][];
     chartColors: string[];
     totalNumber: number;
+    totalNumberForNrmProgressLines?: number;
     mostImportantNumberToDisplay: number;
     mainLabel: string;
     progressLineHrefsArray: string[];
@@ -124,6 +125,7 @@ const DoughnutChartWithBreakdown: React.FC<DoughnutChartWithBreakdownProps> = ({
     chartData,
     chartColors,
     totalNumber,
+    totalNumberForNrmProgressLines,
     mostImportantNumberToDisplay,
     mainLabel,
     progressLineHrefsArray,
@@ -215,7 +217,6 @@ const DoughnutChartWithBreakdown: React.FC<DoughnutChartWithBreakdownProps> = ({
                         sx={{
                             display: 'flex',
                         }}
-                        className='drr'
                     >
                         <Box
                             sx={{
@@ -231,7 +232,6 @@ const DoughnutChartWithBreakdown: React.FC<DoughnutChartWithBreakdownProps> = ({
                                         : '0%'
                                 }`,
                             }}
-                            className='dbb'
                         >
                             <Doughnut data={chartDataFinal} options={options} />
                             <Box sx={CenterTextContainerSx}>
@@ -247,7 +247,10 @@ const DoughnutChartWithBreakdown: React.FC<DoughnutChartWithBreakdownProps> = ({
                                         value: calculatePercentageOfTotal(),
                                     })} */}
                                 </Typography>
-                                <Typography variant='caption'>
+                                <Typography
+                                    variant='caption'
+                                    sx={{ textAlign: 'center' }}
+                                >
                                     {mainLabel.charAt(0).toUpperCase() +
                                         mainLabel.slice(1)}
                                 </Typography>
@@ -278,7 +281,11 @@ const DoughnutChartWithBreakdown: React.FC<DoughnutChartWithBreakdownProps> = ({
                                         key={JSON.stringify(item)}
                                         metric={item[1]}
                                         label={item[0]}
-                                        total={totalNumber}
+                                        total={
+                                            totalNumberForNrmProgressLines
+                                                ? totalNumberForNrmProgressLines
+                                                : totalNumber
+                                        }
                                         color={
                                             chartColors
                                                 ? chartColors[idx]

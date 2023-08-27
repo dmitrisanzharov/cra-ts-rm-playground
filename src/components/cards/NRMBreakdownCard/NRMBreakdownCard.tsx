@@ -12,6 +12,7 @@ import { t } from 'src/translation';
 import DoughnutChartWithBreakdown from 'src/components/charts/DoughnutChartWithBreakdown';
 import { useNRMBreakdownCardHrefs } from './hooks';
 import { theme } from 'src/components/theme';
+import { DATA_COLOUR_STATUS_UNKNOWN } from 'src/externalRmStyles/externalRmStyles';
 // * --------  END of VICTOR IMPORTS, WILL BE DELETED UPON APPROVAL -------------------
 //
 // import React from "react";
@@ -28,27 +29,28 @@ interface NRMBreakdownCardProps extends CardProps {
     numberOfRecords: number;
     loading: boolean;
     nrmBreakdown: { [nrmType: string]: number };
-    rowsToDisplay: number;
 }
 const NRMBreakdownCard: React.FC<NRMBreakdownCardProps> = ({
     numberOfRecords,
     loading,
     nrmBreakdown,
-    rowsToDisplay,
     ...rest
 }) => {
     //
+    const RM_COLOR_BASE_VIOLET_DARK_20 = '#C57FD0';
+    const RM_COLOR_BASE_VIOLET_DARK_40 = '#AB47BC';
+    const RM_COLOR_BASE_VIOLET_DARK_60 = '#793186';
+    const RM_COLOR_BASE_VIOLET_DARK_80 = '#461D4E';
+    const RM_COLOR_BASE_GRAY_LIGHT_90 = '#D7D7D7';
 
-    const isScreenBiggerThanSm = useMediaQuery(theme.breakpoints.up('sm'));
+    const isScreenBiggerThanLg = useMediaQuery(theme.breakpoints.up('lg'));
 
     const chartColors = [
-        '#420075',
-        '#5C00A3',
-        '#7500D1',
-        '#8F00FF',
-        '#A32EFF',
-        '#B75CFF',
-        '#CB8AFF',
+        RM_COLOR_BASE_VIOLET_DARK_80,
+        RM_COLOR_BASE_VIOLET_DARK_60,
+        RM_COLOR_BASE_VIOLET_DARK_40,
+        RM_COLOR_BASE_VIOLET_DARK_20,
+        RM_COLOR_BASE_GRAY_LIGHT_90,
     ];
 
     const prepareDataForDoughnutChartWithBreakdown = React.useMemo(() => {
@@ -73,7 +75,7 @@ const NRMBreakdownCard: React.FC<NRMBreakdownCardProps> = ({
         // * refactor the label into THIS_FORMAT_FOR_TRANSLATIONS
         const finalData: [string, number][] = data.map(([label, number]) => {
             label = label.replaceAll(' ', '_');
-            console.log('label: ', label);
+
             if (label === 'OTHER') {
                 return [t(label), number];
             }
@@ -110,22 +112,13 @@ const NRMBreakdownCard: React.FC<NRMBreakdownCardProps> = ({
                         mainLabel={t('NRM_VEHICLES')}
                         progressLineHrefsArray={progressLineHrefsArray}
                         componentVariant={
-                            isScreenBiggerThanSm ? 'horizontal' : 'vertical'
+                            isScreenBiggerThanLg ? 'horizontal' : 'vertical'
                         }
+                        // componentVariant='vertical'
+                        // totalNumberForNrmProgressLines={
+                        //     calculateTotalVehiclesInNrm
+                        // }
                     />
-                    {/* {loading && (
-                        <Box sx={{ width: '100%' }}>
-                            <Skeleton height={25} />
-                            <Skeleton height={25} />
-                            <Skeleton height={25} />
-                            <Skeleton height={25} />
-                            <Skeleton height={25} />
-                            <Skeleton height={25} />
-                            <Skeleton height={25} />
-                            <Skeleton height={25} />
-                            <Skeleton height={25} />
-                        </Box>
-                    )} */}
                 </Box>
             </CardContent>
         </Card>
