@@ -4,9 +4,8 @@ h1 {
 
 /* does NOT work */
 canvas {
-    /* width: 100% !important;
-    height: auto !important; */
-    /* aspect-ratio: 1 !important; */
+    width: 100%;
+    aspect-ratio: 1;
 }
 
 /* works */

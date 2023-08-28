@@ -7,7 +7,9 @@ import {
     Typography,
     Grid,
     SkeletonProps,
+    useMediaQuery,
 } from '@mui/material';
+import { theme } from 'src/components/theme';
 import { Doughnut } from 'react-chartjs-2';
 import { t } from 'src/translation';
 import {
@@ -136,6 +138,59 @@ const DoughnutChartWithBreakdown: React.FC<DoughnutChartWithBreakdownProps> = ({
     ...rest
 }) => {
     //
+
+    const mdOnlyMediaQuery = useMediaQuery(theme.breakpoints.only('md'));
+    const isBiggerThanXl = useMediaQuery(theme.breakpoints.up('xl'));
+    const isBiggerThan1990px = useMediaQuery('(min-width: 1900px)');
+    const isBiggerThan3500andHeightSmaller1100 = useMediaQuery(
+        '(min-width: 3600px) and (max-height: 1100px)'
+    );
+
+    React.useEffect(() => {
+        console.log('mahman', isBiggerThan3500andHeightSmaller1100);
+    });
+
+    function mediaQueryControl() {
+        let sxStyles = {};
+
+        if (
+            isBiggerThan3500andHeightSmaller1100 &&
+            componentVariant === 'horizontal'
+        ) {
+            sxStyles = {
+                // boxSizing: 'border-box',
+                m: 5,
+            };
+        }
+
+        if (mdOnlyMediaQuery && componentVariant === 'horizontal') {
+            console.log('in Medium');
+            return {
+                height: '100%',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+            };
+        }
+        if (isBiggerThan1990px && componentVariant === 'horizontal') {
+            return {
+                ...sxStyles,
+                mt: 2,
+            };
+        }
+        if (isBiggerThanXl && componentVariant === 'horizontal') {
+            return {
+                ...sxStyles,
+                mt: 2,
+            };
+        }
+        return {};
+    }
+
+    React.useEffect(() => {
+        console.log('query test', theme);
+    });
+
     const defaultColors: string[] = [
         RM_COLOR_BASE_GREEN,
         RM_COLOR_BASE_BLUE_MIDDLE,
@@ -158,7 +213,6 @@ const DoughnutChartWithBreakdown: React.FC<DoughnutChartWithBreakdownProps> = ({
     const options = {
         responsive: true,
         maintainAspectRatio: false,
-        aspectRatio: 1,
         cutoutPercentage: 85,
         legend: {
             display: false,
@@ -189,7 +243,7 @@ const DoughnutChartWithBreakdown: React.FC<DoughnutChartWithBreakdownProps> = ({
     );
 
     return (
-        <Box sx={{}} {...rest}>
+        <Box sx={mediaQueryControl} {...rest} className=''>
             {loading && (
                 <DoughnutChartWithBreakdownSkeleton
                     componentVariant={componentVariant}
@@ -232,19 +286,19 @@ const DoughnutChartWithBreakdown: React.FC<DoughnutChartWithBreakdownProps> = ({
                             }}
                             className=''
                         >
-                            <Skeleton
+                            {/* <Skeleton
                                 variant='circular'
                                 sx={{
                                     width: '100%',
                                     height: 'auto',
                                     aspectRatio: '1 / 1',
                                 }}
-                            ></Skeleton>
-                            {/* <Doughnut
+                            ></Skeleton> */}
+                            <Doughnut
                                 data={chartDataFinal}
                                 options={options}
                                 id='chartId'
-                            /> */}
+                            />
                             <Box sx={CenterTextContainerSx}>
                                 <Typography
                                     variant={`${

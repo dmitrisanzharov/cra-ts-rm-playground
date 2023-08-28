@@ -62,6 +62,7 @@ const UtilizationCard: React.FC<UtilizationCardProps> = ({
     // const { t } = useTranslation();
 
     const isScreenBiggerThanSm = useMediaQuery(theme.breakpoints.up('sm'));
+    const mdOnlyMediaQuery = useMediaQuery(theme.breakpoints.only('md'));
 
     const chartColors: string[] = [
         DATA_COLOUR_STATUS_ONRENT,
@@ -91,11 +92,31 @@ const UtilizationCard: React.FC<UtilizationCardProps> = ({
 
     return (
         <Card {...rest}>
-            <CardContent>
+            <CardContent
+                className=''
+                sx={
+                    mdOnlyMediaQuery
+                        ? {
+                              height: '100%',
+                              display: 'flex',
+                              flexDirection: 'column',
+                          }
+                        : {}
+                }
+            >
                 <Typography gutterBottom variant='h6' component='div'>
                     {t('LABEL_UTILISATION')}
                 </Typography>
-                <Box>
+                <Box
+                    className=''
+                    sx={
+                        mdOnlyMediaQuery
+                            ? {
+                                  flex: 1,
+                              }
+                            : {}
+                    }
+                >
                     <DoughnutChartWithBreakdown
                         chartColors={chartColors}
                         loading={loading}

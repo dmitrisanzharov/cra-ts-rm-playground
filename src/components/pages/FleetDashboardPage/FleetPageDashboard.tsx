@@ -1,6 +1,7 @@
 import React from 'react';
-import { SxProps, Box } from '@mui/material';
+import { SxProps, Box, useMediaQuery } from '@mui/material';
 import * as styles from './styles';
+import { theme } from 'src/components/theme';
 
 // COMPONENTS
 // Cards
@@ -20,8 +21,27 @@ type Props = {};
 const FleetPageDashboard = (props: Props) => {
     const loadingProp = false;
 
+    const isSmallerThanMd = useMediaQuery(theme.breakpoints.down('md'));
+    const isBiggerThan3500andHeightSmaller1100 = useMediaQuery(
+        '(min-width: 3600px) and (max-height: 1100px)'
+    );
+
+    React.useEffect(() => {
+        // console.log('isSmallerThanMd', isSmallerThanMd);
+        console.log('strangeScreen:', isBiggerThan3500andHeightSmaller1100);
+    });
+
     return (
-        <Box sx={styles.gridContainer}>
+        <Box
+            sx={{
+                ...styles.gridContainer,
+                gridAutoRows: `fit-content(${
+                    isSmallerThanMd || isBiggerThan3500andHeightSmaller1100
+                        ? ''
+                        : '55vh'
+                })`,
+            }}
+        >
             <UtilizationCard
                 sx={styles.utilizationCardSx}
                 // todo FAKE DATA, to remove
@@ -53,7 +73,7 @@ const FleetPageDashboard = (props: Props) => {
                 sx={styles.nrmBreakdownCardSx}
             />
             <DeviceStatusCard
-                loading={true}
+                loading={false}
                 sx={styles.deviceStatusCardSx}
                 numberOfRecords={677}
                 deviceStatus={{

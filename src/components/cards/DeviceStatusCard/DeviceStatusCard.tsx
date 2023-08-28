@@ -43,6 +43,7 @@ const chartOptions: ChartWrapperOptions['options'] = {
 const DeviceStatusCard: React.FC<DeviceStatusCardProps> = ({
     loading,
     deviceStatus,
+    numberOfRecords,
     ...rest
 }) => {
     // const { t } = useTranslation();
