@@ -18,6 +18,7 @@ import {
 } from 'src/design-tokens/tokens';
 import { CenterTextContainerSx } from './styles';
 import ProgressLinesComponent from './ProgressLinesComponent';
+import './styles.css';
 // * --------  END of VICTOR IMPORTS, WILL BE DELETED UPON APPROVAL -------------------
 //
 // import React from 'react';
@@ -157,6 +158,7 @@ const DoughnutChartWithBreakdown: React.FC<DoughnutChartWithBreakdownProps> = ({
     const options = {
         responsive: true,
         maintainAspectRatio: false,
+        aspectRatio: 1,
         cutoutPercentage: 85,
         legend: {
             display: false,
@@ -187,14 +189,14 @@ const DoughnutChartWithBreakdown: React.FC<DoughnutChartWithBreakdownProps> = ({
     );
 
     return (
-        <Box sx={{ ...sx, height: '100%' }} {...rest}>
+        <Box sx={{}} {...rest}>
             {loading && (
                 <DoughnutChartWithBreakdownSkeleton
                     componentVariant={componentVariant}
                 />
             )}
             {!loading && (
-                <Grid container sx={{ height: '100%' }}>
+                <Grid container sx={{}} className=''>
                     {componentVariant === 'vertical' && (
                         <Grid item xs={5}>
                             <Box sx={{ pt: 2 }}>
@@ -214,26 +216,35 @@ const DoughnutChartWithBreakdown: React.FC<DoughnutChartWithBreakdownProps> = ({
                     <Grid
                         item
                         xs={componentVariant === 'vertical' ? 7 : 5}
-                        sx={{
-                            display: 'flex',
-                        }}
+                        sx={{}}
+                        className=''
                     >
                         <Box
                             sx={{
-                                flex: 1,
+                                // flex: 1,
                                 position: 'relative',
                                 display: 'flex',
                                 justifyContent: 'center',
                                 alignItems: 'center',
                                 width: '100%',
-                                marginRight: `${
-                                    componentVariant === 'vertical'
-                                        ? '-15%'
-                                        : '0%'
-                                }`,
+                                // height: 'fit-content',
+                                // aspectRatio: '1 / 1',
                             }}
+                            className=''
                         >
-                            <Doughnut data={chartDataFinal} options={options} />
+                            <Skeleton
+                                variant='circular'
+                                sx={{
+                                    width: '100%',
+                                    height: 'auto',
+                                    aspectRatio: '1 / 1',
+                                }}
+                            ></Skeleton>
+                            {/* <Doughnut
+                                data={chartDataFinal}
+                                options={options}
+                                id='chartId'
+                            /> */}
                             <Box sx={CenterTextContainerSx}>
                                 <Typography
                                     variant={`${
@@ -245,7 +256,7 @@ const DoughnutChartWithBreakdown: React.FC<DoughnutChartWithBreakdownProps> = ({
                                     {calculatePercentageOfTotal()} %
                                     {/* {t('PERCENTAGE_LABEL', {
                                         value: calculatePercentageOfTotal(),
-                                    })} */}
+                                        })} */}
                                 </Typography>
                                 <Typography
                                     variant='caption'
@@ -266,6 +277,7 @@ const DoughnutChartWithBreakdown: React.FC<DoughnutChartWithBreakdownProps> = ({
                             alignItems: 'center',
                             justifyContent: 'center',
                             rowGap: componentVariant === 'vertical' ? 2 : 3,
+                            mt: componentVariant === 'vertical' ? 2 : 0,
                             paddingLeft: `${
                                 componentVariant === 'vertical' ? '0vw' : '3vw'
                             }`,

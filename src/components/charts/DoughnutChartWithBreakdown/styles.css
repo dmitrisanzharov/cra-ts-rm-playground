@@ -1,0 +1,16 @@
+h1 {
+    color: red;
+}
+
+/* does NOT work */
+canvas {
+    /* width: 100% !important;
+    height: auto !important; */
+    /* aspect-ratio: 1 !important; */
+}
+
+/* works */
+#chartId.chartjs-render-monitor {
+    /* width: 100px !important; */
+    /* height: 100px !important; */
+}

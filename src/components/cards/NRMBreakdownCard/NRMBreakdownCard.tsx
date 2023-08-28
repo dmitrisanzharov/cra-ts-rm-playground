@@ -12,7 +12,7 @@ import { t } from 'src/translation';
 import DoughnutChartWithBreakdown from 'src/components/charts/DoughnutChartWithBreakdown';
 import { useNRMBreakdownCardHrefs } from './hooks';
 import { theme } from 'src/components/theme';
-import { DATA_COLOUR_STATUS_UNKNOWN } from 'src/externalRmStyles/externalRmStyles';
+import { RM_COLOR_BASE_GRAY_LIGHT_80 } from 'src/design-tokens/tokens';
 // * --------  END of VICTOR IMPORTS, WILL BE DELETED UPON APPROVAL -------------------
 //
 // import React from "react";
@@ -41,7 +41,6 @@ const NRMBreakdownCard: React.FC<NRMBreakdownCardProps> = ({
     const RM_COLOR_BASE_VIOLET_DARK_40 = '#AB47BC';
     const RM_COLOR_BASE_VIOLET_DARK_60 = '#793186';
     const RM_COLOR_BASE_VIOLET_DARK_80 = '#461D4E';
-    const RM_COLOR_BASE_GRAY_LIGHT_90 = '#D7D7D7';
 
     const isScreenBiggerThanLg = useMediaQuery(theme.breakpoints.up('lg'));
 
@@ -50,7 +49,7 @@ const NRMBreakdownCard: React.FC<NRMBreakdownCardProps> = ({
         RM_COLOR_BASE_VIOLET_DARK_60,
         RM_COLOR_BASE_VIOLET_DARK_40,
         RM_COLOR_BASE_VIOLET_DARK_20,
-        RM_COLOR_BASE_GRAY_LIGHT_90,
+        RM_COLOR_BASE_GRAY_LIGHT_80,
     ];
 
     const prepareDataForDoughnutChartWithBreakdown = React.useMemo(() => {
@@ -94,6 +93,13 @@ const NRMBreakdownCard: React.FC<NRMBreakdownCardProps> = ({
 
     const progressLineHrefsArray = useNRMBreakdownCardHrefs();
 
+    React.useEffect(() => {
+        console.log(
+            'NRMCard',
+            isScreenBiggerThanLg ? 'horizontal' : 'vertical'
+        );
+    });
+
     return (
         <Card {...rest}>
             <CardContent>
@@ -111,13 +117,12 @@ const NRMBreakdownCard: React.FC<NRMBreakdownCardProps> = ({
                         }
                         mainLabel={t('NRM_VEHICLES')}
                         progressLineHrefsArray={progressLineHrefsArray}
+                        totalNumberForNrmProgressLines={
+                            calculateTotalVehiclesInNrm
+                        }
                         componentVariant={
                             isScreenBiggerThanLg ? 'horizontal' : 'vertical'
                         }
-                        // componentVariant='vertical'
-                        // totalNumberForNrmProgressLines={
-                        //     calculateTotalVehiclesInNrm
-                        // }
                     />
                 </Box>
             </CardContent>

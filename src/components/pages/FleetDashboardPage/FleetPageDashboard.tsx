@@ -52,7 +52,18 @@ const FleetPageDashboard = (props: Props) => {
                 }}
                 sx={styles.nrmBreakdownCardSx}
             />
-            <DeviceStatusCard loading={true} sx={styles.deviceStatusCardSx} />
+            <DeviceStatusCard
+                loading={true}
+                sx={styles.deviceStatusCardSx}
+                numberOfRecords={677}
+                deviceStatus={{
+                    active: 638,
+                    issue: 9,
+                    disconnect: 2,
+                    untracked: 1,
+                    other: 0,
+                }}
+            />
             <DeviceIssuesCard loading={true} sx={styles.deviceIssuesCardSx} />
             <AnomalyBreakdownCard loading={true} sx={styles.anomalyCardSx} />
             <SelectableTreemapCard loading={true} sx={styles.treemapCardSx} />

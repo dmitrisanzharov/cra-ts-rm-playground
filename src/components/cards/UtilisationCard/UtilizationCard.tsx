@@ -82,31 +82,20 @@ const UtilizationCard: React.FC<UtilizationCardProps> = ({
 
     const progressLineHrefsArray = useUtilizationStatusDoughnutChartHrefs();
 
+    React.useEffect(() => {
+        console.log(
+            'UtilizationCard',
+            isScreenBiggerThanSm ? 'horizontal' : 'vertical'
+        );
+    });
+
     return (
-        <Card
-            {...rest}
-            sx={{
-                display: 'flex',
-                ...rest.sx,
-            }}
-        >
-            <CardContent
-                sx={{
-                    flex: 1,
-                    display: 'flex',
-                    flexDirection: 'column',
-                }}
-            >
+        <Card {...rest}>
+            <CardContent>
                 <Typography gutterBottom variant='h6' component='div'>
                     {t('LABEL_UTILISATION')}
                 </Typography>
-                <Box
-                    sx={{
-                        flex: 1,
-                        display: 'flex',
-                        flexDirection: 'column',
-                    }}
-                >
+                <Box>
                     <DoughnutChartWithBreakdown
                         chartColors={chartColors}
                         loading={loading}
@@ -118,6 +107,7 @@ const UtilizationCard: React.FC<UtilizationCardProps> = ({
                         componentVariant={
                             isScreenBiggerThanSm ? 'horizontal' : 'vertical'
                         }
+                        // componentVariant={'vertical'}
                     />
                 </Box>
             </CardContent>
