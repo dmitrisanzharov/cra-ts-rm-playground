@@ -2,13 +2,12 @@ h1 {
     color: red;
 }
 
-/* does NOT work */
 #DoughnutChartWithBreakdownId {
     width: 100%;
     aspect-ratio: 1;
 }
 
-/* works */
+/* old */
 #chartId.chartjs-render-monitor {
     /* width: 100px !important; */
     /* height: 100px !important; */
