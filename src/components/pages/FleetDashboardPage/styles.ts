@@ -13,8 +13,7 @@ export const gridContainer: SxProps = {
         xl: 'repeat(5, 1fr)',
     },
     // * please do NOT delete this one, might need in the future
-    gridAutoRows: 'fit-content(55vh)',
-    // gridAutoRows: 'fit-content()',
+    // gridAutoRows: 'fit-content(55vh)',
 };
 
 export const utilizationCardSx: SxProps = {

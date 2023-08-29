@@ -144,16 +144,11 @@ const DoughnutChartWithBreakdown: React.FC<DoughnutChartWithBreakdownProps> = ({
     ...rest
 }) => {
     //
-    const mdOnlyMediaQuery = useMediaQuery(theme.breakpoints.only('md'));
     const isBiggerThanXl = useMediaQuery(theme.breakpoints.up('xl'));
     const isBiggerThan1990px = useMediaQuery('(min-width: 1900px)');
     const isBiggerThan3500andHeightSmaller1100 = useMediaQuery(
         '(min-width: 3600px) and (max-height: 1100px)'
     );
-
-    React.useEffect(() => {
-        console.log('mahman', isBiggerThan3500andHeightSmaller1100);
-    });
 
     function mediaQueryControl() {
         let sxStyles = {};
@@ -163,20 +158,10 @@ const DoughnutChartWithBreakdown: React.FC<DoughnutChartWithBreakdownProps> = ({
             componentVariant === 'horizontal'
         ) {
             sxStyles = {
-                // boxSizing: 'border-box',
                 m: 5,
             };
         }
 
-        if (mdOnlyMediaQuery && componentVariant === 'horizontal') {
-            console.log('in Medium');
-            return {
-                height: '100%',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-            };
-        }
         if (isBiggerThan1990px && componentVariant === 'horizontal') {
             return {
                 ...sxStyles,
@@ -271,8 +256,6 @@ const DoughnutChartWithBreakdown: React.FC<DoughnutChartWithBreakdownProps> = ({
                     <Grid
                         item
                         xs={componentVariant === 'vertical' ? 7 : 5}
-                        sx={{}}
-                        className=''
                     >
                         <Box
                             sx={{
@@ -281,8 +264,11 @@ const DoughnutChartWithBreakdown: React.FC<DoughnutChartWithBreakdownProps> = ({
                                 justifyContent: 'center',
                                 alignItems: 'center',
                                 width: '100%',
+                                '& #DoughnutChartWithBreakdownId': {
+                                    width: '100%',
+                                    aspectRatio: 1
+                                }
                             }}
-                            className=''
                         >
                             <Doughnut
                                 data={chartDataFinal}
