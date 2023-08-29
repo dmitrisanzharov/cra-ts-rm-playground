@@ -3,7 +3,7 @@ h1 {
 }
 
 /* does NOT work */
-canvas {
+#DoughnutChartWithBreakdownId {
     width: 100%;
     aspect-ratio: 1;
 }

@@ -187,10 +187,6 @@ const DoughnutChartWithBreakdown: React.FC<DoughnutChartWithBreakdownProps> = ({
         return {};
     }
 
-    React.useEffect(() => {
-        console.log('query test', theme);
-    });
-
     const defaultColors: string[] = [
         RM_COLOR_BASE_GREEN,
         RM_COLOR_BASE_BLUE_MIDDLE,
@@ -275,29 +271,18 @@ const DoughnutChartWithBreakdown: React.FC<DoughnutChartWithBreakdownProps> = ({
                     >
                         <Box
                             sx={{
-                                // flex: 1,
                                 position: 'relative',
                                 display: 'flex',
                                 justifyContent: 'center',
                                 alignItems: 'center',
                                 width: '100%',
-                                // height: 'fit-content',
-                                // aspectRatio: '1 / 1',
                             }}
                             className=''
                         >
-                            {/* <Skeleton
-                                variant='circular'
-                                sx={{
-                                    width: '100%',
-                                    height: 'auto',
-                                    aspectRatio: '1 / 1',
-                                }}
-                            ></Skeleton> */}
                             <Doughnut
                                 data={chartDataFinal}
                                 options={options}
-                                id='chartId'
+                                id='DoughnutChartWithBreakdownId'
                             />
                             <Box sx={CenterTextContainerSx}>
                                 <Typography
