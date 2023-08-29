@@ -19,7 +19,7 @@ import UtilizationCard from 'src/components/cards/UtilisationCard/UtilizationCar
 type Props = {};
 
 const FleetPageDashboard = (props: Props) => {
-    const loadingProp = false;
+    const loadingProp = true;
 
     const isSmallerThanMd = useMediaQuery(theme.breakpoints.down('md'));
     const isBiggerThan3500andHeightSmaller1100 = useMediaQuery(

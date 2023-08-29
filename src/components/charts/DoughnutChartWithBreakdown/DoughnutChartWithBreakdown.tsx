@@ -50,6 +50,9 @@ interface DoughnutChartWithBreakdownSkeletonProps extends SkeletonProps {
 const DoughnutChartWithBreakdownSkeleton: React.FC<
     DoughnutChartWithBreakdownSkeletonProps
 > = ({ variant = 'circular', componentVariant, ...rest }) => {
+    //
+    const mdSizeOnly = useMediaQuery(theme.breakpoints.only('md'));
+
     return (
         <Grid container sx={{ height: '100%', display: 'flex' }}>
             {componentVariant === 'vertical' && (
@@ -83,7 +86,10 @@ const DoughnutChartWithBreakdownSkeleton: React.FC<
                     flex: 1,
                     display: 'flex',
                     flexDirection: 'column',
-                    justifyContent: 'space-around',
+                    justifyContent:
+                        mdSizeOnly && componentVariant === 'horizontal'
+                            ? 'center'
+                            : 'space-around',
                     paddingLeft: `${
                         componentVariant === 'horizontal' && '5vw'
                     }`,
@@ -138,7 +144,6 @@ const DoughnutChartWithBreakdown: React.FC<DoughnutChartWithBreakdownProps> = ({
     ...rest
 }) => {
     //
-
     const mdOnlyMediaQuery = useMediaQuery(theme.breakpoints.only('md'));
     const isBiggerThanXl = useMediaQuery(theme.breakpoints.up('xl'));
     const isBiggerThan1990px = useMediaQuery('(min-width: 1900px)');
