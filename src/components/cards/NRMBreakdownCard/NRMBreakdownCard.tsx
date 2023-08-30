@@ -12,7 +12,7 @@ import { t } from 'src/translation';
 import DoughnutChartWithBreakdown from 'src/components/charts/DoughnutChartWithBreakdown';
 import { useNRMBreakdownCardHrefs } from './hooks';
 import { theme } from 'src/components/theme';
-import { RM_COLOR_BASE_GRAY_LIGHT_80 } from 'src/design-tokens/tokens';
+import { RM_COLOR_BASE_GRAY_LIGHT_80, RM_COLOR_BASE_GRAY_LIGHT_20 } from 'src/design-tokens/tokens';
 // * --------  END of VICTOR IMPORTS, WILL BE DELETED UPON APPROVAL -------------------
 //
 // import React from "react";
@@ -49,7 +49,8 @@ const NRMBreakdownCard: React.FC<NRMBreakdownCardProps> = ({
         RM_COLOR_BASE_VIOLET_DARK_60,
         RM_COLOR_BASE_VIOLET_DARK_40,
         RM_COLOR_BASE_VIOLET_DARK_20,
-        RM_COLOR_BASE_GRAY_LIGHT_80,
+        RM_COLOR_BASE_GRAY_LIGHT_20,
+        // RM_COLOR_BASE_GRAY_LIGHT_80,
     ];
 
     const prepareDataForDoughnutChartWithBreakdown = React.useMemo(() => {

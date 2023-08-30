@@ -21,21 +21,9 @@ type Props = {};
 const FleetPageDashboard = (props: Props) => {
     const loadingProp = false;
 
-    const isSmallerThanMd = useMediaQuery(theme.breakpoints.down('md'));
-    const isBiggerThan3500andHeightSmaller1100 = useMediaQuery(
-        '(min-width: 3600px) and (max-height: 1100px)'
-    );
-
     return (
         <Box
-            sx={{
-                ...styles.gridContainer,
-                gridAutoRows: `fit-content(${
-                    isSmallerThanMd || isBiggerThan3500andHeightSmaller1100
-                        ? ''
-                        : ''
-                })`,
-            }}
+            sx={styles.gridContainer}
         >
             <UtilizationCard
                 sx={styles.utilizationCardSx}
