@@ -1,10 +1,6 @@
-// * --------  START of VICTOR IMPORTS, WILL BE DELETED UPON APPROVAL -------------------
 import { SxProps, styled } from '@mui/material';
-import { RM_COLOR_BASE_GRAY_LIGHT_80 } from 'src/design-tokens/tokens';
-// * --------  END of VICTOR IMPORTS, WILL BE DELETED UPON APPROVAL -------------------
-//
-// import { SxProps, styled } from '@mui/material';
-// import { RM_COLOR_BASE_GRAY_LIGHT_80 } from "design-tokens";
+
+export const RM_COLOR_BASE_GRAY_LIGHT_90 = '#e8eaed';
 
 export const CenterTextContainerSx: SxProps = {
     position: 'absolute',
@@ -17,10 +13,6 @@ export const CenterTextContainerSx: SxProps = {
     justifyContent: 'center',
     alignItems: 'center',
 };
-
-// -----------------------------------------------------
-// --------  PROGRESS LINES STYLES -------------------
-// -----------------------------------------------------
 
 export const ProgressLinesContainer = styled('section')`
     display: flex;
@@ -52,7 +44,7 @@ export const ProgressLinesTrack = styled('div')`
     width: 100%;
     flex-shrink: 0;
     border-radius: 50px;
-    background: ${RM_COLOR_BASE_GRAY_LIGHT_80};
+    background: ${RM_COLOR_BASE_GRAY_LIGHT_90};
 `;
 
 export const ProgressLinesTrackIndicator = styled('div')`

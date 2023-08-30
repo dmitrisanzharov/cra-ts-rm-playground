@@ -5,6 +5,7 @@ import { Box } from '@mui/material';
 // * COMPONENTS
 import FleetPageDashboard from 'src/components/pages/FleetDashboardPage/FleetPageDashboard';
 import SideMenu from 'src/components/SideMenu/SideMenu';
+import Blah from 'src/components/Blah';
 
 function App() {
     const localStorageItemName = 'iAfg4HrIUPmMEqd_isOpen';

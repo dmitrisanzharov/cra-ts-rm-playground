@@ -17,15 +17,9 @@ interface ProgressLinesComponentPropsInterface {
     componentVariant: string;
 }
 
-export const ProgressLinesComponent: React.FC<ProgressLinesComponentPropsInterface> = ({
-    metric,
-    total,
-    label,
-    color,
-    href,
-    componentVariant,
-    ...rest
-}) => {
+export const ProgressLinesComponent: React.FC<
+    ProgressLinesComponentPropsInterface
+> = ({ metric, total, label, color, href, componentVariant, ...rest }) => {
     //
 
     const calcWidth = (): number => {
@@ -36,7 +30,11 @@ export const ProgressLinesComponent: React.FC<ProgressLinesComponentPropsInterfa
         <ProgressLinesContainer {...rest}>
             <ProgressLinesMetricContainer>
                 <ProgressLinesTitle>
-                    <Typography variant={`${componentVariant === 'vertical' ? 'body2' : 'body1'}`} className=''>
+                    <Typography
+                        variant={`${
+                            componentVariant === 'vertical' ? 'body2' : 'body1'
+                        }`}
+                    >
                         <a
                             href={href}
                             target='_blank'
@@ -47,13 +45,30 @@ export const ProgressLinesComponent: React.FC<ProgressLinesComponentPropsInterfa
                         </a>
                     </Typography>
                 </ProgressLinesTitle>
-                <Typography variant={`${componentVariant === 'vertical' ? 'body2' : 'body1'}`} sx={{ textAlign: 'right' }}>
+                <Typography
+                    variant={`${
+                        componentVariant === 'vertical' ? 'body2' : 'body1'
+                    }`}
+                    sx={{ textAlign: 'right' }}
+                >
                     {metric}
                 </Typography>
             </ProgressLinesMetricContainer>
-            <ProgressLinesTrack sx={{height: `${componentVariant === 'vertical' ? '4px' : '6px'}`}}>
+            <ProgressLinesTrack
+                sx={{
+                    height: `${
+                        componentVariant === 'vertical' ? '4px' : '6px'
+                    }`,
+                }}
+            >
                 <ProgressLinesTrackIndicator
-                    sx={{ background: color, width: `${calcWidth()}%`, height: `${componentVariant === 'vertical' ? '4px' : '6px'}` }}
+                    sx={{
+                        background: color,
+                        width: `${calcWidth()}%`,
+                        height: `${
+                            componentVariant === 'vertical' ? '4px' : '6px'
+                        }`,
+                    }}
                 />
             </ProgressLinesTrack>
         </ProgressLinesContainer>

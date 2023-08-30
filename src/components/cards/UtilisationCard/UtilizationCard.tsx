@@ -8,12 +8,16 @@ import {
     Typography,
     useMediaQuery,
 } from '@mui/material';
-import { useUtilizationStatusDoughnutChartHrefs } from './hooks';
-import { t } from 'src/translation';
-import DoughnutChartWithBreakdown, {
-    DoughnutChartWithBreakdownHorizontal,
-} from '../../charts/DoughnutChartWithBreakdown';
 import { theme } from 'src/components/theme';
+import { t } from 'src/translation';
+import DoughnutChartWithBreakdown from 'src/components/charts/DoughnutChartWithBreakdown/DoughnutChartWithBreakdown';
+import { useUtilizationStatusDoughnutChartHrefs } from './hooks';
+import {
+    DATA_COLOUR_STATUS_ONRENT,
+    DATA_COLOUR_STATUS_AVAILABLE,
+    DATA_COLOUR_STATUS_NRM,
+    DATA_COLOUR_STATUS_UNKNOWN,
+} from 'src/externalRmStyles/externalRmStyles';
 // * --------  END of VICTOR IMPORTS, WILL BE DELETED UPON APPROVAL -------------------
 //
 // import React from 'react';
@@ -25,13 +29,9 @@ import { theme } from 'src/components/theme';
 //     Typography,
 //     useMediaQuery,
 // } from '@mui/material';
-// // @ts-ignore
+// import { theme } from '@reactRootOld/theme';
 // import { useTranslation } from '@hooks/translation';
-// // @ts-ignore
-// import DoughnutChartWithBreakdown, {
-//     DoughnutChartWithBreakdownHorizontal,
-// } from '@reactRootOld/display/Chart/DoughnutChartWithBreakdown';
-// // @ts-ignore
+// import DoughnutChartWithBreakdown from '@reactRootOld/display/Chart/DoughnutChartWithBreakdown';
 // import { useUtilizationStatusDoughnutChartHrefs } from './hooks';
 // import {
 //     DATA_COLOUR_STATUS_ONRENT,
@@ -39,10 +39,8 @@ import { theme } from 'src/components/theme';
 //     DATA_COLOUR_STATUS_NRM,
 //     DATA_COLOUR_STATUS_UNKNOWN,
 // } from '@reactRootOld/organisms/MainMap/styles';
-// // @ts-ignore
-// import { theme } from '@reactRootOld/theme';
 
-export interface UtilizationCardPropsInterface extends CardProps {
+export interface UtilizationCardProps extends CardProps {
     numberOfRecords: number;
     statusAvailable: number;
     statusOnRent: number;
@@ -51,13 +49,7 @@ export interface UtilizationCardPropsInterface extends CardProps {
     loading: boolean;
 }
 
-// TODO: Move this to design tokens OR import from: "@reactRootOld/organisms/MainMap/styles";
-export const DATA_COLOUR_STATUS_ONRENT = '#219653';
-export const DATA_COLOUR_STATUS_AVAILABLE = '#2F80ED';
-export const DATA_COLOUR_STATUS_NRM = '#9B51E0';
-export const DATA_COLOUR_STATUS_UNKNOWN = '#4F4F4F';
-
-const UtilizationCard: React.FC<UtilizationCardPropsInterface> = ({
+const UtilizationCard: React.FC<UtilizationCardProps> = ({
     numberOfRecords,
     statusAvailable,
     statusOnRent,
@@ -70,6 +62,7 @@ const UtilizationCard: React.FC<UtilizationCardPropsInterface> = ({
     // const { t } = useTranslation();
 
     const isScreenBiggerThanSm = useMediaQuery(theme.breakpoints.up('sm'));
+    const mdOnlyMediaQuery = useMediaQuery(theme.breakpoints.only('md'));
 
     const chartColors: string[] = [
         DATA_COLOUR_STATUS_ONRENT,
@@ -78,70 +71,65 @@ const UtilizationCard: React.FC<UtilizationCardPropsInterface> = ({
         DATA_COLOUR_STATUS_UNKNOWN,
     ];
 
-    const chartData: { values: [string, number][] } = React.useMemo(
-        () => ({
-            values: [
-                [t('ONRENT'), statusOnRent],
-                [t('AVAILABLE'), statusAvailable],
-                [t('NRM'), statusNRM],
-                [t('OTHER'), statusOther],
-            ],
-        }),
-        [statusOnRent, statusAvailable, statusNRM, statusOther]
+    const chartData: [string, number][] = React.useMemo(
+        () => [
+            [t('ONRENT'), statusOnRent],
+            [t('AVAILABLE'), statusAvailable],
+            [t('NRM'), statusNRM],
+            [t('OTHER'), statusOther],
+        ],
+        [t, statusOnRent, statusAvailable, statusNRM, statusOther]
     );
 
     const progressLineHrefsArray = useUtilizationStatusDoughnutChartHrefs();
 
+    React.useEffect(() => {
+        console.log(
+            'UtilizationCard',
+            isScreenBiggerThanSm ? 'horizontal' : 'vertical'
+        );
+    });
+
     return (
-        <Card
-            {...rest}
-            sx={{
-                display: 'flex',
-                ...rest.sx,
-            }}
-            className='dgray'
-        >
+        <Card {...rest}>
             <CardContent
-                sx={{
-                    flex: 1,
-                    display: 'flex',
-                    flexDirection: 'column',
-                }}
-                className='dyy'
+                className=''
+                sx={
+                    mdOnlyMediaQuery
+                        ? {
+                              height: '100%',
+                              display: 'flex',
+                              flexDirection: 'column',
+                          }
+                        : {}
+                }
             >
                 <Typography gutterBottom variant='h6' component='div'>
                     {t('LABEL_UTILISATION')}
                 </Typography>
                 <Box
-                    sx={{
-                        flex: 1,
-                        display: 'flex',
-                    }}
+                    className=''
+                    sx={
+                        mdOnlyMediaQuery
+                            ? {
+                                  flex: 1,
+                              }
+                            : {}
+                    }
                 >
-                    <Box
-                        sx={{
-                            flex: 1,
-                            display: 'flex',
-                            flexDirection: 'column',
-                        }}
-                    >
-                        {
-                            <DoughnutChartWithBreakdown
-                                chartColors={chartColors}
-                                loading={loading}
-                                chartData={chartData}
-                                totalNumber={numberOfRecords}
-                                mostImportantNumberToDisplay={statusOnRent}
-                                mainLabel={t('LABEL_UTILISATION')}
-                                progressLineHrefsArray={progressLineHrefsArray}
-                                componentVariant={
-                                    isScreenBiggerThanSm
-                                        ? 'horizontal'
-                                        : 'vertical'
-                                }
-                            />
+                    <DoughnutChartWithBreakdown
+                        chartColors={chartColors}
+                        loading={loading}
+                        chartData={chartData}
+                        totalNumber={numberOfRecords}
+                        mostImportantNumberToDisplay={statusOnRent}
+                        mainLabel={t('LABEL_UTILISATION')}
+                        progressLineHrefsArray={progressLineHrefsArray}
+                        componentVariant={
+                            isScreenBiggerThanSm ? 'horizontal' : 'vertical'
                         }
-                    </Box>
+                        // componentVariant={'vertical'}
+                    />
                 </Box>
             </CardContent>
         </Card>

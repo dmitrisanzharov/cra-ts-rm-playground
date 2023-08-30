@@ -7,7 +7,9 @@ import {
     Typography,
     Grid,
     SkeletonProps,
+    useMediaQuery,
 } from '@mui/material';
+import { theme } from 'src/components/theme';
 import { Doughnut } from 'react-chartjs-2';
 import { t } from 'src/translation';
 import {
@@ -18,20 +20,26 @@ import {
 } from 'src/design-tokens/tokens';
 import { CenterTextContainerSx } from './styles';
 import ProgressLinesComponent from './ProgressLinesComponent';
+import './styles.css';
 // * --------  END of VICTOR IMPORTS, WILL BE DELETED UPON APPROVAL -------------------
+//
 // import React from 'react';
-// import { Box, BoxProps, Skeleton, Typography, Grid } from '@mui/material';
-// @ts-ignore
-// import { useTranslation } from "@hooks/translation";
-// import { Chart, ChartWrapperOptions } from "react-google-charts";
+// import {
+//     Box,
+//     BoxProps,
+//     Skeleton,
+//     Typography,
+//     Grid,
+//     SkeletonProps,
+// } from '@mui/material';
 // import { Doughnut } from 'react-chartjs-2';
+// import { useTranslation } from '@hooks/translation';
 // import {
 //     RM_COLOR_BASE_GREEN,
 //     RM_COLOR_BASE_BLUE_MIDDLE,
 //     RM_COLOR_BASE_VIOLET_MIDDLE,
 //     RM_COLOR_BASE_GRAY_MIDDLE,
-// } from "design-tokens";
-// @ts-ignore
+// } from 'design-tokens';
 // import { CenterTextContainerSx } from './styles';
 // import ProgressLinesComponent from './ProgressLinesComponent';
 
@@ -42,6 +50,9 @@ interface DoughnutChartWithBreakdownSkeletonProps extends SkeletonProps {
 const DoughnutChartWithBreakdownSkeleton: React.FC<
     DoughnutChartWithBreakdownSkeletonProps
 > = ({ variant = 'circular', componentVariant, ...rest }) => {
+    //
+    const mdSizeOnly = useMediaQuery(theme.breakpoints.only('md'));
+
     return (
         <Grid container sx={{ height: '100%', display: 'flex' }}>
             {componentVariant === 'vertical' && (
@@ -60,12 +71,11 @@ const DoughnutChartWithBreakdownSkeleton: React.FC<
                     }`,
                     alignItems: 'center',
                 }}
-                className=''
             >
                 <Skeleton
-                    variant='circular'
+                    variant={variant}
                     width='100%'
-                    height={'auto'}
+                    height='auto'
                     sx={{ aspectRatio: 1 }}
                 />
             </Grid>
@@ -76,7 +86,10 @@ const DoughnutChartWithBreakdownSkeleton: React.FC<
                     flex: 1,
                     display: 'flex',
                     flexDirection: 'column',
-                    justifyContent: 'space-around',
+                    justifyContent:
+                        mdSizeOnly && componentVariant === 'horizontal'
+                            ? 'center'
+                            : 'space-around',
                     paddingLeft: `${
                         componentVariant === 'horizontal' && '5vw'
                     }`,
@@ -106,9 +119,10 @@ const DoughnutChartWithBreakdownSkeleton: React.FC<
 };
 
 interface DoughnutChartWithBreakdownProps extends BoxProps {
-    chartData: { values: [string, number][] };
+    chartData: [string, number][];
     chartColors: string[];
     totalNumber: number;
+    totalNumberForNrmProgressLines?: number;
     mostImportantNumberToDisplay: number;
     mainLabel: string;
     progressLineHrefsArray: string[];
@@ -120,6 +134,7 @@ const DoughnutChartWithBreakdown: React.FC<DoughnutChartWithBreakdownProps> = ({
     chartData,
     chartColors,
     totalNumber,
+    totalNumberForNrmProgressLines,
     mostImportantNumberToDisplay,
     mainLabel,
     progressLineHrefsArray,
@@ -129,6 +144,39 @@ const DoughnutChartWithBreakdown: React.FC<DoughnutChartWithBreakdownProps> = ({
     ...rest
 }) => {
     //
+    const isBiggerThanXl = useMediaQuery(theme.breakpoints.up('xl'));
+    const isBiggerThan1990px = useMediaQuery('(min-width: 1900px)');
+    const isBiggerThan3500andHeightSmaller1100 = useMediaQuery(
+        '(min-width: 3600px) and (max-height: 1100px)'
+    );
+
+    function mediaQueryControl() {
+        let sxStyles = {};
+
+        if (
+            isBiggerThan3500andHeightSmaller1100 &&
+            componentVariant === 'horizontal'
+        ) {
+            sxStyles = {
+                m: 5,
+            };
+        }
+
+        if (isBiggerThan1990px && componentVariant === 'horizontal') {
+            return {
+                ...sxStyles,
+                mt: 2,
+            };
+        }
+        if (isBiggerThanXl && componentVariant === 'horizontal') {
+            return {
+                ...sxStyles,
+                mt: 2,
+            };
+        }
+        return {};
+    }
+
     const defaultColors: string[] = [
         RM_COLOR_BASE_GREEN,
         RM_COLOR_BASE_BLUE_MIDDLE,
@@ -139,10 +187,10 @@ const DoughnutChartWithBreakdown: React.FC<DoughnutChartWithBreakdownProps> = ({
     // const { t } = useTranslation();
 
     const chartDataFinal = {
-        labels: chartData.values.map((el) => el[0]),
+        labels: chartData.map((el) => el[0]),
         datasets: [
             {
-                data: chartData.values.map((el) => el[1]),
+                data: chartData.map((el) => el[1]),
                 backgroundColor: chartColors ? chartColors : defaultColors,
             },
         ],
@@ -181,17 +229,16 @@ const DoughnutChartWithBreakdown: React.FC<DoughnutChartWithBreakdownProps> = ({
     );
 
     return (
-        <Box sx={{ ...sx, height: '100%' }} {...rest}>
-            {/*  */}
+        <Box sx={mediaQueryControl} {...rest} className=''>
             {loading && (
                 <DoughnutChartWithBreakdownSkeleton
                     componentVariant={componentVariant}
                 />
             )}
             {!loading && (
-                <Grid container sx={{ height: '100%' }} className=''>
+                <Grid container sx={{}} className=''>
                     {componentVariant === 'vertical' && (
-                        <Grid item xs={5} className=''>
+                        <Grid item xs={5}>
                             <Box sx={{ pt: 2 }}>
                                 <Typography variant='h4'>
                                     {mostImportantNumberToDisplay}
@@ -201,43 +248,34 @@ const DoughnutChartWithBreakdown: React.FC<DoughnutChartWithBreakdownProps> = ({
                                     {totalNumber.toLocaleString(undefined, {
                                         maximumFractionDigits: 1,
                                     })}{' '}
-                                    {mainLabel.toLowerCase()}
+                                    {t('TOTAL').toLowerCase()}
                                 </Typography>
                             </Box>
                         </Grid>
                     )}
-                    {/* ----------------------------------------- */}
-                    {/* CHART */}
                     <Grid
                         item
                         xs={componentVariant === 'vertical' ? 7 : 5}
-                        sx={{
-                            display: 'flex',
-                        }}
-                        className=''
                     >
                         <Box
                             sx={{
-                                flex: 1,
                                 position: 'relative',
                                 display: 'flex',
                                 justifyContent: 'center',
                                 alignItems: 'center',
                                 width: '100%',
-                                marginRight: `${
-                                    componentVariant === 'vertical'
-                                        ? '-15%'
-                                        : '0%'
-                                }`,
+                                '& #DoughnutChartWithBreakdownId': {
+                                    width: '100%',
+                                    aspectRatio: 1
+                                }
                             }}
-                            className=''
                         >
                             <Doughnut
                                 data={chartDataFinal}
                                 options={options}
-                                id='DoughnutChartWithBreakdown'
+                                id='DoughnutChartWithBreakdownId'
                             />
-                            <Box sx={CenterTextContainerSx} className=''>
+                            <Box sx={CenterTextContainerSx}>
                                 <Typography
                                     variant={`${
                                         componentVariant === 'vertical'
@@ -245,20 +283,21 @@ const DoughnutChartWithBreakdown: React.FC<DoughnutChartWithBreakdownProps> = ({
                                             : 'h5'
                                     }`}
                                 >
-                                    {calculatePercentageOfTotal()}%
+                                    {calculatePercentageOfTotal()} %
                                     {/* {t('PERCENTAGE_LABEL', {
                                         value: calculatePercentageOfTotal(),
-                                    })} */}
+                                        })} */}
                                 </Typography>
-                                <Typography variant='caption'>
+                                <Typography
+                                    variant='caption'
+                                    sx={{ textAlign: 'center' }}
+                                >
                                     {mainLabel.charAt(0).toUpperCase() +
                                         mainLabel.slice(1)}
                                 </Typography>
                             </Box>
                         </Box>
                     </Grid>
-                    {/* ----------------------------------------- */}
-                    {/* PROGRESS LINES */}
                     <Grid
                         item
                         xs={componentVariant === 'vertical' ? 12 : 7}
@@ -266,26 +305,29 @@ const DoughnutChartWithBreakdown: React.FC<DoughnutChartWithBreakdownProps> = ({
                             display: 'flex',
                             flexDirection: 'column',
                             alignItems: 'center',
+                            justifyContent: 'center',
                             rowGap: componentVariant === 'vertical' ? 2 : 3,
+                            mt: componentVariant === 'vertical' ? 2 : 0,
                             paddingLeft: `${
                                 componentVariant === 'vertical' ? '0vw' : '3vw'
                             }`,
+                            paddingBottom: `${
+                                componentVariant === 'vertical' ? '16px' : '0'
+                            }`,
                         }}
-                        className=''
                     >
-                        {chartData.values.map(
+                        {chartData.map(
                             (item: [string, number], idx: number) => {
-                                // * this is to remove any label that has No value, e.g. OTHER in Vehicles Utilisation
-                                if (item[1] === 0) {
-                                    return null;
-                                }
-
                                 return (
                                     <ProgressLinesComponent
                                         key={JSON.stringify(item)}
                                         metric={item[1]}
                                         label={item[0]}
-                                        total={totalNumber}
+                                        total={
+                                            totalNumberForNrmProgressLines
+                                                ? totalNumberForNrmProgressLines
+                                                : totalNumber
+                                        }
                                         color={
                                             chartColors
                                                 ? chartColors[idx]
