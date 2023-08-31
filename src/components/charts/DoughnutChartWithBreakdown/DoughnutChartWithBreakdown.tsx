@@ -144,39 +144,6 @@ const DoughnutChartWithBreakdown: React.FC<DoughnutChartWithBreakdownProps> = ({
     ...rest
 }) => {
     //
-    const isBiggerThanXl = useMediaQuery(theme.breakpoints.up('xl'));
-    const isBiggerThan1990px = useMediaQuery('(min-width: 1900px)');
-    const isBiggerThan3500andHeightSmaller1100 = useMediaQuery(
-        '(min-width: 3600px) and (max-height: 1100px)'
-    );
-
-    function mediaQueryControl() {
-        let sxStyles = {};
-
-        if (
-            isBiggerThan3500andHeightSmaller1100 &&
-            componentVariant === 'horizontal'
-        ) {
-            sxStyles = {
-                m: 5,
-            };
-        }
-
-        if (isBiggerThan1990px && componentVariant === 'horizontal') {
-            return {
-                ...sxStyles,
-                mt: 2,
-            };
-        }
-        if (isBiggerThanXl && componentVariant === 'horizontal') {
-            return {
-                ...sxStyles,
-                mt: 2,
-            };
-        }
-        return {};
-    }
-
     const defaultColors: string[] = [
         RM_COLOR_BASE_GREEN,
         RM_COLOR_BASE_BLUE_MIDDLE,
@@ -229,7 +196,15 @@ const DoughnutChartWithBreakdown: React.FC<DoughnutChartWithBreakdownProps> = ({
     );
 
     return (
-        <Box sx={mediaQueryControl} {...rest} className=''>
+        <Box sx={{
+            mt: {
+                xl: componentVariant === 'horizontal' ? 2 : 0
+            },
+            '@media (min-width: 3600px) and (max-height: 1100px)': {
+                m: componentVariant === 'horizontal' ? 5 : 0,
+                mt: componentVariant === 'horizontal' ? 2 : 0
+            }
+        }} {...rest} className=''>
             {loading && (
                 <DoughnutChartWithBreakdownSkeleton
                     componentVariant={componentVariant}
