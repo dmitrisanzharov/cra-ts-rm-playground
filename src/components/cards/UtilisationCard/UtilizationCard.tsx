@@ -94,28 +94,28 @@ const UtilizationCard: React.FC<UtilizationCardProps> = ({
         <Card {...rest}>
             <CardContent
                 className=''
-                sx={
-                    mdOnlyMediaQuery
-                        ? {
-                              height: '100%',
-                              display: 'flex',
-                              flexDirection: 'column',
-                          }
-                        : {}
-                }
+                // sx={
+                //     mdOnlyMediaQuery
+                //         ? {
+                //               height: '100%',
+                //               display: 'flex',
+                //               flexDirection: 'column',
+                //           }
+                //         : {}
+                // }
             >
                 <Typography gutterBottom variant='h6' component='div'>
                     {t('LABEL_UTILISATION')}
                 </Typography>
                 <Box
                     className=''
-                    sx={
-                        mdOnlyMediaQuery
-                            ? {
-                                  flex: 1,
-                              }
-                            : {}
-                    }
+                    // sx={
+                    //     mdOnlyMediaQuery
+                    //         ? {
+                    //               flex: 1,
+                    //           }
+                    //         : {}
+                    // }
                 >
                     <DoughnutChartWithBreakdown
                         chartColors={chartColors}

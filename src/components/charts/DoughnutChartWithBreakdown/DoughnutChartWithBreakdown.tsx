@@ -51,8 +51,6 @@ const DoughnutChartWithBreakdownSkeleton: React.FC<
     DoughnutChartWithBreakdownSkeletonProps
 > = ({ variant = 'circular', componentVariant, ...rest }) => {
     //
-    const mdSizeOnly = useMediaQuery(theme.breakpoints.only('md'));
-
     return (
         <Grid container sx={{ height: '100%', display: 'flex' }}>
             {componentVariant === 'vertical' && (
@@ -69,7 +67,7 @@ const DoughnutChartWithBreakdownSkeleton: React.FC<
                     justifyContent: `${
                         componentVariant === 'vertical' ? 'flex-end' : 'center'
                     }`,
-                    alignItems: 'center',
+                    alignItems: 'flex-start',
                 }}
             >
                 <Skeleton
@@ -86,10 +84,7 @@ const DoughnutChartWithBreakdownSkeleton: React.FC<
                     flex: 1,
                     display: 'flex',
                     flexDirection: 'column',
-                    justifyContent:
-                        mdSizeOnly && componentVariant === 'horizontal'
-                            ? 'center'
-                            : 'space-around',
+                    justifyContent: 'space-around',
                     paddingLeft: `${
                         componentVariant === 'horizontal' && '5vw'
                     }`,
@@ -144,39 +139,6 @@ const DoughnutChartWithBreakdown: React.FC<DoughnutChartWithBreakdownProps> = ({
     ...rest
 }) => {
     //
-    const isBiggerThanXl = useMediaQuery(theme.breakpoints.up('xl'));
-    const isBiggerThan1990px = useMediaQuery('(min-width: 1900px)');
-    const isBiggerThan3500andHeightSmaller1100 = useMediaQuery(
-        '(min-width: 3600px) and (max-height: 1100px)'
-    );
-
-    function mediaQueryControl() {
-        let sxStyles = {};
-
-        if (
-            isBiggerThan3500andHeightSmaller1100 &&
-            componentVariant === 'horizontal'
-        ) {
-            sxStyles = {
-                m: 5,
-            };
-        }
-
-        if (isBiggerThan1990px && componentVariant === 'horizontal') {
-            return {
-                ...sxStyles,
-                mt: 2,
-            };
-        }
-        if (isBiggerThanXl && componentVariant === 'horizontal') {
-            return {
-                ...sxStyles,
-                mt: 2,
-            };
-        }
-        return {};
-    }
-
     const defaultColors: string[] = [
         RM_COLOR_BASE_GREEN,
         RM_COLOR_BASE_BLUE_MIDDLE,
@@ -229,7 +191,19 @@ const DoughnutChartWithBreakdown: React.FC<DoughnutChartWithBreakdownProps> = ({
     );
 
     return (
-        <Box sx={mediaQueryControl} {...rest} className=''>
+        <Box
+            sx={{
+                mt: {
+                    xl: componentVariant === 'horizontal' ? 2 : 0,
+                },
+                '@media (min-width: 3600px) and (max-height: 1100px)': {
+                    m: componentVariant === 'horizontal' ? 5 : 0,
+                    mt: componentVariant === 'horizontal' ? 2 : 0,
+                },
+            }}
+            {...rest}
+            className=''
+        >
             {loading && (
                 <DoughnutChartWithBreakdownSkeleton
                     componentVariant={componentVariant}
@@ -253,10 +227,7 @@ const DoughnutChartWithBreakdown: React.FC<DoughnutChartWithBreakdownProps> = ({
                             </Box>
                         </Grid>
                     )}
-                    <Grid
-                        item
-                        xs={componentVariant === 'vertical' ? 7 : 5}
-                    >
+                    <Grid item xs={componentVariant === 'vertical' ? 7 : 5}>
                         <Box
                             sx={{
                                 position: 'relative',
@@ -266,8 +237,8 @@ const DoughnutChartWithBreakdown: React.FC<DoughnutChartWithBreakdownProps> = ({
                                 width: '100%',
                                 '& #DoughnutChartWithBreakdownId': {
                                     width: '100%',
-                                    aspectRatio: 1
-                                }
+                                    aspectRatio: 1,
+                                },
                             }}
                         >
                             <Doughnut
