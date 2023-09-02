@@ -1,3 +1,8 @@
+/**
+ * Do not edit directly
+ * Generated on Thu, 31 Aug 2023 15:48:32 GMT
+ */
+
 export const RM_COLOR_BASE_WHITE = '#ffffff';
 export const RM_COLOR_BASE_RED = '#e11900';
 export const RM_COLOR_BASE_GREEN = '#048848';
@@ -8,6 +13,7 @@ export const RM_COLOR_BASE_GRAY_LIGHT_20 = '#797978';
 export const RM_COLOR_BASE_GRAY_LIGHT_30 = '#898989';
 export const RM_COLOR_BASE_GRAY_LIGHT_50 = '#ababaa';
 export const RM_COLOR_BASE_GRAY_LIGHT_80 = '#dddddd';
+export const RM_COLOR_BASE_GRAY_LIGHT_90 = '#e8eaed';
 export const RM_COLOR_BASE_GRAY_DARK_20 = '#464645';
 export const RM_COLOR_BASE_GRAY_DARK_30 = '#3d3d3c';
 export const RM_COLOR_BASE_GRAY_DARK_50 = '#2c2c2b';
@@ -33,6 +39,10 @@ export const RM_COLOR_BASE_BLUE_DARK_80 = '#081630';
 export const RM_COLOR_BASE_PINK_MIDDLE = '#ff6fff';
 export const RM_COLOR_BASE_PURPLE_MIDDLE = '#800080';
 export const RM_COLOR_BASE_VIOLET_MIDDLE = '#b93bc2';
+export const RM_COLOR_BASE_VIOLET_DARK_20 = '#c57fd0';
+export const RM_COLOR_BASE_VIOLET_DARK_40 = '#ab47bc';
+export const RM_COLOR_BASE_VIOLET_DARK_60 = '#793186';
+export const RM_COLOR_BASE_VIOLET_DARK_80 = '#461d4e';
 export const RM_COLOR_BUTTON_PRIMARY_ENABLED_BACKGROUND = '#575756';
 export const RM_COLOR_BUTTON_PRIMARY_ENABLED_FOREGROUND = '#ffffff';
 export const RM_COLOR_BUTTON_PRIMARY_HOVERED_BACKGROUND = '#3d3d3c';
