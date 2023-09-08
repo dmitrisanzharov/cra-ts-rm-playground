@@ -60,24 +60,22 @@ const ColumnFilteringTable = (props: Props) => {
                                             }}
                                             colSpan={columnEl.colSpan}
                                         >
-                                            <>
-                                                {flexRender(
-                                                    columnEl.column.columnDef
-                                                        .header,
-                                                    columnEl.getContext()
-                                                )}
-                                                {columnEl.column.getCanFilter() ? ( // * add CONDITIONAL that if I CAN filter, then that Header should have the Input, if NOT, then return nothing
-                                                    <div>
-                                                        {' '}
-                                                        <FilterFunction
-                                                            column={
-                                                                columnEl.column
-                                                            }
-                                                            table={table}
-                                                        />
-                                                    </div>
-                                                ) : null}
-                                            </>
+                                            {' '}
+                                            {flexRender(
+                                                columnEl.column.columnDef
+                                                    .header,
+                                                columnEl.getContext()
+                                            )}
+                                            {columnEl.column.getCanFilter() ? ( // * add CONDITIONAL that if I CAN filter, then that Header should have the Input, if NOT, then return nothing
+                                                <div //* this is here only to create SPACE between input and header
+                                                >
+                                                    {' '}
+                                                    <FilterFunction
+                                                        column={columnEl.column}
+                                                        table={table}
+                                                    />
+                                                </div>
+                                            ) : null}
                                         </TableCell>
                                     );
                                 })}
