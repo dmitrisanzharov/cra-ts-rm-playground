@@ -11,6 +11,7 @@ import Blah from 'src/components/Blah';
 import BasicTable from 'src/components/table/BasicTable';
 import SortedTable from 'src/components/table/SortedTable';
 import GlobalFilteringTable from 'src/components/table/GlobalFilteringTable';
+import ColumnFilteringTable from 'src/components/table/ColumnFilteringTable';
 
 function App() {
     const localStorageItemName = 'iAfg4HrIUPmMEqd_isOpen';
@@ -52,7 +53,8 @@ function App() {
             {/* TANSTACK TABLE */}
             {/* <BasicTable /> */}
             {/* <SortedTable /> */}
-            <GlobalFilteringTable />
+            {/* <GlobalFilteringTable /> */}
+            <ColumnFilteringTable />
         </Box>
     );
 }

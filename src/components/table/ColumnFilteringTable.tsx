@@ -14,38 +14,37 @@ import {
     TableOptions,
     Table,
     getCoreRowModel,
-    getFilteredRowModel, // * add the Hook
+    getFilteredRowModel, // * import the hook
 } from '@tanstack/react-table';
+import FilterFunction from './FilteringFunction';
 import { columnDef, columnDefGrouped } from './columnDefs';
 import dataJson from './data';
 
 type Props = {};
 
-const GlobalFilteringTable = (props: Props) => {
+const ColumnFilteringTable = (props: Props) => {
     const data: any = React.useMemo(() => dataJson, []);
     const columns: any = React.useMemo(() => columnDef, []);
 
-    const [filtering, setFiltering] = React.useState<string>(''); // * add local state
+    const [columnFilters, setColumnFilters] = React.useState<any>([]); // * create local state to bind to table state and setState function
 
     const table: Table<any> = useReactTable({
         data,
         columns,
         getCoreRowModel: getCoreRowModel(),
-        getFilteredRowModel: getFilteredRowModel(), // * import the hook
+        getFilteredRowModel: getFilteredRowModel(), // * add the hook to the table Instance
         state: {
-            globalFilter: filtering, // * bind local state to the Table state
+            columnFilters: columnFilters, // * bind table state to the Local state
         },
-        onGlobalFilterChanged: setFiltering, // * bind local Change State to the Table Filter State
+        onColumnFiltersChange: setColumnFilters, // * bind the table setState function to the local setState function
     } as TableOptions<any>);
+
+    // * create the File: DebounceInput and copy and paste correct Input code into it
+    // * create the File: Filtering Function and add correct code into it
+    // * add Filtering function to the Imports
 
     return (
         <TableContainer component={Paper}>
-            <input // * add the Input field
-                type='text'
-                value={filtering} // * bind value to the Local state... this is already binded to the table state
-                onChange={(e) => setFiltering(e.target.value)} // * bind the onChange function to the Local setState ... which is already binded to the table setState thingy
-            />
-            <hr />
             <MuiTable>
                 <TableHead>
                     {table.getHeaderGroups().map((headerGroupEl) => {
@@ -61,11 +60,24 @@ const GlobalFilteringTable = (props: Props) => {
                                             }}
                                             colSpan={columnEl.colSpan}
                                         >
-                                            {flexRender(
-                                                columnEl.column.columnDef
-                                                    .header,
-                                                columnEl.getContext()
-                                            )}
+                                            <>
+                                                {flexRender(
+                                                    columnEl.column.columnDef
+                                                        .header,
+                                                    columnEl.getContext()
+                                                )}
+                                                {columnEl.column.getCanFilter() ? ( // * add CONDITIONAL that if I CAN filter, then that Header should have the Input, if NOT, then return nothing
+                                                    <div>
+                                                        {' '}
+                                                        <FilterFunction
+                                                            column={
+                                                                columnEl.column
+                                                            }
+                                                            table={table}
+                                                        />
+                                                    </div>
+                                                ) : null}
+                                            </>
                                         </TableCell>
                                     );
                                 })}
@@ -96,4 +108,4 @@ const GlobalFilteringTable = (props: Props) => {
     );
 };
 
-export default GlobalFilteringTable;
+export default ColumnFilteringTable;
