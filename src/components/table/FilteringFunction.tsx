@@ -24,7 +24,7 @@ function Filter({ column, table }: any) {
                     min={Number(column.getFacetedMinMaxValues()?.[0] ?? '')}
                     max={Number(column.getFacetedMinMaxValues()?.[1] ?? '')}
                     value={columnFilterValue?.[0] ?? ''}
-                    onChange={(value: string) =>
+                    onChange={(value) =>
                         column.setFilterValue((old: any) => [value, old?.[1]])
                     }
                     placeholder='min'
@@ -34,7 +34,7 @@ function Filter({ column, table }: any) {
                     min={Number(column.getFacetedMinMaxValues()?.[0] ?? '')}
                     max={Number(column.getFacetedMinMaxValues()?.[1] ?? '')}
                     value={columnFilterValue?.[1] ?? ''}
-                    onChange={(value: string) =>
+                    onChange={(value) =>
                         column.setFilterValue((old: any) => [old?.[0], value])
                     }
                     placeholder='max'
@@ -51,7 +51,7 @@ function Filter({ column, table }: any) {
             <DebouncedInput
                 type='text'
                 value={columnFilterValue ?? ''}
-                onChange={(value: string) => column.setFilterValue(value)}
+                onChange={(value) => column.setFilterValue(value)}
                 placeholder={`Search... `}
                 list={column.id + 'list'}
             />
