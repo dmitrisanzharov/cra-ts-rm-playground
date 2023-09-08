@@ -7,6 +7,11 @@ import FleetPageDashboard from 'src/components/pages/FleetDashboardPage/FleetPag
 import SideMenu from 'src/components/SideMenu/SideMenu';
 import Blah from 'src/components/Blah';
 
+// TanStack Table Examples
+import BasicTable from 'src/components/table/BasicTable';
+import SortedTable from 'src/components/table/SortedTable';
+import GlobalFilteringTable from 'src/components/table/GlobalFilteringTable';
+
 function App() {
     const localStorageItemName = 'iAfg4HrIUPmMEqd_isOpen';
 
@@ -42,7 +47,12 @@ function App() {
             />
             {/* <Blah /> */}
             {/* <hr /> */}
-            <FleetPageDashboard />
+            {/* <FleetPageDashboard /> */}
+
+            {/* TANSTACK TABLE */}
+            {/* <BasicTable /> */}
+            {/* <SortedTable /> */}
+            <GlobalFilteringTable />
         </Box>
     );
 }
