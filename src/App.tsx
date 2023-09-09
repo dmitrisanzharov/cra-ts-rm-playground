@@ -12,6 +12,8 @@ import BasicTable from 'src/components/table/BasicTable';
 import SortedTable from 'src/components/table/SortedTable';
 import GlobalFilteringTable from 'src/components/table/GlobalFilteringTable';
 import ColumnFilteringTable from 'src/components/table/ColumnFilteringTable';
+import GlobalFilteringTableWithDefaultColumn from 'src/components/table/GlobalFilteringTableWithDefaultColumn';
+import PaginationTable from 'src/components/table/PaginationTable';
 
 function App() {
     const localStorageItemName = 'iAfg4HrIUPmMEqd_isOpen';
@@ -50,11 +52,13 @@ function App() {
             {/* <hr /> */}
             {/* <FleetPageDashboard /> */}
 
-            {/* TANSTACK TABLE */}
+            {/* ============ TANSTACK TABLE ====================== */}
             {/* <BasicTable /> */}
             {/* <SortedTable /> */}
             {/* <GlobalFilteringTable /> */}
-            <ColumnFilteringTable />
+            {/* <ColumnFilteringTable /> */}
+            {/* <GlobalFilteringTableWithDefaultColumn /> */}
+            <PaginationTable />
         </Box>
     );
 }

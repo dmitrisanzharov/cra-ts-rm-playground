@@ -66,3 +66,24 @@ export const columnDefCellFormatting = [
         header: 'all in one',
     }),
 ];
+
+// * removing Global and Local filters
+export const columnDefRemovedFilters = [
+    columnHelper.accessor('first_name', {
+        header: 'First Name',
+        enableColumnFilter: false, // * removes Column Filter
+        enableGlobalFilter: false, // * removed Global Filter
+    }),
+    columnHelper.accessor('last_name', {
+        header: 'Last Name',
+    }),
+    columnHelper.accessor('email', {
+        header: 'Email',
+    }),
+    columnHelper.accessor('gender', {
+        header: 'Gender',
+    }),
+    columnHelper.accessor((row) => `${row.first_name} ${row.last_name}`, {
+        header: 'all in one',
+    }),
+];
