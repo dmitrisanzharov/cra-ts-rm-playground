@@ -1,14 +1,24 @@
-const obj = {
-    'SALES DEMO': 3,
-    'SERVICE IN PROGRESS': 1,
-    'MECHANICAL REPAIR IN PROGRESS': 8,
-    'WARRANTY RECALL': 8,
-    TYRES: 3,
-    'AWAITING DECISION': 2,
-    'TYRE TRACKING': 1,
-    'RUNNER - DEL/COL': 1,
-    'STAFF CARS': 6,
-    'PROBLEM - TO BE ADDRESSED': 7,
-    'DOE TEST': 2,
-    'BADLY CRASHED - POTENTIAL WRITE OFF': 2,
-};
+const dayjs = require('dayjs')
+
+const carDate = "2023-08-03 14:14:28"
+
+
+console.log(carDate);
+
+
+function checkIfVehicleWasAddedInLast30Days(dateToCheck){
+
+    const todayInEpoch = dayjs().valueOf();
+
+    const dateToCheckInEpoch = dayjs(dateToCheck).valueOf();
+
+    const differenceInEpoch = todayInEpoch - dateToCheckInEpoch;
+
+    const differenceInDays = differenceInEpoch / 1000 / 60 / 60 / 24;
+
+    return differenceInDays >= 30 ? true : false;
+
+}
+
+let a = checkIfVehicleWasAddedInLast30Days(carDate); 
+console.log(a);
