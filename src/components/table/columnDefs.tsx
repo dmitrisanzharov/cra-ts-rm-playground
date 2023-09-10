@@ -72,8 +72,8 @@ export const columnDefCellFormatting = [
 export const columnDefRemovedFilters = [
     columnHelper.accessor('first_name', {
         header: 'First Name',
-        enableColumnFilter: false, // * removes Column Filter
-        enableGlobalFilter: false, // * removed Global Filter
+        enableColumnFilter: false, // * removes Column Filter ... NOTE: default value is TRUE
+        enableGlobalFilter: false, // * removed Global Filter ... NOTE: default value is TRUE
     }),
     columnHelper.accessor('last_name', {
         header: 'Last Name',
