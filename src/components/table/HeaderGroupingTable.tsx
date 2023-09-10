@@ -15,14 +15,14 @@ import {
     Table,
     getCoreRowModel,
 } from '@tanstack/react-table';
-import { columnDef } from './columnDefs';
+import { columnDefGrouped } from './columnDefs'; // * make sure to see columnDefGrouped, too see what to do with columnDef
 import dataJson from './data';
 
 type Props = {};
 
 const BasicTable = (props: Props) => {
     const data: any = React.useMemo(() => dataJson, []);
-    const columns: any = React.useMemo(() => columnDef, []);
+    const columns: any = React.useMemo(() => columnDefGrouped, []);
 
     const table: Table<any> = useReactTable({
         data,
@@ -47,11 +47,13 @@ const BasicTable = (props: Props) => {
                                             }}
                                             colSpan={columnEl.colSpan}
                                         >
-                                            {flexRender(
-                                                columnEl.column.columnDef
-                                                    .header,
-                                                columnEl.getContext()
-                                            )}
+                                            {columnEl.isPlaceholder // * this is MOST important to avoid ALL headers getting Grouping
+                                                ? null
+                                                : flexRender(
+                                                      columnEl.column.columnDef
+                                                          .header,
+                                                      columnEl.getContext()
+                                                  )}
                                         </TableCell>
                                     );
                                 })}

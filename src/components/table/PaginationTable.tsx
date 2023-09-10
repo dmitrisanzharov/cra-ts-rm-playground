@@ -30,6 +30,11 @@ const BasicTable = (props: Props) => {
         columns,
         getCoreRowModel: getCoreRowModel(),
         getPaginationRowModel: getPaginationRowModel(), // * add hook to the table options
+        initialState: {
+            pagination: {
+                pageSize: 2, // * here I can set INITIAL, STARTING page size
+            },
+        },
     } as TableOptions<any>);
 
     return (
