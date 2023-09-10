@@ -7,6 +7,18 @@ import FleetPageDashboard from 'src/components/pages/FleetDashboardPage/FleetPag
 import SideMenu from 'src/components/SideMenu/SideMenu';
 import Blah from 'src/components/Blah';
 
+// TanStack Table Examples
+import BasicTable from 'src/components/table/BasicTable';
+import HeaderGroupingTable from 'src/components/table/HeaderGroupingTable';
+import SortedTable from 'src/components/table/SortedTable';
+import GlobalFilteringTable from 'src/components/table/GlobalFilteringTable';
+import ColumnFilteringTable from 'src/components/table/ColumnFilteringTable';
+import GlobalFilteringTableWithDefaultColumn from 'src/components/table/GlobalFilteringTableWithDefaultColumn';
+import PaginationTable from 'src/components/table/PaginationTable';
+import RowSelectionTable from 'src/components/table/RowSelectionTable';
+import ColumnOrderingTable from 'src/components/table/ColumnOrderingTable';
+import HidingColumnsTable from 'src/components/table/HidingColumnsTable';
+
 function App() {
     const localStorageItemName = 'iAfg4HrIUPmMEqd_isOpen';
 
@@ -42,7 +54,19 @@ function App() {
             />
             {/* <Blah /> */}
             {/* <hr /> */}
-            <FleetPageDashboard />
+            {/* <FleetPageDashboard /> */}
+
+            {/* ============ TANSTACK TABLE ====================== */}
+            {/* <BasicTable /> */}
+            {/* <HeaderGroupingTable /> */}
+            {/* <SortedTable /> */}
+            {/* <GlobalFilteringTable /> */}
+            {/* <ColumnFilteringTable /> */}
+            {/* <GlobalFilteringTableWithDefaultColumn /> */}
+            {/* <PaginationTable /> */}
+            {/* <RowSelectionTable /> */}
+            {/* <ColumnOrderingTable /> */}
+            <HidingColumnsTable />
         </Box>
     );
 }

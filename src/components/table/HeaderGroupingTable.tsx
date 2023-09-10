@@ -1,0 +1,87 @@
+import React from 'react';
+import {
+    Table as MuiTable,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TableRow,
+    Paper,
+} from '@mui/material';
+import {
+    useReactTable,
+    flexRender,
+    TableOptions,
+    Table,
+    getCoreRowModel,
+} from '@tanstack/react-table';
+import { columnDefGrouped } from './columnDefs'; // * make sure to see columnDefGrouped, too see what to do with columnDef
+import dataJson from './data';
+
+type Props = {};
+
+const BasicTable = (props: Props) => {
+    const data: any = React.useMemo(() => dataJson, []);
+    const columns: any = React.useMemo(() => columnDefGrouped, []);
+
+    const table: Table<any> = useReactTable({
+        data,
+        columns,
+        getCoreRowModel: getCoreRowModel(),
+    } as TableOptions<any>);
+
+    return (
+        <TableContainer component={Paper}>
+            <MuiTable>
+                <TableHead>
+                    {table.getHeaderGroups().map((headerGroupEl) => {
+                        return (
+                            <TableRow key={headerGroupEl.id}>
+                                {headerGroupEl.headers.map((columnEl) => {
+                                    return (
+                                        <TableCell
+                                            key={columnEl.id}
+                                            sx={{
+                                                fontWeight: 'bold',
+                                                border: '2px solid black',
+                                            }}
+                                            colSpan={columnEl.colSpan}
+                                        >
+                                            {columnEl.isPlaceholder // * this is MOST important to avoid ALL headers getting Grouping
+                                                ? null
+                                                : flexRender(
+                                                      columnEl.column.columnDef
+                                                          .header,
+                                                      columnEl.getContext()
+                                                  )}
+                                        </TableCell>
+                                    );
+                                })}
+                            </TableRow>
+                        );
+                    })}
+                </TableHead>
+                <TableBody>
+                    {table.getRowModel().rows.map((row) => {
+                        return (
+                            <TableRow key={row.id}>
+                                {row.getVisibleCells().map((cell) => {
+                                    return (
+                                        <TableCell key={cell.id}>
+                                            {flexRender(
+                                                cell.column.columnDef.cell,
+                                                cell.getContext()
+                                            )}
+                                        </TableCell>
+                                    );
+                                })}
+                            </TableRow>
+                        );
+                    })}
+                </TableBody>
+            </MuiTable>
+        </TableContainer>
+    );
+};
+
+export default BasicTable;
