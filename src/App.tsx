@@ -16,6 +16,8 @@ import ColumnFilteringTable from 'src/components/table/ColumnFilteringTable';
 import GlobalFilteringTableWithDefaultColumn from 'src/components/table/GlobalFilteringTableWithDefaultColumn';
 import PaginationTable from 'src/components/table/PaginationTable';
 import RowSelectionTable from 'src/components/table/RowSelectionTable';
+import ColumnOrderingTable from 'src/components/table/ColumnOrderingTable';
+import HidingColumnsTable from 'src/components/table/HidingColumnsTable';
 
 function App() {
     const localStorageItemName = 'iAfg4HrIUPmMEqd_isOpen';
@@ -62,7 +64,9 @@ function App() {
             {/* <ColumnFilteringTable /> */}
             {/* <GlobalFilteringTableWithDefaultColumn /> */}
             {/* <PaginationTable /> */}
-            <RowSelectionTable />
+            {/* <RowSelectionTable /> */}
+            {/* <ColumnOrderingTable /> */}
+            <HidingColumnsTable />
         </Box>
     );
 }
