@@ -3,6 +3,32 @@ import IndeterminateCheckbox from './IndeterminateCheckbox';
 
 const columnHelper = createColumnHelper<any>();
 
+// * MULTI FILTERING
+
+export const columnDefMultiFilter = [
+    columnHelper.accessor('first_name', {
+        header: 'First Name',
+    }),
+    columnHelper.accessor('last_name', {
+        header: 'Last Name',
+        // enableColumnFilter: false,
+    }),
+    columnHelper.accessor('email', {
+        header: 'Email',
+        // enableColumnFilter: false,
+    }),
+    columnHelper.accessor('gender', {
+        header: 'Gender',
+        enableColumnFilter: false,
+    }),
+    columnHelper.accessor((row) => `${row.first_name} ${row.last_name}`, {
+        header: 'all in one',
+        enableColumnFilter: false,
+    }),
+];
+
+// * BASIC TABLE
+
 export const columnDef = [
     columnHelper.accessor('first_name', {
         header: 'First Name',

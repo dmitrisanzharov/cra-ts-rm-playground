@@ -16,15 +16,14 @@ import {
     getCoreRowModel,
     getFilteredRowModel, // * import the hook
 } from '@tanstack/react-table';
-import FilteringFunction from './FilteringFunction';
-import { columnDef, columnDefGrouped } from './columnDefs';
+import { columnDefMultiFilter } from './columnDefs';
 import dataJson from './data';
 
 type Props = {};
 
 const ColumnFilteringTable = (props: Props) => {
     const data: any = React.useMemo(() => dataJson, []);
-    const columns: any = React.useMemo(() => columnDef, []);
+    const columns: any = React.useMemo(() => columnDefMultiFilter, []);
 
     const [columnFilters, setColumnFilters] = React.useState<any>([]); // * create local state to bind to table state and setState function
 
@@ -43,6 +42,8 @@ const ColumnFilteringTable = (props: Props) => {
     // * create the File: Filtering Function and add correct code into it
     // * add Filtering function to the Imports
 
+    const [input, setInput] = React.useState('');
+
     return (
         <TableContainer component={Paper}>
             <MuiTable>
@@ -51,6 +52,8 @@ const ColumnFilteringTable = (props: Props) => {
                         return (
                             <TableRow key={headerGroupEl.id}>
                                 {headerGroupEl.headers.map((columnEl) => {
+                                    console.log(columnEl.column);
+
                                     return (
                                         <TableCell
                                             key={columnEl.id}
@@ -66,13 +69,19 @@ const ColumnFilteringTable = (props: Props) => {
                                                     .header,
                                                 columnEl.getContext()
                                             )}
-                                            {columnEl.column.getCanFilter() ? ( // * add CONDITIONAL that if I CAN filter, then that Header should have the Input, if NOT, then return nothing
-                                                <div //* this is here only to create SPACE between input and header
-                                                >
-                                                    {' '}
-                                                    <FilteringFunction
-                                                        column={columnEl.column}
-                                                        table={table}
+                                            {columnEl.column.getCanFilter() ? (
+                                                <div>
+                                                    <input
+                                                        type='text'
+                                                        value={
+                                                            (columnEl.column.getFilterValue() ||
+                                                                '') as string
+                                                        }
+                                                        onChange={(e) =>
+                                                            columnEl.column.setFilterValue(
+                                                                e.target.value
+                                                            )
+                                                        }
                                                     />
                                                 </div>
                                             ) : null}
