@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
     Box,
     Card,
@@ -6,38 +6,48 @@ import {
     CardProps,
     Skeleton,
     Typography,
-} from "@mui/material";
+} from '@mui/material';
+import TreemapChartProps from 'src/components/charts/TreemapChart/TreemapChart';
 
-interface SelectableTreemapCardProps extends CardProps {
+export interface SelectableTreemapCardProps extends CardProps {
     numberOfRecords: number;
     loading: boolean;
-    catagories: {
-        [anomaly: string]: number;
+    allData: {
+        categories: {
+            [anomaly: string]: number;
+        };
+        vehiclesByMake: {
+            [make: string]: number;
+        };
     };
 }
-const SelectableTreemapCard: React.FC<any> = ({
+
+const SelectableTreemapCard: React.FC<SelectableTreemapCardProps> = ({
     numberOfRecords,
     loading,
-    catagories,
+    allData,
     ...rest
 }) => {
     loading = true;
     return (
         <Card {...rest}>
-            <CardContent>
+            <CardContent
+                sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    height: '91%',
+                }}
+            >
                 <Typography gutterBottom variant='h6' component='div'>
                     Catagories
                 </Typography>
-                {!loading && (
-                    <Typography variant='body2' color='text.secondary'>
-                        <pre>{JSON.stringify(catagories, null, "\t")}</pre>
-                    </Typography>
-                )}
-                {loading && (
-                    <Box sx={{ display: "flex", height: "40vh" }}>
-                        <Skeleton sx={{ display: "flex", flex: 1 }} />
-                    </Box>
-                )}
+                <TreemapChartProps
+                    numberOfRecords={numberOfRecords}
+                    loading={loading}
+                    allData={allData}
+                    sx={{ display: 'flex', flex: 1 }}
+                    className='dyy'
+                />
             </CardContent>
         </Card>
     );

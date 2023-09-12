@@ -3,18 +3,8 @@ import { Box, Skeleton, Typography } from '@mui/material';
 
 type Props = any;
 
-const Blah: React.FC<any> = (props: Props) => {
-    return (
-        <div>
-            <Box>
-                <Skeleton>
-                    {' '}
-                    <Typography>Hello</Typography>
-                </Skeleton>
-                <Typography>Hello</Typography>
-            </Box>
-        </div>
-    );
+const Blah: React.FC<any> = ({ ...rest }: Props) => {
+    return <div {...rest}></div>;
 };
 
 export default Blah;

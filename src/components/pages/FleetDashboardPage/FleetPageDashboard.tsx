@@ -2,6 +2,7 @@ import React from 'react';
 import { SxProps, Box, useMediaQuery } from '@mui/material';
 import * as styles from './styles';
 import { theme } from 'src/components/theme';
+import { apiDataForTreemap } from 'src/components/cards/SelectableTreemapCard/apiDataForTreemap';
 
 // COMPONENTS
 // Cards
@@ -22,9 +23,7 @@ const FleetPageDashboard = (props: Props) => {
     const loadingProp = true;
 
     return (
-        <Box
-            sx={styles.gridContainer}
-        >
+        <Box sx={styles.gridContainer}>
             <UtilizationCard
                 sx={styles.utilizationCardSx}
                 // todo FAKE DATA, to remove
@@ -69,7 +68,12 @@ const FleetPageDashboard = (props: Props) => {
             />
             <DeviceIssuesCard loading={true} sx={styles.deviceIssuesCardSx} />
             <AnomalyBreakdownCard loading={true} sx={styles.anomalyCardSx} />
-            <SelectableTreemapCard loading={true} sx={styles.treemapCardSx} />
+            <SelectableTreemapCard
+                loading={true}
+                sx={styles.treemapCardSx}
+                allData={apiDataForTreemap}
+                numberOfRecords={677}
+            />
         </Box>
     );
 };

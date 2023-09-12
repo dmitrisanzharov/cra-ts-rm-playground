@@ -83,12 +83,12 @@ const UtilizationCard: React.FC<UtilizationCardProps> = ({
 
     const progressLineHrefsArray = useUtilizationStatusDoughnutChartHrefs();
 
-    React.useEffect(() => {
-        console.log(
-            'UtilizationCard',
-            isScreenBiggerThanSm ? 'horizontal' : 'vertical'
-        );
-    });
+    // React.useEffect(() => {
+    //     console.log(
+    //         'UtilizationCard',
+    //         isScreenBiggerThanSm ? 'horizontal' : 'vertical'
+    //     );
+    // });
 
     return (
         <Card {...rest}>

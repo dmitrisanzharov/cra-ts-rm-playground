@@ -12,7 +12,10 @@ import { t } from 'src/translation';
 import DoughnutChartWithBreakdown from 'src/components/charts/DoughnutChartWithBreakdown';
 import { useNRMBreakdownCardHrefs } from './hooks';
 import { theme } from 'src/components/theme';
-import { RM_COLOR_BASE_GRAY_LIGHT_80, RM_COLOR_BASE_GRAY_LIGHT_20 } from 'src/design-tokens/tokens';
+import {
+    RM_COLOR_BASE_GRAY_LIGHT_80,
+    RM_COLOR_BASE_GRAY_LIGHT_20,
+} from 'src/design-tokens/tokens';
 // * --------  END of VICTOR IMPORTS, WILL BE DELETED UPON APPROVAL -------------------
 //
 // import React from "react";
@@ -94,12 +97,12 @@ const NRMBreakdownCard: React.FC<NRMBreakdownCardProps> = ({
 
     const progressLineHrefsArray = useNRMBreakdownCardHrefs();
 
-    React.useEffect(() => {
-        console.log(
-            'NRMCard',
-            isScreenBiggerThanLg ? 'horizontal' : 'vertical'
-        );
-    });
+    // React.useEffect(() => {
+    //     console.log(
+    //         'NRMCard',
+    //         isScreenBiggerThanLg ? 'horizontal' : 'vertical'
+    //     );
+    // });
 
     return (
         <Card {...rest}>

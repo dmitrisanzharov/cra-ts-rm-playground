@@ -19,7 +19,6 @@ import RowSelectionTable from 'src/components/table/RowSelectionTable';
 import ColumnOrderingTable from 'src/components/table/ColumnOrderingTable';
 import HidingColumnsTable from 'src/components/table/HidingColumnsTable';
 import FilteringColumnTableBasicInput from 'src/components/table/FilteringColumnTableBasicInput';
-import TreeMapChart from 'src/components/charts/TreeMapChart/TreeMapChart';
 
 function App() {
     const localStorageItemName = 'iAfg4HrIUPmMEqd_isOpen';
@@ -54,9 +53,9 @@ function App() {
                 sideMenuControl={setSessionStorageFn}
                 isSideMenuOpen={isSideMenuOpen}
             />
-            {/* <Blah /> */}
+            {/* <Blah className='drr' /> */}
             {/* <hr /> */}
-            {/* <FleetPageDashboard /> */}
+            <FleetPageDashboard />
 
             {/* ============ TANSTACK TABLE ====================== */}
             {/* <BasicTable /> */}
@@ -70,7 +69,6 @@ function App() {
             {/* <ColumnOrderingTable /> */}
             {/* <HidingColumnsTable /> */}
             {/* <FilteringColumnTableBasicInput /> */}
-            <TreeMapChart />
         </Box>
     );
 }
