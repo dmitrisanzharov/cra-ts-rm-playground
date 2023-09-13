@@ -10,24 +10,9 @@ import {
 import { SelectableTreemapCardProps } from 'src/components/cards/SelectableTreemapCard/SelectableTreemapCard';
 
 const TreemapChartSkeleton: React.FC<SkeletonProps> = ({ ...rest }) => (
-    <Box
-        sx={{
-            flex: 1,
-            // display: 'flex',
-            // flexDirection: 'column',
-            // justifyContent: 'flex-start',
-            // height: '40vh',
-        }}
-        className='drr'
-    >
+    <Box {...rest}>
         <Skeleton
-            sx={
-                {
-                    // display: 'flex',
-                    // flex: 1,
-                    // height: '60%',
-                }
-            }
+            sx={{ display: 'grid', marginTop: '-49px', height: '100%' }}
             className='dbb'
         />
     </Box>
@@ -43,7 +28,14 @@ const TreemapChart: React.FC<TreemapChartProps> = ({
 }) => {
     return (
         <Box {...rest}>
-            {loading && <TreemapChartSkeleton />}
+            {loading && (
+                <TreemapChartSkeleton
+                    sx={{
+                        width: '100%',
+                    }}
+                    className='drr'
+                />
+            )}
             {!loading && (
                 <>
                     <h1>Hello World</h1>

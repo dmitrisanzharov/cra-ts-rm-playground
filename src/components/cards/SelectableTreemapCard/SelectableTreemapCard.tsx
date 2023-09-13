@@ -46,7 +46,6 @@ const SelectableTreemapCard: React.FC<SelectableTreemapCardProps> = ({
                     loading={loading}
                     allData={allData}
                     sx={{ display: 'flex', flex: 1 }}
-                    className='dyy'
                 />
             </CardContent>
         </Card>
