@@ -6,8 +6,9 @@ import { Box } from '@mui/material';
 import FleetPageDashboard from 'src/components/pages/FleetDashboardPage/FleetPageDashboard';
 import SideMenu from 'src/components/SideMenu/SideMenu';
 import Blah from 'src/components/Blah';
+import ChartTest from 'src/components/charts/ChartTest';
 
-// TanStack Table Examples
+// * TanStack Table Examples
 import BasicTable from 'src/components/table/BasicTable';
 import HeaderGroupingTable from 'src/components/table/HeaderGroupingTable';
 import SortedTable from 'src/components/table/SortedTable';
@@ -54,8 +55,9 @@ function App() {
                 isSideMenuOpen={isSideMenuOpen}
             />
             {/* <Blah className='drr' /> */}
+            <ChartTest />
             {/* <hr /> */}
-            <FleetPageDashboard />
+            {/* <FleetPageDashboard /> */}
 
             {/* ============ TANSTACK TABLE ====================== */}
             {/* <BasicTable /> */}

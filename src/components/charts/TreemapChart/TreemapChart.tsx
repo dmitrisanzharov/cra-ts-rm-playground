@@ -1,44 +1,50 @@
 import React from 'react';
-import {
-    Box,
-    BoxProps,
-    Skeleton,
-    SkeletonProps,
-    SxProps,
-    CardProps,
-} from '@mui/material';
+import { Box, BoxProps, Skeleton, SkeletonProps } from '@mui/material';
 import { SelectableTreemapCardProps } from 'src/components/cards/SelectableTreemapCard/SelectableTreemapCard';
 
-const TreemapChartSkeleton: React.FC<SkeletonProps> = ({ ...rest }) => (
+const TreemapChartSkeleton: React.FC<SkeletonProps> = ({
+    variant = 'rectangular',
+    ...rest
+}) => (
     <Box {...rest}>
         <Skeleton
-            sx={{ display: 'grid', marginTop: '-49px', height: '100%' }}
-            className='dbb'
+            variant={variant}
+            sx={{ height: '40vh', width: '100%', borderRadius: '5px' }}
+            // className='dbb'
         />
     </Box>
 );
 
-type TreemapChartProps = SelectableTreemapCardProps & BoxProps;
+interface TreemapChartProps extends BoxProps {
+    loading: boolean;
+    data: { [label: string]: number };
+}
 
 const TreemapChart: React.FC<TreemapChartProps> = ({
-    numberOfRecords,
     loading,
-    allData,
+    data,
     ...rest
 }) => {
+    //
+    const chartRef = React.useRef<null>(null);
+
+    React.useEffect(() => {
+        console.log('data', data);
+    }, [loading, data]);
+
     return (
         <Box {...rest}>
-            {loading && (
-                <TreemapChartSkeleton
-                    sx={{
-                        width: '100%',
-                    }}
-                    className='drr'
-                />
-            )}
+            {loading && <TreemapChartSkeleton />}
             {!loading && (
                 <>
-                    <h1>Hello World</h1>
+                    {/* <canvas ref={chartRef}>Hello World</canvas> */}
+                    <div className='canvas-holder'>
+                        <canvas
+                            id='chart-area'
+                            width='800'
+                            height='400'
+                        ></canvas>
+                    </div>
                 </>
             )}
         </Box>
