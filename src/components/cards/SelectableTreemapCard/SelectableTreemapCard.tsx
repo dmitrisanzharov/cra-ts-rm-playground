@@ -69,6 +69,10 @@ const SelectableTreemapCard: React.FC<SelectableTreemapCardProps> = ({
 
     loading = false;
 
+    React.useEffect(() => {
+        console.log('allData', allData);
+    });
+
     return (
         <Card {...rest}>
             <CardContent>
