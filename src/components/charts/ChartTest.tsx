@@ -14,6 +14,8 @@ import {
 type Props = {};
 
 const ChartTest = (props: Props) => {
+    //
+
     React.useEffect(() => {
         var jQueryScript = document.createElement('script');
         jQueryScript.setAttribute(
@@ -53,6 +55,12 @@ const ChartTest = (props: Props) => {
             hex = hex + a;
 
             return `#${hex}`;
+        }
+
+        // FUNCTIONS
+
+        function onClickEvent(arg: any) {
+            console.log('arg', arg);
         }
 
         function colorFromValue(value: any, border?: any) {
@@ -125,9 +133,6 @@ const ChartTest = (props: Props) => {
                         tree: finalTree,
                         key: 'value', // * this uses the KEY from the TREE array
                         groups: ['title'], // * this displays the Middle text, I can add more than 1.
-                        fontColor: 'black',
-                        fontFamily: 'Optima',
-                        fontSize: 20,
                         backgroundColor: function (ctx: any) {
                             let item = ctx.dataset.data[ctx.dataIndex];
                             if (!item) {
@@ -145,29 +150,34 @@ const ChartTest = (props: Props) => {
                                     .children[0]
                             );
 
-                            console.log(
-                                'title: ',
-                                ctx.dataset.data[ctx.dataIndex].g
-                            );
-                            console.log(
-                                'value',
-                                Number(
-                                    ctx.dataset.data[ctx.dataIndex]._data.value
-                                )
-                            );
-                            console.log('idx', idx);
-                            console.log('color', color);
-                            console.log('color typeof', typeof color);
-                            console.log('============================');
+                            // console.log(
+                            //     'title: ',
+                            //     ctx.dataset.data[ctx.dataIndex].g
+                            // );
+                            // console.log(
+                            //     'value',
+                            //     Number(
+                            //         ctx.dataset.data[ctx.dataIndex]._data.value
+                            //     )
+                            // );
+                            // console.log('idx', idx);
+                            // console.log('color', color);
+                            // console.log('color typeof', typeof color);
+                            // console.log('============================');
 
                             return colorArr[idx];
                         },
+                        fontColor: 'black',
+                        fontWeight: 600,
+                        fontFamily: 'Roboto',
+                        fontSize: 30,
                         spacing: 1,
-                        borderWidth: 2,
+                        borderWidth: 3,
                     },
                 ],
             },
             options: {
+                onClick: onClickEvent,
                 maintainAspectRatio: false,
                 title: {
                     display: false,
