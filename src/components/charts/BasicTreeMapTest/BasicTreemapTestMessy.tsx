@@ -13,10 +13,15 @@ import {
 
 type Props = {};
 
-const ChartTest = (props: Props) => {
+const BasicTreemapTestMessy = (props: Props) => {
     //
+    const [chartIsDrawn, setChartIsDrawn] = React.useState(false);
 
     React.useEffect(() => {
+        if (chartIsDrawn) {
+            return;
+        }
+
         var jQueryScript = document.createElement('script');
         jQueryScript.setAttribute(
             'src',
@@ -135,6 +140,8 @@ const ChartTest = (props: Props) => {
                         groups: ['title'], // * this displays the Middle text, I can add more than 1.
                         backgroundColor: function (ctx: any) {
                             let item = ctx.dataset.data[ctx.dataIndex];
+                            // console.log('item: ', item);
+
                             if (!item) {
                                 return;
                             }
@@ -177,7 +184,8 @@ const ChartTest = (props: Props) => {
                 ],
             },
             options: {
-                onClick: onClickEvent,
+                // onClick: (el: any, arr: any) =>
+                //     console.log('item clicked', arr[0]._index),
                 maintainAspectRatio: false,
                 title: {
                     display: false,
@@ -192,7 +200,7 @@ const ChartTest = (props: Props) => {
                         title: function (item: any, data: any) {
                             // console.log('item', item[0]);
                             // console.log('data', data);
-                            // console.log('item', item[0].index); // here I have item INDEX that I hover over
+                            console.log('item', item[0].index); // here I have item INDEX that I hover over
                             return `This is item: ${item[0].index}`;
                         },
                         label: function (item: any, data: any) {
@@ -204,6 +212,9 @@ const ChartTest = (props: Props) => {
                 },
             },
         });
+
+        // * finalise Draw of the chart
+        setChartIsDrawn(true);
     });
 
     return (
@@ -216,4 +227,4 @@ const ChartTest = (props: Props) => {
     );
 };
 
-export default ChartTest;
+export default BasicTreemapTestMessy;
