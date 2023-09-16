@@ -2,12 +2,7 @@ import React from 'react';
 import './App.css';
 import { Box } from '@mui/material';
 
-// * COMPONENTS
-import FleetPageDashboard from 'src/components/pages/FleetDashboardPage/FleetPageDashboard';
-import SideMenu from 'src/components/SideMenu/SideMenu';
-import Blah from 'src/components/Blah';
-
-// TanStack Table Examples
+// * TanStack Table Examples
 import BasicTable from 'src/components/table/BasicTable';
 import HeaderGroupingTable from 'src/components/table/HeaderGroupingTable';
 import SortedTable from 'src/components/table/SortedTable';
@@ -19,6 +14,13 @@ import RowSelectionTable from 'src/components/table/RowSelectionTable';
 import ColumnOrderingTable from 'src/components/table/ColumnOrderingTable';
 import HidingColumnsTable from 'src/components/table/HidingColumnsTable';
 import FilteringColumnTableBasicInput from 'src/components/table/FilteringColumnTableBasicInput';
+
+// * COMPONENTS
+import FleetPageDashboard from 'src/components/pages/FleetDashboardPage/FleetPageDashboard';
+import SideMenu from 'src/components/SideMenu/SideMenu';
+import Blah from 'src/components/Blah';
+import BasicTreemapTestMessy from 'src/components/charts/BasicTreeMapTest/BasicTreemapTestMessy';
+import BasicTreemapGoodSample from 'src/components/charts/BasicTreeMapTest/BasicTreemapGoodSample';
 
 function App() {
     const localStorageItemName = 'iAfg4HrIUPmMEqd_isOpen';
@@ -54,8 +56,10 @@ function App() {
                 isSideMenuOpen={isSideMenuOpen}
             />
             {/* <Blah className='drr' /> */}
+            {/* <BasicTreemapTestMessy /> */}
+            <BasicTreemapGoodSample />
             {/* <hr /> */}
-            <FleetPageDashboard />
+            {/* <FleetPageDashboard /> */}
 
             {/* ============ TANSTACK TABLE ====================== */}
             {/* <BasicTable /> */}

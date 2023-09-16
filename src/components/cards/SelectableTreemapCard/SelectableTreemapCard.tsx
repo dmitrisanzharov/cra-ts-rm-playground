@@ -6,11 +6,15 @@ import {
     CardProps,
     Skeleton,
     Typography,
+    InputLabel,
+    MenuItem,
+    FormControl,
 } from '@mui/material';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import { t } from 'src/translation';
 import TreemapChartProps from 'src/components/charts/TreemapChart/TreemapChart';
 
 export interface SelectableTreemapCardProps extends CardProps {
-    numberOfRecords: number;
     loading: boolean;
     allData: {
         categories: {
@@ -23,31 +27,95 @@ export interface SelectableTreemapCardProps extends CardProps {
 }
 
 const SelectableTreemapCard: React.FC<SelectableTreemapCardProps> = ({
-    numberOfRecords,
     loading,
     allData,
     ...rest
 }) => {
-    loading = true;
+    //
+    const TRANSLATED_CATEGORIES = t('LABEL_CATEGORIES').toUpperCase();
+    const TRANSLATED_BRAND = t('LABEL_BRAND').toUpperCase();
+
+    const [selectOptions, setSelectOptions] = React.useState<string>(
+        TRANSLATED_CATEGORIES
+    );
+
+    const handleChange = (e: SelectChangeEvent) => {
+        setSelectOptions(e.target.value);
+    };
+
+    const getLabelsFromAllData = React.useMemo(() => {
+        return Object.keys(allData).map((label: string) => {
+            if (label === 'categories') {
+                return TRANSLATED_CATEGORIES;
+            }
+
+            return TRANSLATED_BRAND;
+        });
+    }, [allData, TRANSLATED_CATEGORIES, TRANSLATED_BRAND]);
+
+    const dataForTreeMap: { [label: string]: number } = React.useMemo(() => {
+        let label;
+
+        if (selectOptions === TRANSLATED_CATEGORIES) {
+            label = 'categories';
+        }
+
+        if (selectOptions === TRANSLATED_BRAND) {
+            label = 'vehiclesByMake';
+        }
+
+        return (allData as any)[label ?? Object.keys(allData)[0]];
+    }, [allData, selectOptions, TRANSLATED_CATEGORIES, TRANSLATED_BRAND]);
+
+    loading = false;
+
+    React.useEffect(() => {
+        console.log('allData', allData);
+    });
+
     return (
         <Card {...rest}>
-            <CardContent
-                sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    height: '91%',
-                }}
-            >
-                <Typography gutterBottom variant='h6' component='div'>
-                    Catagories
-                </Typography>
-                <TreemapChartProps
-                    numberOfRecords={numberOfRecords}
-                    loading={loading}
-                    allData={allData}
-                    sx={{ display: 'flex', flex: 1 }}
-                    className='dyy'
-                />
+            <CardContent>
+                <Box
+                    // className='drr'
+                    sx={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'flex-start',
+                    }}
+                >
+                    <Typography gutterBottom variant='h6' component='div'>
+                        {t('AVAILABLE_VEHICLES')}
+                    </Typography>
+                    {loading && (
+                        <Skeleton
+                            variant='rectangular'
+                            width={200}
+                            height={30}
+                            sx={{ borderRadius: '5px' }}
+                        />
+                    )}
+                    {!loading && (
+                        <FormControl sx={{ width: '20%' }}>
+                            <Select
+                                value={selectOptions}
+                                onChange={handleChange}
+                            >
+                                {getLabelsFromAllData?.map(
+                                    (label: string | undefined) => {
+                                        return (
+                                            <MenuItem value={label} key={label}>
+                                                {label}
+                                            </MenuItem>
+                                        );
+                                    }
+                                )}
+                            </Select>
+                        </FormControl>
+                    )}
+                </Box>
+
+                <TreemapChartProps loading={loading} data={dataForTreeMap} />
             </CardContent>
         </Card>
     );
