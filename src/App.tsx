@@ -57,9 +57,9 @@ function App() {
             />
             {/* <Blah className='drr' /> */}
             {/* <BasicTreemapTestMessy /> */}
-            <BasicTreemapGoodSample />
+            {/* <BasicTreemapGoodSample /> */}
             {/* <hr /> */}
-            {/* <FleetPageDashboard /> */}
+            <FleetPageDashboard />
 
             {/* ============ TANSTACK TABLE ====================== */}
             {/* <BasicTable /> */}

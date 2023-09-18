@@ -16,6 +16,7 @@ import TreemapChartProps from 'src/components/charts/TreemapChart/TreemapChart';
 
 export interface SelectableTreemapCardProps extends CardProps {
     loading: boolean;
+    numberOfRecords: number;
     allData: {
         categories: {
             [anomaly: string]: number;
@@ -29,6 +30,7 @@ export interface SelectableTreemapCardProps extends CardProps {
 const SelectableTreemapCard: React.FC<SelectableTreemapCardProps> = ({
     loading,
     allData,
+    numberOfRecords,
     ...rest
 }) => {
     //
@@ -69,9 +71,9 @@ const SelectableTreemapCard: React.FC<SelectableTreemapCardProps> = ({
 
     loading = false;
 
-    React.useEffect(() => {
-        console.log('allData', allData);
-    });
+    // React.useEffect(() => {
+    //     console.log('allData', allData);
+    // });
 
     return (
         <Card {...rest}>
@@ -115,7 +117,11 @@ const SelectableTreemapCard: React.FC<SelectableTreemapCardProps> = ({
                     )}
                 </Box>
 
-                <TreemapChartProps loading={loading} data={dataForTreeMap} />
+                <TreemapChartProps
+                    loading={loading}
+                    data={dataForTreeMap}
+                    total={numberOfRecords}
+                />
             </CardContent>
         </Card>
     );

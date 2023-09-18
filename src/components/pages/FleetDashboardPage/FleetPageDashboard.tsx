@@ -72,6 +72,7 @@ const FleetPageDashboard = (props: Props) => {
                 loading={true}
                 sx={styles.treemapCardSx}
                 allData={apiDataForTreemap}
+                numberOfRecords={677}
             />
         </Box>
     );
