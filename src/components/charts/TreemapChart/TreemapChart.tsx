@@ -93,19 +93,18 @@ const TreemapChart: React.FC<TreemapChartProps> = ({
         loadTheCDN();
 
         let WindowChart = (window as any).Chart;
+        let ctx = (document as any)
+        ?.getElementById('chart-area')
+        ?.getContext('2d');
         let chartTreeMapState = (window as any).Chart.defaults.treemap;
 
         // * Wait for Chart Treemap to LOAD into the Window object (it takes few re-renders)
-        if (!chartTreeMapState) {
+        if (!chartTreeMapState || !ctx) {
             setReloadState(reloadState + 1);
             return;
         }
 
-        // * Draw the chart
-        var ctx = (document as any)
-            ?.getElementById('chart-area')
-            ?.getContext('2d');
-
+        // * Draw the chart if all is good
         (window as any).chart1 = new WindowChart(ctx, {
             type: 'treemap',
             data: {
