@@ -1,6 +1,17 @@
 import React from 'react';
 import { Box, BoxProps, Skeleton, SkeletonProps } from '@mui/material';
-import { SelectableTreemapCardProps } from 'src/components/cards/SelectableTreemapCard/SelectableTreemapCard';
+import { t } from 'src/translation/index';
+import {
+    RM_COLOR_BASE_BLUE_MIDDLE,
+    RM_COLOR_BASE_BLUE_LIGHT_20,
+    RM_COLOR_BASE_BLUE_LIGHT_30,
+    RM_COLOR_BASE_BLUE_LIGHT_50,
+    RM_COLOR_BASE_BLUE_LIGHT_80,
+    RM_COLOR_BASE_BLUE_DARK_20,
+    RM_COLOR_BASE_BLUE_DARK_30,
+    RM_COLOR_BASE_BLUE_DARK_50,
+    RM_COLOR_BASE_BLUE_DARK_80,
+} from 'src/design-tokens/tokens';
 
 const TreemapChartSkeleton: React.FC<SkeletonProps> = ({
     variant = 'rectangular',
@@ -10,7 +21,6 @@ const TreemapChartSkeleton: React.FC<SkeletonProps> = ({
         <Skeleton
             variant={variant}
             sx={{ height: '40vh', width: '100%', borderRadius: '5px' }}
-            // className='dbb'
         />
     </Box>
 );
@@ -21,6 +31,17 @@ interface TreemapChartProps extends BoxProps {
     data: { [label: string]: number };
 }
 
+type TreeMapDataItemType = { label: string; value: number };
+
+function loadTheCDN() {
+    const windowScript = document.createElement('script');
+    windowScript.setAttribute(
+        'src',
+        'https://cdn.jsdelivr.net/npm/chartjs-chart-treemap@0.2.3'
+    );
+    document.head.appendChild(windowScript);
+}
+
 const TreemapChart: React.FC<TreemapChartProps> = ({
     total,
     loading,
@@ -28,64 +49,69 @@ const TreemapChart: React.FC<TreemapChartProps> = ({
     ...rest
 }) => {
     //
+    const BLUE_60 = '#02377E';
+    const colorArr = [
+        RM_COLOR_BASE_BLUE_DARK_80,
+        RM_COLOR_BASE_BLUE_DARK_50,
+        RM_COLOR_BASE_BLUE_DARK_30,
+        RM_COLOR_BASE_BLUE_DARK_20,
+        RM_COLOR_BASE_BLUE_MIDDLE,
+        RM_COLOR_BASE_BLUE_LIGHT_20,
+        RM_COLOR_BASE_BLUE_LIGHT_30,
+        RM_COLOR_BASE_BLUE_LIGHT_50,
+        RM_COLOR_BASE_BLUE_LIGHT_80,
+    ];
+
     const [chartIsDrawn, setChartIsDrawn] = React.useState(false);
+    const [reloadState, setReloadState] = React.useState(0);
 
-    const reformatedDataForTreeMap: { label: string; value: number }[] =
-        React.useMemo(() => {
-            console.log('============================');
-            return Object.entries(data).map(
-                ([label, value]: [string, number]) => {
-                    return { label, value };
-                }
-            );
-        }, [data]);
+    const reformatDataForTreeMap: {
+        label: string;
+        value: number;
+    }[] = React.useMemo(() => {
+        return Object.entries(data)
+            .sort((a: any, b: any) => b[1] - a[1])
+            .map(([label, value]: [string, number]) => {
+                return { label: `${label}: ${value}`, value };
+            })
+            .slice(0, 8);
+    }, [data]);
 
-    const colorArr: string[] = React.useMemo(() => {
-        return Object.values(data).map(
-            (el: number) => `rgba(0, 0, 255, ${el / total}`
-        );
-    }, [data, total]);
-
-    // React.useEffect(() => {
-    //     console.log('data', data);
-    //     console.log('reformatted', reformatedDataForTreeMap);
-    // }, [loading, data, reformatedDataForTreeMap]);
+    React.useLayoutEffect(() => {
+        if (chartIsDrawn) {
+            return;
+        }
+        // * may not be necessary, but just as a precaution
+        loadTheCDN();
+    });
 
     React.useEffect(() => {
-        // * if chart is drawn exit
         if (chartIsDrawn) {
             return;
         }
 
-        // * CHART CODE
+        loadTheCDN();
 
-        var jQueryScript = document.createElement('script');
-        jQueryScript.setAttribute(
-            'src',
-            'https://cdn.jsdelivr.net/npm/chartjs-chart-treemap@0.2.3'
-        );
-        document.head.appendChild(jQueryScript);
+        let WindowChart = (window as any).Chart;
+        let ctx = (document as any)
+        ?.getElementById('chart-area')
+        ?.getContext('2d');
+        let chartTreeMapState = (window as any).Chart.defaults.treemap;
 
         // * Wait for Chart Treemap to LOAD into the Window object (it takes few re-renders)
-        if (!(window as any).Chart.defaults.treemap) {
+        if (!chartTreeMapState || !ctx) {
+            setReloadState(reloadState + 1);
             return;
         }
 
-        // * Draw the chart
-        let WindowChart = (window as any).Chart;
-
-        var ctx = (document as any)
-            ?.getElementById('chart-area')
-            ?.getContext('2d');
-
-        //
+        // * Draw the chart if all is good
         (window as any).chart1 = new WindowChart(ctx, {
             type: 'treemap',
             data: {
                 datasets: [
                     {
-                        label: 'Sample with labels',
-                        tree: reformatedDataForTreeMap,
+                        label: 'Available Vehicles',
+                        tree: reformatDataForTreeMap,
                         key: 'value',
                         groups: ['label'],
                         backgroundColor: function (ctx: any) {
@@ -95,17 +121,16 @@ const TreemapChart: React.FC<TreemapChartProps> = ({
                                 return;
                             }
 
-                            let idx = ctx.dataset.tree.indexOf(
+                            const idx = ctx.dataset.tree.indexOf(
                                 ctx.dataset.data[ctx.dataIndex]._data
                                     .children[0]
                             );
 
                             return colorArr[idx];
                         },
-                        fontColor: 'black',
-                        fontWeight: 600,
+                        fontColor: 'white',
                         fontFamily: 'Roboto',
-                        fontSize: 30,
+                        fontSize: 20,
                         spacing: 1,
                         borderWidth: 3,
                     },
@@ -128,8 +153,8 @@ const TreemapChart: React.FC<TreemapChartProps> = ({
                             return `Item index is: ${item[0].index}`;
                         },
                         label: function (item: any, data: any) {
-                            var dataset = data.datasets[item.datasetIndex];
-                            var dataItem = dataset.data[item.index];
+                            const dataset = data.datasets[item.datasetIndex];
+                            const dataItem = dataset.data[item.index];
                             return dataItem.v;
                         },
                     },
@@ -137,24 +162,26 @@ const TreemapChart: React.FC<TreemapChartProps> = ({
             },
         });
 
-        // * finalise Draw of the chart
         setChartIsDrawn(true);
     });
+
+    React.useEffect(() => {
+        // * when we trigger the Select Dropdown, we need to destroy the OLD chart and recreate a new one, otherwise it bugs a bit
+        (window as any).chart1?.destroy();
+        setChartIsDrawn(false);
+    }, [data]);
 
     return (
         <Box {...rest}>
             {loading && <TreemapChartSkeleton />}
             {!loading && (
-                <>
-                    {/* <canvas ref={chartRef}>Hello World</canvas> */}
-                    <div className='canvas-holder'>
-                        <canvas
-                            id='chart-area'
-                            width='800'
-                            height='400'
-                        ></canvas>
-                    </div>
-                </>
+                <Box sx={{ pt: 2, cursor: 'pointer' }}>
+                    <canvas
+                        id='chart-area'
+                        width='100%'
+                        height='400px'
+                    ></canvas>
+                </Box>
             )}
         </Box>
     );
