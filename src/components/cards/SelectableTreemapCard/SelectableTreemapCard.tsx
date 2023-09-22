@@ -13,10 +13,10 @@ import {
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { t } from 'src/translation';
 import TreemapChartProps from 'src/components/charts/TreemapChart/TreemapChart';
+import { useTreeMapChartHrefs } from './hooks';
 
 export interface SelectableTreemapCardProps extends CardProps {
     loading: boolean;
-    numberOfRecords: number;
     allData: {
         categories: {
             [anomaly: string]: number;
@@ -30,7 +30,6 @@ export interface SelectableTreemapCardProps extends CardProps {
 const SelectableTreemapCard: React.FC<SelectableTreemapCardProps> = ({
     loading,
     allData,
-    numberOfRecords,
     ...rest
 }) => {
     //
@@ -69,17 +68,16 @@ const SelectableTreemapCard: React.FC<SelectableTreemapCardProps> = ({
         return (allData as any)[label ?? Object.keys(allData)[0]];
     }, [allData, selectOptions, TRANSLATED_CATEGORIES, TRANSLATED_BRAND]);
 
-    loading = false;
+    const treeMapLinksArray: string[] = useTreeMapChartHrefs();
 
-    // React.useEffect(() => {
-    //     console.log('allData', allData);
-    // });
+    const availableVehicleLabel = t('AVAILABLE_VEHICLES');
+
+    loading = false;
 
     return (
         <Card {...rest}>
             <CardContent>
                 <Box
-                    // className='drr'
                     sx={{
                         display: 'flex',
                         justifyContent: 'space-between',
@@ -87,7 +85,7 @@ const SelectableTreemapCard: React.FC<SelectableTreemapCardProps> = ({
                     }}
                 >
                     <Typography gutterBottom variant='h6' component='div'>
-                        {t('AVAILABLE_VEHICLES')}
+                        {availableVehicleLabel}
                     </Typography>
                     {loading && (
                         <Skeleton
@@ -98,7 +96,11 @@ const SelectableTreemapCard: React.FC<SelectableTreemapCardProps> = ({
                         />
                     )}
                     {!loading && (
-                        <FormControl sx={{ width: '20%' }}>
+                        <FormControl
+                            sx={{
+                                width: '175px',
+                            }}
+                        >
                             <Select
                                 value={selectOptions}
                                 onChange={handleChange}
@@ -120,7 +122,8 @@ const SelectableTreemapCard: React.FC<SelectableTreemapCardProps> = ({
                 <TreemapChartProps
                     loading={loading}
                     data={dataForTreeMap}
-                    total={numberOfRecords}
+                    linksArray={treeMapLinksArray}
+                    chartLabel={availableVehicleLabel}
                 />
             </CardContent>
         </Card>

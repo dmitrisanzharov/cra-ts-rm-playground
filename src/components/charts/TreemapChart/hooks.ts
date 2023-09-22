@@ -1,0 +1,181 @@
+import React from 'react';
+import { ApiData, TreeMapDataFormat, DataItemsAsArray } from './types';
+import {
+    RM_COLOR_BASE_WHITE,
+    RM_TYPOGRAPHY_FONT_FAMILY_SANS,
+    RM_SIZE_FONT_LABEL_LARGE,
+    RM_COLOR_BASE_BLUE_MIDDLE,
+    RM_COLOR_BASE_BLUE_LIGHT_20,
+    RM_COLOR_BASE_BLUE_LIGHT_30,
+    RM_COLOR_BASE_BLUE_LIGHT_50,
+    RM_COLOR_BASE_BLUE_LIGHT_80,
+    RM_COLOR_BASE_BLUE_DARK_20,
+    RM_COLOR_BASE_BLUE_DARK_30,
+    RM_COLOR_BASE_BLUE_DARK_50,
+    RM_COLOR_BASE_BLUE_DARK_80,
+} from 'src/design-tokens/tokens';
+
+const TREEMAP_FONT_SIZE = Number(RM_SIZE_FONT_LABEL_LARGE.split(/r/)[0]) * 16;
+
+const treeMapColorArr: string[] = [
+    RM_COLOR_BASE_BLUE_DARK_80,
+    RM_COLOR_BASE_BLUE_DARK_50,
+    RM_COLOR_BASE_BLUE_DARK_30,
+    RM_COLOR_BASE_BLUE_DARK_20,
+    RM_COLOR_BASE_BLUE_MIDDLE,
+    RM_COLOR_BASE_BLUE_LIGHT_20,
+    RM_COLOR_BASE_BLUE_LIGHT_30,
+    RM_COLOR_BASE_BLUE_LIGHT_50,
+    RM_COLOR_BASE_BLUE_LIGHT_80,
+];
+
+export function destroyTreeMapCdnAndChart() {
+    (window as any).chart1?.destroy();
+    if (document.getElementById('treeMapScript')) {
+        document.head.removeChild(
+            document.getElementById('treeMapScript') as any
+        );
+    }
+}
+
+export function loadTheTreeMapCDNScript() {
+    const treeMapScriptExistsInWindow =
+        document.getElementById('treeMapScript');
+
+    if (treeMapScriptExistsInWindow) {
+        return;
+    }
+
+    const addTreeMapScriptToWindow = document.createElement('script');
+    addTreeMapScriptToWindow.setAttribute(
+        'src',
+        'https://cdn.jsdelivr.net/npm/chartjs-chart-treemap@0.2.3'
+    );
+    addTreeMapScriptToWindow.setAttribute('id', 'treeMapScript');
+    document.head.appendChild(addTreeMapScriptToWindow);
+}
+
+export const useReformatDataForTreeMap = (
+    data: ApiData
+): TreeMapDataFormat[] => {
+    return React.useMemo(() => {
+        return Object.entries(data)
+            .sort((a: DataItemsAsArray, b: DataItemsAsArray) => b[1] - a[1])
+            .map(([label, value]: DataItemsAsArray) => {
+                return {
+                    label: `${label}: ${value}`,
+                    value: value,
+                };
+            })
+            .slice(0, 8);
+    }, [data]);
+};
+
+export const useDrawTreeMapChart = (
+    data: any,
+    loading: boolean,
+    chartLabel: string,
+    reformatDataForTreeMap: any,
+    // states
+    chartIsDrawn: boolean,
+    dummyReloadState: number,
+    setChartIsDrawn: (value: boolean) => void,
+    setChartNotLoadingError: (value: boolean) => void,
+    setDummyReloadState: (value: number) => void
+) => {
+    return React.useEffect(() => {
+        //
+        console.log('dummyReloadState', dummyReloadState);
+
+        if (chartIsDrawn) {
+            return;
+        }
+
+        loadTheTreeMapCDNScript();
+
+        let WindowChart = (window as any).Chart;
+        let ctx = (document as any)
+            .getElementById('chart-area')
+            ?.getContext('2d');
+        let chartTreeMapLoadedIntoChartJs = (window as any).Chart.defaults
+            .treemap;
+
+        // * Wait for Chart Treemap to LOAD into the Window object (it takes few re-renders)
+        if (!chartTreeMapLoadedIntoChartJs || !ctx) {
+            // * need to stop INFINITE loop in case Chart CDN does NOT load for some reason
+            if (dummyReloadState >= 100) {
+                setChartNotLoadingError(true);
+                setChartIsDrawn(true);
+            }
+
+            setDummyReloadState(dummyReloadState + 1);
+            return;
+        }
+
+        // * Draw the chart if all is good
+        (window as any).chart1 = new WindowChart(ctx, {
+            type: 'treemap',
+            data: {
+                datasets: [
+                    {
+                        label: chartLabel,
+                        tree: reformatDataForTreeMap,
+                        key: 'value',
+                        groups: ['label'],
+                        backgroundColor: function (ctx: any) {
+                            let item = ctx.dataset.data[ctx.dataIndex];
+
+                            if (!item) {
+                                return;
+                            }
+
+                            const idx = ctx.dataset.tree.indexOf(
+                                ctx.dataset.data[ctx.dataIndex]._data
+                                    .children[0]
+                            );
+
+                            return treeMapColorArr[idx];
+                        },
+                        fontColor: RM_COLOR_BASE_WHITE,
+                        fontFamily: RM_TYPOGRAPHY_FONT_FAMILY_SANS,
+                        fontSize: TREEMAP_FONT_SIZE,
+                        spacing: 1,
+                        borderWidth: 3,
+                    },
+                ],
+            },
+            options: {
+                onClick: (el: any, arr: any) =>
+                    console.log('item index clicked', arr[0]._index),
+                maintainAspectRatio: false,
+                legend: {
+                    display: false,
+                },
+                tooltips: {
+                    callbacks: {
+                        title: function (item: any, data: any) {
+                            return `Item index is: ${item[0].index}`;
+                        },
+                        label: function (item: any, data: any) {
+                            const dataset = data.datasets[item.datasetIndex];
+                            const dataItem = dataset.data[item.index];
+                            return dataItem.v;
+                        },
+                    },
+                },
+            },
+        });
+
+        setChartIsDrawn(true);
+    }, [
+        data,
+        loading,
+        chartIsDrawn,
+        dummyReloadState,
+        reformatDataForTreeMap,
+        setChartIsDrawn,
+        setChartNotLoadingError,
+        setDummyReloadState,
+        chartLabel,
+    ]);
+};
