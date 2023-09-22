@@ -1,5 +1,3 @@
-// * INTERFACES AND TYPES
-
 export type ApiData = {
     [label: string]: number;
 };
