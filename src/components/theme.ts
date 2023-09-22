@@ -1,4 +1,5 @@
 // * --------  START of VICTOR IMPORTS, WILL BE DELETED UPON APPROVAL -------------------
+import { useMediaQuery } from '@mui/material';
 import { createTheme } from '@mui/material/styles';
 import * as tokens from 'src/design-tokens/tokens';
 // * --------  END of VICTOR IMPORTS, WILL BE DELETED UPON APPROVAL -------------------
@@ -82,3 +83,20 @@ export const theme = createTheme({
         snackbar: tokens.RM_ZINDEX_TOAST,
     },
 });
+
+export const mostUsedScreenSizesAsString: {
+    [size: string]: { usagePercentage: number; query: string };
+} = {
+    size1366x768: {
+        usagePercentage: 3.06,
+        query: '@media(width: 1366px) and (height: 768px)',
+    },
+    size1280x720: {
+        usagePercentage: 0.54,
+        query: '@media(width: 1280px) and (height: 720px)',
+    },
+    size1440x900: {
+        usagePercentage: 0.003,
+        query: '@media(width: 1440px) and (height: 900px)',
+    },
+};

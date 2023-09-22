@@ -1,5 +1,11 @@
 import React from 'react';
-import { Box, BoxProps, Skeleton, SkeletonProps } from '@mui/material';
+import {
+    Box,
+    BoxProps,
+    Skeleton,
+    SkeletonProps,
+    Typography,
+} from '@mui/material';
 import { t } from 'src/translation/index';
 import {
     RM_COLOR_BASE_BLUE_MIDDLE,
@@ -11,7 +17,18 @@ import {
     RM_COLOR_BASE_BLUE_DARK_30,
     RM_COLOR_BASE_BLUE_DARK_50,
     RM_COLOR_BASE_BLUE_DARK_80,
+    RM_COLOR_BASE_WHITE,
+    RM_TYPOGRAPHY_FONT_FAMILY_SANS,
+    RM_SIZE_FONT_LABEL_LARGE,
 } from 'src/design-tokens/tokens';
+import {
+    destroyTreeMapCdnAndChart,
+    loadTheTreeMapCDNScript,
+    useReformatDataForTreeMap,
+} from './hooks';
+
+const TREEMAP_HEIGHT = '525px';
+const TREEMAP_FONT_SIZE = Number(RM_SIZE_FONT_LABEL_LARGE.split(/r/)[0]) * 16;
 
 const TreemapChartSkeleton: React.FC<SkeletonProps> = ({
     variant = 'rectangular',
@@ -20,87 +37,73 @@ const TreemapChartSkeleton: React.FC<SkeletonProps> = ({
     <Box {...rest}>
         <Skeleton
             variant={variant}
-            sx={{ height: '40vh', width: '100%', borderRadius: '5px' }}
+            sx={{
+                height: TREEMAP_HEIGHT,
+                width: '100%',
+                borderRadius: '5px',
+            }}
         />
     </Box>
 );
 
 interface TreemapChartProps extends BoxProps {
     loading: boolean;
-    total: number;
     data: { [label: string]: number };
-}
-
-type TreeMapDataItemType = { label: string; value: number };
-
-function loadTheCDN() {
-    const windowScript = document.createElement('script');
-    windowScript.setAttribute(
-        'src',
-        'https://cdn.jsdelivr.net/npm/chartjs-chart-treemap@0.2.3'
-    );
-    document.head.appendChild(windowScript);
+    linksArray: string[];
+    chartLabel: string;
 }
 
 const TreemapChart: React.FC<TreemapChartProps> = ({
-    total,
     loading,
     data,
+    linksArray,
+    chartLabel,
     ...rest
 }) => {
     //
-    const BLUE_60 = '#02377E';
-    const colorArr = [
-        RM_COLOR_BASE_BLUE_DARK_80,
-        RM_COLOR_BASE_BLUE_DARK_50,
-        RM_COLOR_BASE_BLUE_DARK_30,
-        RM_COLOR_BASE_BLUE_DARK_20,
-        RM_COLOR_BASE_BLUE_MIDDLE,
-        RM_COLOR_BASE_BLUE_LIGHT_20,
-        RM_COLOR_BASE_BLUE_LIGHT_30,
-        RM_COLOR_BASE_BLUE_LIGHT_50,
-        RM_COLOR_BASE_BLUE_LIGHT_80,
-    ];
-
+    const chartRef = React.useRef<any>(null);
     const [chartIsDrawn, setChartIsDrawn] = React.useState(false);
-    const [reloadState, setReloadState] = React.useState(0);
+    const [dummyReloadState, setDummyReloadState] = React.useState(0);
+    const [chartNotLoadingError, setChartNotLoadingError] =
+        React.useState(false);
 
-    const reformatDataForTreeMap: {
-        label: string;
-        value: number;
-    }[] = React.useMemo(() => {
-        return Object.entries(data)
-            .sort((a: any, b: any) => b[1] - a[1])
-            .map(([label, value]: [string, number]) => {
-                return { label: `${label}: ${value}`, value };
-            })
-            .slice(0, 8);
-    }, [data]);
+    const colorArr = React.useMemo(
+        () => [
+            RM_COLOR_BASE_BLUE_DARK_80,
+            RM_COLOR_BASE_BLUE_DARK_50,
+            RM_COLOR_BASE_BLUE_DARK_30,
+            RM_COLOR_BASE_BLUE_DARK_20,
+            RM_COLOR_BASE_BLUE_MIDDLE,
+            RM_COLOR_BASE_BLUE_LIGHT_20,
+            RM_COLOR_BASE_BLUE_LIGHT_30,
+            RM_COLOR_BASE_BLUE_LIGHT_50,
+            RM_COLOR_BASE_BLUE_LIGHT_80,
+        ],
+        []
+    );
 
-    React.useLayoutEffect(() => {
-        if (chartIsDrawn) {
-            return;
-        }
-        // * may not be necessary, but just as a precaution
-        loadTheCDN();
-    });
+    const reformatDataForTreeMap = useReformatDataForTreeMap(data);
 
     React.useEffect(() => {
         if (chartIsDrawn) {
             return;
         }
 
-        loadTheCDN();
+        loadTheTreeMapCDNScript();
 
         let WindowChart = (window as any).Chart;
-        let ctx = (document as any)
-        ?.getElementById('chart-area')
-        ?.getContext('2d');
-        let chartTreeMapState = (window as any).Chart.defaults.treemap;
+        let ctx = chartRef?.current?.getContext('2d');
+        let chartTreeMapLoadedIntoChartJs= (window as any).Chart.defaults.treemap;
 
         // * Wait for Chart Treemap to LOAD into the Window object (it takes few re-renders)
-        if (!chartTreeMapState || !ctx) {
-            setReloadState(reloadState + 1);
+        if (!chartTreeMapLoadedIntoChartJs || !ctx) {
+            // * need to stop INFINITE loop in case Chart CDN does NOT load for some reason
+            if (dummyReloadState >= 100) {
+                setChartNotLoadingError(true);
+                setChartIsDrawn(true);
+            }
+
+            setDummyReloadState(dummyReloadState + 1);
             return;
         }
 
@@ -110,7 +113,7 @@ const TreemapChart: React.FC<TreemapChartProps> = ({
             data: {
                 datasets: [
                     {
-                        label: 'Available Vehicles',
+                        label: chartLabel,
                         tree: reformatDataForTreeMap,
                         key: 'value',
                         groups: ['label'],
@@ -128,9 +131,9 @@ const TreemapChart: React.FC<TreemapChartProps> = ({
 
                             return colorArr[idx];
                         },
-                        fontColor: 'white',
-                        fontFamily: 'Roboto',
-                        fontSize: 20,
+                        fontColor: RM_COLOR_BASE_WHITE,
+                        fontFamily: RM_TYPOGRAPHY_FONT_FAMILY_SANS,
+                        fontSize: TREEMAP_FONT_SIZE,
                         spacing: 1,
                         borderWidth: 3,
                     },
@@ -138,12 +141,11 @@ const TreemapChart: React.FC<TreemapChartProps> = ({
             },
             options: {
                 onClick: (el: any, arr: any) =>
-                    console.log('item index clicked', arr[0]._index),
+                    console.log(
+                        'item index clicked',
+                        linksArray[arr[0]._index]
+                    ),
                 maintainAspectRatio: false,
-                title: {
-                    display: false,
-                    text: 'Available Vehicles',
-                },
                 legend: {
                     display: false,
                 },
@@ -163,7 +165,16 @@ const TreemapChart: React.FC<TreemapChartProps> = ({
         });
 
         setChartIsDrawn(true);
-    });
+    }, [
+        data,
+        loading,
+        chartIsDrawn,
+        colorArr,
+        dummyReloadState,
+        reformatDataForTreeMap,
+        linksArray,
+        chartLabel
+    ]);
 
     React.useEffect(() => {
         // * when we trigger the Select Dropdown, we need to destroy the OLD chart and recreate a new one, otherwise it bugs a bit
@@ -171,17 +182,34 @@ const TreemapChart: React.FC<TreemapChartProps> = ({
         setChartIsDrawn(false);
     }, [data]);
 
+    React.useEffect(() => {
+        // * remove chart and CDN when component is UNMOUNTED
+        return () => destroyTreeMapCdnAndChart();
+    }, []);
+
     return (
         <Box {...rest}>
             {loading && <TreemapChartSkeleton />}
-            {!loading && (
-                <Box sx={{ pt: 2, cursor: 'pointer' }}>
+            {!loading && !chartNotLoadingError && (
+                <Box
+                    sx={{
+                        pt: 2,
+                        cursor: 'pointer',
+                        height: TREEMAP_HEIGHT,
+                    }}
+                >
                     <canvas
+                        ref={chartRef}
                         id='chart-area'
                         width='100%'
-                        height='400px'
+                        height='100%'
                     ></canvas>
                 </Box>
+            )}
+            {!loading && chartNotLoadingError && (
+                <Typography variant='body1' component='div'>
+                    {t('ERROR_PLEASE_TRY_AGAIN')}
+                </Typography>
             )}
         </Box>
     );

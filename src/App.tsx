@@ -18,7 +18,7 @@ import FilteringColumnTableBasicInput from 'src/components/table/FilteringColumn
 // * COMPONENTS
 import FleetPageDashboard from 'src/components/pages/FleetDashboardPage/FleetPageDashboard';
 import SideMenu from 'src/components/SideMenu/SideMenu';
-import Blah from 'src/components/Blah';
+import Blah from 'src/components/Blah/Blah';
 import BasicTreemapTestMessy from 'src/components/charts/BasicTreeMapTest/BasicTreemapTestMessy';
 import BasicTreemapGoodSample from 'src/components/charts/BasicTreeMapTest/BasicTreemapGoodSample';
 

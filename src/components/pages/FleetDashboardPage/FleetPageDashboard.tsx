@@ -20,7 +20,7 @@ import UtilizationCard from 'src/components/cards/UtilisationCard/UtilizationCar
 type Props = {};
 
 const FleetPageDashboard = (props: Props) => {
-    const loadingProp = true;
+    const loadingProp = false;
 
     return (
         <Box sx={styles.gridContainer}>
@@ -72,7 +72,6 @@ const FleetPageDashboard = (props: Props) => {
                 loading={true}
                 sx={styles.treemapCardSx}
                 allData={apiDataForTreemap}
-                numberOfRecords={677}
             />
         </Box>
     );
