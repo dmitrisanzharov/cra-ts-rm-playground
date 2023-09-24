@@ -38,23 +38,6 @@ export function destroyTreeMapCdnAndChart() {
     }
 }
 
-export function loadTheTreeMapCDNScript() {
-    const treeMapScriptExistsInWindow =
-        document.getElementById('treeMapScript');
-
-    if (treeMapScriptExistsInWindow) {
-        return;
-    }
-
-    const addTreeMapScriptToWindow = document.createElement('script');
-    addTreeMapScriptToWindow.setAttribute(
-        'src',
-        'https://cdn.jsdelivr.net/npm/chartjs-chart-treemap@0.2.3'
-    );
-    addTreeMapScriptToWindow.setAttribute('id', 'treeMapScript');
-    document.head.appendChild(addTreeMapScriptToWindow);
-}
-
 export const useReformatDataForTreeMap = (
     data: ApiData
 ): TreeMapDataFormat[] => {
@@ -81,92 +64,80 @@ export const useDrawTreeMapChart = (
     dummyReloadState: number,
     setChartIsDrawn: (value: boolean) => void,
     setChartNotLoadingError: (value: boolean) => void,
-    setDummyReloadState: (value: number) => void
+    setDummyReloadState: (value: number) => void,
+    chartRef: any
 ) => {
     return React.useEffect(() => {
         //
         console.log('dummyReloadState', dummyReloadState);
-
-        if (chartIsDrawn) {
-            return;
-        }
-
-        loadTheTreeMapCDNScript();
-
-        let WindowChart = (window as any).Chart;
-        let ctx = (document as any)
-            .getElementById('chart-area')
-            ?.getContext('2d');
-        let chartTreeMapLoadedIntoChartJs = (window as any).Chart.defaults
-            .treemap;
-
-        // * Wait for Chart Treemap to LOAD into the Window object (it takes few re-renders)
-        if (!chartTreeMapLoadedIntoChartJs || !ctx) {
-            // * need to stop INFINITE loop in case Chart CDN does NOT load for some reason
-            if (dummyReloadState >= 100) {
-                setChartNotLoadingError(true);
-                setChartIsDrawn(true);
+        const timeOut = setTimeout(() => {
+            if (chartIsDrawn) {
+                return;
             }
 
-            setDummyReloadState(dummyReloadState + 1);
-            return;
-        }
+            let WindowChart = (window as any).Chart;
+            let ctx = chartRef?.current?.getContext('2d');
+            let chartTreeMapLoadedIntoChartJs = (window as any).Chart.defaults
+                .treemap;
 
-        // * Draw the chart if all is good
-        (window as any).chart1 = new WindowChart(ctx, {
-            type: 'treemap',
-            data: {
-                datasets: [
-                    {
-                        label: chartLabel,
-                        tree: reformatDataForTreeMap,
-                        key: 'value',
-                        groups: ['label'],
-                        backgroundColor: function (ctx: any) {
-                            let item = ctx.dataset.data[ctx.dataIndex];
+            (window as any).chart1 = new WindowChart(ctx, {
+                type: 'treemap',
+                data: {
+                    datasets: [
+                        {
+                            label: chartLabel,
+                            tree: reformatDataForTreeMap,
+                            key: 'value',
+                            groups: ['label'],
+                            backgroundColor: function (ctx: any) {
+                                let item = ctx.dataset.data[ctx.dataIndex];
 
-                            if (!item) {
-                                return;
-                            }
+                                if (!item) {
+                                    return;
+                                }
 
-                            const idx = ctx.dataset.tree.indexOf(
-                                ctx.dataset.data[ctx.dataIndex]._data
-                                    .children[0]
-                            );
+                                const idx = ctx.dataset.tree.indexOf(
+                                    ctx.dataset.data[ctx.dataIndex]._data
+                                        .children[0]
+                                );
 
-                            return treeMapColorArr[idx];
+                                return treeMapColorArr[idx];
+                            },
+                            fontColor: RM_COLOR_BASE_WHITE,
+                            fontFamily: RM_TYPOGRAPHY_FONT_FAMILY_SANS,
+                            fontSize: TREEMAP_FONT_SIZE,
+                            spacing: 1,
+                            borderWidth: 3,
                         },
-                        fontColor: RM_COLOR_BASE_WHITE,
-                        fontFamily: RM_TYPOGRAPHY_FONT_FAMILY_SANS,
-                        fontSize: TREEMAP_FONT_SIZE,
-                        spacing: 1,
-                        borderWidth: 3,
-                    },
-                ],
-            },
-            options: {
-                onClick: (el: any, arr: any) =>
-                    console.log('item index clicked', arr[0]._index),
-                maintainAspectRatio: false,
-                legend: {
-                    display: false,
+                    ],
                 },
-                tooltips: {
-                    callbacks: {
-                        title: function (item: any, data: any) {
-                            return `Item index is: ${item[0].index}`;
-                        },
-                        label: function (item: any, data: any) {
-                            const dataset = data.datasets[item.datasetIndex];
-                            const dataItem = dataset.data[item.index];
-                            return dataItem.v;
+                options: {
+                    onClick: (el: any, arr: any) =>
+                        console.log('item index clicked', arr[0]._index),
+                    maintainAspectRatio: false,
+                    legend: {
+                        display: false,
+                    },
+                    tooltips: {
+                        callbacks: {
+                            title: function (item: any, data: any) {
+                                return `Item index is: ${item[0].index}`;
+                            },
+                            label: function (item: any, data: any) {
+                                const dataset =
+                                    data.datasets[item.datasetIndex];
+                                const dataItem = dataset.data[item.index];
+                                return dataItem.v;
+                            },
                         },
                     },
                 },
-            },
-        });
+            });
 
-        setChartIsDrawn(true);
+            setChartIsDrawn(true);
+        }, 0);
+
+        return () => clearTimeout(timeOut);
     }, [
         data,
         loading,

@@ -47,6 +47,7 @@ const TreemapChart: React.FC<TreemapChartProps> = ({
     ...rest
 }) => {
     //
+    const chartRef = React.useRef<any>(null);
     const [chartIsDrawn, setChartIsDrawn] = React.useState<boolean>(false);
     const [dummyReloadState, setDummyReloadState] = React.useState<number>(0);
     const [chartNotLoadingError, setChartNotLoadingError] =
@@ -63,7 +64,8 @@ const TreemapChart: React.FC<TreemapChartProps> = ({
         dummyReloadState,
         setChartIsDrawn,
         setChartNotLoadingError,
-        setDummyReloadState
+        setDummyReloadState,
+        chartRef
     );
 
     React.useEffect(() => {
@@ -88,7 +90,12 @@ const TreemapChart: React.FC<TreemapChartProps> = ({
                         height: TREEMAP_HEIGHT,
                     }}
                 >
-                    <canvas id='chart-area' width='100%' height='100%'></canvas>
+                    <canvas
+                        id='chart-area'
+                        width='100%'
+                        height='100%'
+                        ref={chartRef}
+                    ></canvas>
                 </Box>
             )}
             {!loading && chartNotLoadingError && (

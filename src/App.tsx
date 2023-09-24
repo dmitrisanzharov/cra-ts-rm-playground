@@ -38,8 +38,26 @@ function App() {
         }
     }
 
+    function loadTheTreeMapCDNScript() {
+        const treeMapScriptExistsInWindow =
+            document.getElementById('treeMapScript');
+
+        if (treeMapScriptExistsInWindow) {
+            return;
+        }
+
+        const addTreeMapScriptToWindow = document.createElement('script');
+        addTreeMapScriptToWindow.setAttribute(
+            'src',
+            'https://cdn.jsdelivr.net/npm/chartjs-chart-treemap@0.2.3'
+        );
+        addTreeMapScriptToWindow.setAttribute('id', 'treeMapScript');
+        document.head.appendChild(addTreeMapScriptToWindow);
+    }
+
     React.useEffect(() => {
         setSessionStorageFn();
+        loadTheTreeMapCDNScript();
     }, []);
 
     return (
