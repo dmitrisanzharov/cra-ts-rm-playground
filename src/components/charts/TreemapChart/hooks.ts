@@ -70,70 +70,74 @@ export const useDrawTreeMapChart = (
     return React.useEffect(() => {
         //
         console.log('dummyReloadState', dummyReloadState);
+        const timeOut = setTimeout(() => {
+            if (chartIsDrawn) {
+                return;
+            }
 
-        if (chartIsDrawn) {
-            return;
-        }
+            let WindowChart = (window as any).Chart;
+            let ctx = chartRef?.current?.getContext('2d');
+            let chartTreeMapLoadedIntoChartJs = (window as any).Chart.defaults
+                .treemap;
 
-        let WindowChart = (window as any).Chart;
-        let ctx = chartRef?.current?.getContext('2d');
-        let chartTreeMapLoadedIntoChartJs = (window as any).Chart.defaults
-            .treemap;
+            (window as any).chart1 = new WindowChart(ctx, {
+                type: 'treemap',
+                data: {
+                    datasets: [
+                        {
+                            label: chartLabel,
+                            tree: reformatDataForTreeMap,
+                            key: 'value',
+                            groups: ['label'],
+                            backgroundColor: function (ctx: any) {
+                                let item = ctx.dataset.data[ctx.dataIndex];
 
-        (window as any).chart1 = new WindowChart(ctx, {
-            type: 'treemap',
-            data: {
-                datasets: [
-                    {
-                        label: chartLabel,
-                        tree: reformatDataForTreeMap,
-                        key: 'value',
-                        groups: ['label'],
-                        backgroundColor: function (ctx: any) {
-                            let item = ctx.dataset.data[ctx.dataIndex];
+                                if (!item) {
+                                    return;
+                                }
 
-                            if (!item) {
-                                return;
-                            }
+                                const idx = ctx.dataset.tree.indexOf(
+                                    ctx.dataset.data[ctx.dataIndex]._data
+                                        .children[0]
+                                );
 
-                            const idx = ctx.dataset.tree.indexOf(
-                                ctx.dataset.data[ctx.dataIndex]._data
-                                    .children[0]
-                            );
-
-                            return treeMapColorArr[idx];
+                                return treeMapColorArr[idx];
+                            },
+                            fontColor: RM_COLOR_BASE_WHITE,
+                            fontFamily: RM_TYPOGRAPHY_FONT_FAMILY_SANS,
+                            fontSize: TREEMAP_FONT_SIZE,
+                            spacing: 1,
+                            borderWidth: 3,
                         },
-                        fontColor: RM_COLOR_BASE_WHITE,
-                        fontFamily: RM_TYPOGRAPHY_FONT_FAMILY_SANS,
-                        fontSize: TREEMAP_FONT_SIZE,
-                        spacing: 1,
-                        borderWidth: 3,
-                    },
-                ],
-            },
-            options: {
-                onClick: (el: any, arr: any) =>
-                    console.log('item index clicked', arr[0]._index),
-                maintainAspectRatio: false,
-                legend: {
-                    display: false,
+                    ],
                 },
-                tooltips: {
-                    callbacks: {
-                        title: function (item: any, data: any) {
-                            return `Item index is: ${item[0].index}`;
-                        },
-                        label: function (item: any, data: any) {
-                            const dataset = data.datasets[item.datasetIndex];
-                            const dataItem = dataset.data[item.index];
-                            return dataItem.v;
+                options: {
+                    onClick: (el: any, arr: any) =>
+                        console.log('item index clicked', arr[0]._index),
+                    maintainAspectRatio: false,
+                    legend: {
+                        display: false,
+                    },
+                    tooltips: {
+                        callbacks: {
+                            title: function (item: any, data: any) {
+                                return `Item index is: ${item[0].index}`;
+                            },
+                            label: function (item: any, data: any) {
+                                const dataset =
+                                    data.datasets[item.datasetIndex];
+                                const dataItem = dataset.data[item.index];
+                                return dataItem.v;
+                            },
                         },
                     },
                 },
-            },
-        });
+            });
 
-        setChartIsDrawn(true);
+            setChartIsDrawn(true);
+        }, 0);
+
+        return () => clearTimeout(timeOut);
     }, [
         data,
         loading,
