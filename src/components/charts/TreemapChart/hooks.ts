@@ -38,23 +38,6 @@ export function destroyTreeMapCdnAndChart() {
     }
 }
 
-export function loadTheTreeMapCDNScript() {
-    const treeMapScriptExistsInWindow =
-        document.getElementById('treeMapScript');
-
-    if (treeMapScriptExistsInWindow) {
-        return;
-    }
-
-    const addTreeMapScriptToWindow = document.createElement('script');
-    addTreeMapScriptToWindow.setAttribute(
-        'src',
-        'https://cdn.jsdelivr.net/npm/chartjs-chart-treemap@0.2.3'
-    );
-    addTreeMapScriptToWindow.setAttribute('id', 'treeMapScript');
-    document.head.appendChild(addTreeMapScriptToWindow);
-}
-
 export const useReformatDataForTreeMap = (
     data: ApiData
 ): TreeMapDataFormat[] => {
@@ -81,7 +64,8 @@ export const useDrawTreeMapChart = (
     dummyReloadState: number,
     setChartIsDrawn: (value: boolean) => void,
     setChartNotLoadingError: (value: boolean) => void,
-    setDummyReloadState: (value: number) => void
+    setDummyReloadState: (value: number) => void,
+    chartRef: any
 ) => {
     return React.useEffect(() => {
         //
@@ -91,28 +75,11 @@ export const useDrawTreeMapChart = (
             return;
         }
 
-        loadTheTreeMapCDNScript();
-
         let WindowChart = (window as any).Chart;
-        let ctx = (document as any)
-            .getElementById('chart-area')
-            ?.getContext('2d');
+        let ctx = chartRef?.current?.getContext('2d');
         let chartTreeMapLoadedIntoChartJs = (window as any).Chart.defaults
             .treemap;
 
-        // * Wait for Chart Treemap to LOAD into the Window object (it takes few re-renders)
-        if (!chartTreeMapLoadedIntoChartJs || !ctx) {
-            // * need to stop INFINITE loop in case Chart CDN does NOT load for some reason
-            if (dummyReloadState >= 100) {
-                setChartNotLoadingError(true);
-                setChartIsDrawn(true);
-            }
-
-            setDummyReloadState(dummyReloadState + 1);
-            return;
-        }
-
-        // * Draw the chart if all is good
         (window as any).chart1 = new WindowChart(ctx, {
             type: 'treemap',
             data: {
