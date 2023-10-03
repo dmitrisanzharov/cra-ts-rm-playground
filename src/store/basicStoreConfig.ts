@@ -25,7 +25,4 @@ const basicStoreConfig = configureStore({
     reducer: persistedReducer
 })
 
-console.log('basicStoreConfig', basicStoreConfig);
-
-
 export default basicStoreConfig; 

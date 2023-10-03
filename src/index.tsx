@@ -11,7 +11,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { persistStore } from 'redux-persist'; 
 
 
-let persistorConst = persistStore(basicStoreConfig);
+const persistorConst = persistStore(basicStoreConfig);
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
