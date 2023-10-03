@@ -1,21 +1,47 @@
 import React from 'react';
-import { Box, Skeleton, Typography } from '@mui/material';
-// @ts-ignore
-import { useCountIncrease, incCount2 } from './hooks';
+import { useSelector, useDispatch } from 'react-redux'; 
+import countSlice from 'src/redux/countSlice';
+import inputSlice from 'src/redux/inputSlice';
 
-type Props = any;
+const Blah: React.FC<any> = () => {
 
-const Blah: React.FC<any> = ({ ...rest }: Props) => {
-    const [count, setCount] = React.useState<any>(0);
+    const dispatch = useDispatch();
 
-    function incCount() {
-        incCount2(count, setCount);
+    const count = useSelector((state: any) => {
+        console.log('this is GLOBAL state', state);
+        return state.shakeAndBake.countFromStore
+    })
+
+
+    const input = useSelector((state: any) => {
+
+        return state.inputThingy.inputFromStore
+    })
+
+
+    function handleIncrease(){
+        console.log('this is slice', countSlice);
+        dispatch(countSlice.actions.increment());
+    }
+
+    function hanbleIncreaseByAmount(){
+        dispatch(countSlice.actions.incrementByAmount(5));
+    }
+
+
+    function handleInputChange(arg: any){
+        dispatch(inputSlice.actions.handleInputChange(arg))
     }
 
     return (
-        <div {...rest}>
-            <h1>{count}</h1>
-            <button onClick={incCount}>inc</button>
+        <div>
+              <h1>{count}</h1> 
+              <hr />
+              <button onClick={handleIncrease}>increase</button>
+              <button onClick={hanbleIncreaseByAmount}>increase by amount</button>
+              <hr />
+              <input value={input} onChange={e=> handleInputChange(e.target.value)}/>
+              <div>{input}</div>
         </div>
     );
 };

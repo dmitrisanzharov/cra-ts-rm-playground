@@ -73,11 +73,11 @@ function App() {
                 sideMenuControl={setSessionStorageFn}
                 isSideMenuOpen={isSideMenuOpen}
             />
-            {/* <Blah className='drr' /> */}
+            <Blah className='drr' />
             {/* <BasicTreemapTestMessy /> */}
             {/* <BasicTreemapGoodSample /> */}
             {/* <hr /> */}
-            <FleetPageDashboard />
+            {/* <FleetPageDashboard /> */}
 
             {/* ============ TANSTACK TABLE ====================== */}
             {/* <BasicTable /> */}
