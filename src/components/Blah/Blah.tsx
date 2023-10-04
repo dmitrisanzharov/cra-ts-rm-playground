@@ -1,26 +1,25 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux'; 
-import countSlice from 'src/redux/countSlice';
+import countSlice, { selectCountFromStore as countSliceCountSelector } from 'src/redux/countSlice';
 import inputSlice from 'src/redux/inputSlice';
 
 const Blah: React.FC<any> = () => {
 
     const dispatch = useDispatch();
 
-    const count = useSelector((state: any) => {
-        console.log('this is GLOBAL state', state);
-        return state.shakeAndBake.countFromStore
-    })
+    // const count = useSelector((state: any) => {
+    //     return state.shakeAndBake.countFromStore
+    // })
+
+    const count2 = useSelector(countSliceCountSelector);
 
 
     const input = useSelector((state: any) => {
-
         return state.inputThingy.inputFromStore
     })
 
 
     function handleIncrease(){
-        console.log('this is slice', countSlice);
         dispatch(countSlice.actions.increment());
     }
 
@@ -35,7 +34,7 @@ const Blah: React.FC<any> = () => {
 
     return (
         <div>
-              <h1>{count}</h1> 
+              <h1>{count2}</h1> 
               <hr />
               <button onClick={handleIncrease}>increase</button>
               <button onClick={hanbleIncreaseByAmount}>increase by amount</button>

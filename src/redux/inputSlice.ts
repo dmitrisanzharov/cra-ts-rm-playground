@@ -14,6 +14,6 @@ const inputSlice = createSlice({
     }
 })
 
-console.log('inputSlice', inputSlice);
+// console.log('inputSlice', inputSlice);
 
 export default inputSlice;
