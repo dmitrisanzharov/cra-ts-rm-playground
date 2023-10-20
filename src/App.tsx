@@ -74,11 +74,11 @@ function App() {
                 sideMenuControl={setSessionStorageFn}
                 isSideMenuOpen={isSideMenuOpen}
             />
-            {/* <Box className='' sx={{width: '862px', height: '332px'}}>
+            <Box className='' sx={{width: '862px'}}>
                 <MaintenanceAlertsCard />
-            </Box> */}
+            </Box>
            
-            <Blah className='drr' />
+            {/* <Blah className='drr' /> */}
             {/* <BasicTreemapTestMessy /> */}
             {/* <BasicTreemapGoodSample /> */}
             {/* <hr /> */}

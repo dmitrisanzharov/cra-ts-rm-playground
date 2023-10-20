@@ -3,10 +3,11 @@ import {
     RM_COLOR_BASE_GRAY_DARK_20,
     RM_COLOR_BASE_GRAY_LIGHT_90,
     RM_COLOR_BASE_RED,
-    RM_COLOR_BASE_WHITE
+    RM_COLOR_BASE_WHITE,
 } from 'src/design-tokens/tokens.js';
 import 'src/index.css';
 import { t } from 'src/translation/index';
+import milageAlertsApi from 'src/fakeApis/milageAlertsByVid';
 // * --------  END of VICTOR IMPORTS, WILL BE DELETED UPON APPROVAL -------------------
 //
 import BuildIcon from '@mui/icons-material/Build';
@@ -23,18 +24,13 @@ import {
     TableContainer,
     TableHead,
     TableRow,
-    Typography
+    Typography,
+    Button,
 } from '@mui/material';
 import React from 'react';
 import { DeleteButtonCellRenderer } from 'src/components/table/BasicTableComponents/DeleteButtonCellRenderer';
 // import { useTranslation } from '@hooks/translation';
 // import mileageAlertsApi from '@store/apis/v3/mileageAlerts';
-import fakeApiData from './fakeApi';
-
-// OTHER STUFF
-let loading = false;
-const tempVid = '29953';
-const finalData = fakeApiData.data.filter((el: any) => el.vid === tempVid)[0].data;
 
 // INTERFACES & TYPES
 type Props = {};
@@ -88,16 +84,30 @@ const LoadingComponent: React.FC<any> = () => {
 };
 
 const MaintenanceAlertsCard: React.FC<any> = ({ ...rest }: Props) => {
+    // API STUFF
+    let loading = false;
+    const tempVid = 29953;
+    const finalData = milageAlertsApi?.data?.filter(el=> el.vid === tempVid)[0].data;
+
+
     // const { t } = useTranslation();
 
     const defaultCellAlign = 'center';
 
     loading = false;
 
-
     const buttonProps = {
         onClick: () => console.log('trigger delete'),
     };
+
+
+    function viewMoreClick(){
+        // TODO: need to change this
+        window.open(
+            'https://www.google.com',
+            '_blank'
+        );
+    }
 
     return (
         <Box sx={{ width: '100%' }} {...rest}>
@@ -113,6 +123,10 @@ const MaintenanceAlertsCard: React.FC<any> = ({ ...rest }: Props) => {
                         backgroundColor: RM_COLOR_BASE_GRAY_DARK_20,
                         pt: 2,
                         display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        px: '10px',
+                        pb: '20px'
                     }}
                 >
                     <Typography
@@ -122,34 +136,30 @@ const MaintenanceAlertsCard: React.FC<any> = ({ ...rest }: Props) => {
                             fontWeight: '400',
                             lineHeight: '32px',
                             color: 'white',
-                            mx: '10px',
-                            mb: '20px',
                         }}
                     >
                         {t('MAINTENANCE_ALERTS')}
                     </Typography>
-                    <Box
-                        className='md-button-clone'
+                    <Button
                         sx={{
                             backgroundColor: RM_COLOR_BASE_WHITE,
                             color: RM_COLOR_BASE_GRAY_DARK_20,
+                            '&:hover': {
+                                backgroundColor: RM_COLOR_BASE_WHITE,
+                                color: RM_COLOR_BASE_GRAY_DARK_20,
+                            }
                         }}
+                        onClick={viewMoreClick}
                     >
                         {t('VIEW_MORE')}
-                    </Box>
+                    </Button>
                 </Box>
-                <CardContent>
-                    <h6>
-                        Just do the table part, cause too much repositinong on
-                        buttons and other jazz
-                    </h6>
-                    <hr />
-                    {/* START OF THE TABLE */}
-                    {/* {loading && <NoDataComponent />} */}
+                <CardContent sx={{padding: '0px', borderRadius: '0px', '&:last-child': {paddingBottom: '0px'}}}>
+                    {loading && <NoDataComponent />}
                     {loading && <LoadingComponent />}
                     {!loading && (
                         <>
-                            <TableContainer component={Paper}>
+                            <TableContainer>
                                 <Table>
                                     <TableHead
                                         sx={{
@@ -202,7 +212,9 @@ const MaintenanceAlertsCard: React.FC<any> = ({ ...rest }: Props) => {
                                                     >
                                                         {row.name}
                                                     </TableCell>
-                                                    <TableCell align={defaultCellAlign}>
+                                                    <TableCell
+                                                        align={defaultCellAlign}
+                                                    >
                                                         {/* THIS NEEDS TO USE: getConvertedDistanceString(10000, t, 'distance', true) FROM app/reactComponents/helpers/distanceAndSpeed.ts */}
                                                         {row.mileage.toLocaleString()}
                                                         km
@@ -229,14 +241,14 @@ const MaintenanceAlertsCard: React.FC<any> = ({ ...rest }: Props) => {
                                                                         top: '-4px',
                                                                     }}
                                                                 >
-                                                                      {/* THIS NEEDS TO USE: getConvertedDistanceString(10000, t, 'distance', true) FROM app/reactComponents/helpers/distanceAndSpeed.ts */}
+                                                                    {/* THIS NEEDS TO USE: getConvertedDistanceString(10000, t, 'distance', true) FROM app/reactComponents/helpers/distanceAndSpeed.ts */}
                                                                     {row.remaining.toLocaleString()}
                                                                     km
                                                                 </span>
                                                             </>
                                                         ) : (
                                                             <>
-                                                               {/* THIS NEEDS TO USE: getConvertedDistanceString(10000, t, 'distance', true) FROM app/reactComponents/helpers/distanceAndSpeed.ts */}
+                                                                {/* THIS NEEDS TO USE: getConvertedDistanceString(10000, t, 'distance', true) FROM app/reactComponents/helpers/distanceAndSpeed.ts */}
                                                                 {row.remaining.toLocaleString()}
                                                                 km
                                                             </>
@@ -249,7 +261,7 @@ const MaintenanceAlertsCard: React.FC<any> = ({ ...rest }: Props) => {
                                                             buttonProps
                                                         }
                                                         confirmationLabel={t(
-                                                            'mileageAlerts/confirmDelete'
+                                                            'MARK_AS_COMPLETE_PROMPT'
                                                         )}
                                                         defaultIcon='addTask'
                                                         // TODO: loading={deleteOutput.isLoading}
