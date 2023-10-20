@@ -13,6 +13,11 @@ export interface DeleteButtonCellProps extends TableCellProps {
 }
 
 export const DeleteButtonCellRenderer: React.FC<DeleteButtonCellProps> = ({ buttonProps, loading, failed, success, confirmationLabel, defaultIcon, ...rest }) => {
+
+    const toolTipAndDeleteBtnTxt = (defaultIcon === 'addTask' ? t(
+        'MARK_AS_COMPLETE'
+    ) : 'delete')
+
     const [open, setOpen] = React.useState(false);
 
     const [openConfirm, setOpenConfirm] = React.useState(false);
@@ -51,9 +56,7 @@ export const DeleteButtonCellRenderer: React.FC<DeleteButtonCellProps> = ({ butt
     return (
         <TableCell sx={{ p: 0 }} size='small' {...rest} align={defaultIcon && 'center'}>
             <Tooltip
-                title={success ? 'success' : failed ? 'error' : (defaultIcon === 'addTask' ? t(
-                    'MARK_AS_COMPLETE'
-                ) : 'delete')}
+                title={success ? 'success' : failed ? 'error' : toolTipAndDeleteBtnTxt}
                 onClose={handleClose}
                 onOpen={handleOpen}
                 open={open}
@@ -73,7 +76,7 @@ export const DeleteButtonCellRenderer: React.FC<DeleteButtonCellProps> = ({ butt
                     <Button autoFocus onClick={() => setOpenConfirm(false)}>
                         Cancel
                     </Button>
-                    <Button onClick={deleteRecord as any} color="error">Delete</Button>
+                    <Button onClick={deleteRecord as any} color={defaultIcon ? 'success' : 'error'}>{toolTipAndDeleteBtnTxt}</Button>
                 </DialogActions>
             </Dialog>
         </TableCell>
