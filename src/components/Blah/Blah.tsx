@@ -2,20 +2,17 @@ import React from 'react';
 import { Box, Skeleton, Typography } from '@mui/material';
 // @ts-ignore
 import { useCountIncrease, incCount2 } from './hooks';
+import allCarsApi from 'src/fakeApis/fleetAllVehicles.json';
 
 type Props = any;
 
 const Blah: React.FC<any> = ({ ...rest }: Props) => {
-    const [count, setCount] = React.useState<any>(0);
 
-    function incCount() {
-        incCount2(count, setCount);
-    }
+    console.log(allCarsApi);
 
     return (
         <div {...rest}>
-            <h1>{count}</h1>
-            <button onClick={incCount}>inc</button>
+  
         </div>
     );
 };
