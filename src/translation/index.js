@@ -3028,6 +3028,8 @@ const data = {
     weekly_avg_utliisation: 'Weekly Average Utilisation',
     weekly_branch_score: 'Weekly Branch Score',
     windscreen_intact: 'Windscreen Intact',
+    MARK_AS_COMPLETE: 'Mark as complete',
+    LABEL_MAINTENANCE_ALERTS_ERROR_TEXT: 'Unable to load maintenance alerts.',
 };
 
 
