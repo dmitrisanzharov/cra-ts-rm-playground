@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, Skeleton, Typography } from '@mui/material';
 // @ts-ignore
 import { useCountIncrease, incCount2 } from './hooks';
-import allCarsApi from 'src/fakeApis/fleetAllVehicles.json';
+import allCarsApi from 'src/fakeApis/fleetAllVehicles';
 
 type Props = any;
 
