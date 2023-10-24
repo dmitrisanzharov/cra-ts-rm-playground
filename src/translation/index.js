@@ -3029,7 +3029,7 @@ const data = {
     weekly_branch_score: 'Weekly Branch Score',
     windscreen_intact: 'Windscreen Intact',
     MARK_AS_COMPLETE: 'Mark as complete',
-    LABEL_MAINTENANCE_ALERTS_ERROR_TEXT: 'Unable to load maintenance alerts.',
+    LABEL_MAINTENANCE_ALERTS_ERROR_TEXT: 'Unable to load maintenance alerts',
     MARK_AS_COMPLETE_PROMPT: 'Are you sure you would like to mark this record as Complete?'
 };
 

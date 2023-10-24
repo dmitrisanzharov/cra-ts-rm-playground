@@ -94,8 +94,6 @@ const MaintenanceAlertsCard: React.FC<any> = ({ ...rest }: Props) => {
 
     const defaultCellAlign = 'center';
 
-    loading = false;
-
     const buttonProps = {
         onClick: () => console.log('trigger delete'),
     };
