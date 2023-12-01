@@ -1,20 +1,17 @@
 import React from 'react';
-import { Box, Skeleton, Typography } from '@mui/material';
-// @ts-ignore
-import { useCountIncrease, incCount2 } from './hooks';
-import allCarsApi from 'src/fakeApis/fleetAllVehicles';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
 
-type Props = any;
+const CustomSelect = () => {
+  const selectStyles: any = {
+    '&:focus': {
+      backgroundColor: 'transparent', 
+    },
+  };
 
-const Blah: React.FC<any> = ({ ...rest }: Props) => {
-
-    console.log(allCarsApi);
-
-    return (
-        <div {...rest}>
-  
-        </div>
-    );
+  return (
+    <h1>Hello</h1>
+  );
 };
 
-export default Blah;
+export default CustomSelect;

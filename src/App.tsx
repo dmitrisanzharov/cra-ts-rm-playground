@@ -21,7 +21,8 @@ import SideMenu from 'src/components/SideMenu/SideMenu';
 import Blah from 'src/components/Blah/Blah';
 import BasicTreemapTestMessy from 'src/components/charts/BasicTreeMapTest/BasicTreemapTestMessy';
 import BasicTreemapGoodSample from 'src/components/charts/BasicTreeMapTest/BasicTreemapGoodSample';
-import MaintenanceAlertsCard from 'src/components/cards/MaintenanceAlertsCard'
+import MaintenanceAlertsCard from 'src/components/cards/MaintenanceAlertsCard';
+import FleetMapTableDashNav from 'src/components/FleetMapTableDashNav';
 
 function App() {
     const localStorageItemName = 'iAfg4HrIUPmMEqd_isOpen';
@@ -74,11 +75,12 @@ function App() {
                 sideMenuControl={setSessionStorageFn}
                 isSideMenuOpen={isSideMenuOpen}
             />
-            <Box className='' sx={{width: '862px'}}>
+            {/* <Box className='' sx={{width: '862px'}}>
                 <MaintenanceAlertsCard />
-            </Box>
-           
-            {/* <Blah className='drr' /> */}
+            </Box> */}
+            <FleetMapTableDashNav />
+            <hr />
+            <Blah />
             {/* <BasicTreemapTestMessy /> */}
             {/* <BasicTreemapGoodSample /> */}
             {/* <hr /> */}
