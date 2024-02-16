@@ -2,9 +2,9 @@
 export const useUtilizationStatusDoughnutChartHrefs = (): string[] => {
     return [
         'https://www.google.com',
-        'https://www.google.com',
-        'https://www.google.com',
-        'https://www.google.com',
+        'https://www.independent.ie',
+        'https://www.godaddy.com/en-ie',
+        'https://www.music.youtube.comm',
     ];
 };
 // * --------  END of VICTOR IMPORTS, WILL BE DELETED UPON APPROVAL -------------------

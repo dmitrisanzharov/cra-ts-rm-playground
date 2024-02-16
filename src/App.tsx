@@ -23,8 +23,9 @@ import BasicTreemapTestMessy from 'src/components/charts/BasicTreeMapTest/BasicT
 import BasicTreemapGoodSample from 'src/components/charts/BasicTreeMapTest/BasicTreemapGoodSample';
 import MaintenanceAlertsCard from 'src/components/cards/MaintenanceAlertsCard';
 
-// * REVISION
+// * REVISION 4
 import BasicTableRev1 from 'src/components/tableRevision/BasicTableRev1'; 
+import SortingTable from 'src/components/tableRevision/SortingTable';
 
 
 
@@ -87,7 +88,7 @@ function App() {
             {/* <BasicTreemapTestMessy /> */}
             {/* <BasicTreemapGoodSample /> */}
             {/* <hr /> */}
-            {/* <FleetPageDashboard /> */}
+            <FleetPageDashboard />
 
             {/* ============ TANSTACK TABLE ====================== */}
             {/* <BasicTable /> */}
@@ -103,7 +104,8 @@ function App() {
             {/* <FilteringColumnTableBasicInput /> */}
 
             {/* REVISION 4 */}
-            <BasicTableRev1 />
+            {/* <BasicTableRev1 /> */}
+            <SortingTable />
         </Box>
     );
 }

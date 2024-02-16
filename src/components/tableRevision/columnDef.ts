@@ -8,11 +8,11 @@ export type Person = {
     gender: string,
 }
 
-const columnHelper = createColumnHelper<Person>();
+const columnHelper = createColumnHelper<any>();
 
 export const columns = [
-   columnHelper.accessor('id', {
-    header: 'id'
+   columnHelper.accessor(row => `${row.id}, ${row.gender}`, {
+    id: 'blah'
    }),
    columnHelper.accessor('first_name', {
     header: 'First Name'
@@ -26,4 +26,15 @@ export const columns = [
    columnHelper.accessor('gender', {
     header: 'Gender'
    }),
+   {
+    header: 'group1',
+    columns: [
+       columnHelper.accessor('first_name', {
+        id: 'name'
+       }),
+       columnHelper.accessor('last_name', {
+        id: 'last'
+       }),
+    ]
+   }
 ]

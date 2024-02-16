@@ -4,6 +4,7 @@ import {
   TableOptions,
   flexRender,
   getCoreRowModel,
+  getSortedRowModel,
 } from "@tanstack/react-table";
 import TableMUI from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -17,13 +18,14 @@ import { columns, Person } from "./columnDef";
 
 type Props = {};
 
-const BasicTableRev1 = (props: Props) => {
+const SortingTable = (props: Props) => {
   const dataFinal: Person[] = React.useMemo(() => jsonData, [jsonData]);
   const columnsFinal = React.useMemo(() => columns, [columns]);
   const { getHeaderGroups, getRowModel } = useReactTable({
     data: dataFinal,
     columns: columnsFinal,
     getCoreRowModel: getCoreRowModel(),
+    getSortedRowModel: getSortedRowModel()
   } as TableOptions<Person>);
 
   return (
@@ -101,4 +103,4 @@ const BasicTableRev1 = (props: Props) => {
   );
 };
 
-export default BasicTableRev1;
+export default SortingTable;
