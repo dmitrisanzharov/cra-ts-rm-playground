@@ -26,6 +26,7 @@ import MaintenanceAlertsCard from 'src/components/cards/MaintenanceAlertsCard';
 // * REVISION 4
 import BasicTableRev1 from 'src/components/tableRevision/BasicTableRev1'; 
 import SortingTable from 'src/components/tableRevision/SortingTable';
+import PagTable1 from 'src/components/tableRevision/PagTable1'
 
 
 
@@ -88,7 +89,7 @@ function App() {
             {/* <BasicTreemapTestMessy /> */}
             {/* <BasicTreemapGoodSample /> */}
             {/* <hr /> */}
-            <FleetPageDashboard />
+            {/* <FleetPageDashboard /> */}
 
             {/* ============ TANSTACK TABLE ====================== */}
             {/* <BasicTable /> */}
@@ -105,7 +106,9 @@ function App() {
 
             {/* REVISION 4 */}
             {/* <BasicTableRev1 /> */}
-            <SortingTable />
+            {/* <SortingTable /> */}
+            <PagTable1 />
+
         </Box>
     );
 }

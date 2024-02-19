@@ -4,6 +4,7 @@ import {
   TableOptions,
   flexRender,
   getCoreRowModel,
+  getPaginationRowModel
 } from "@tanstack/react-table";
 import TableMUI from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -14,17 +15,24 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import jsonData from "./tableData.json";
 import { columns, Person } from "./columnDef";
+import { Box } from '@mui/material';
 
 type Props = {};
 
-const BasicTableRev1 = (props: Props) => {
+const PagTable1 = (props: Props) => {
   const dataFinal: Person[] = React.useMemo(() => jsonData, [jsonData]);
   const columnsFinal = React.useMemo(() => columns, [columns]);
-  const { getHeaderGroups, getRowModel } = useReactTable({
+  const { getHeaderGroups, getRowModel, setPageIndex, getPageCount, nextPage, previousPage, getCanNextPage, getCanPreviousPage, options } = useReactTable({
     data: dataFinal,
     columns: columnsFinal,
     getCoreRowModel: getCoreRowModel(),
+    getPaginationRowModel: getPaginationRowModel()
   } as TableOptions<Person>);
+
+  const currentPage: number = React.useMemo(()=> {
+    const isUndefined: Boolean = (options?.state?.pagination?.pageIndex === undefined || options?.state?.pagination?.pageIndex === null);
+    return isUndefined ? 0 : options?.state?.pagination?.pageIndex as number + 1;
+  }, [options?.state?.pagination?.pageIndex])
 
   return (
     <div>
@@ -74,8 +82,26 @@ const BasicTableRev1 = (props: Props) => {
           </TableBody>
         </TableMUI>
       </TableContainer>
+      <Box>
+            <Box>
+                <button type="button" onClick={() => setPageIndex(0)} disabled={!getCanPreviousPage()}>{'<<<'}</button>
+                <button type="button" onClick={()=> previousPage()} disabled={!getCanPreviousPage()}>{'<'}</button>
+                <button type="button" onClick={()=> nextPage()} disabled={!getCanNextPage()}>{'>'}</button>
+                <button type="button" onClick={()=> setPageIndex(getPageCount() - 1)} disabled={!getCanNextPage()}>{'>>>'}</button>
+            </Box>
+            <hr />
+            <Box>
+                <Box>
+                    Page number: {currentPage} of {getPageCount()}
+                </Box>
+                <Box>
+                    Jump to page: 
+                    <input type='number' value={currentPage} onChange={e=> setPageIndex(Number(e.target.value))} />
+                </Box>
+            </Box>
+      </Box>
     </div>
   );
 };
 
-export default BasicTableRev1;
+export default PagTable1;

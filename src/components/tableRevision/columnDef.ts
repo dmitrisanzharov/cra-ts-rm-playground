@@ -26,15 +26,10 @@ export const columns = [
    columnHelper.accessor('gender', {
     header: 'Gender'
    }),
-   {
-    header: 'group1',
-    columns: [
-       columnHelper.accessor('first_name', {
-        id: 'name'
-       }),
-       columnHelper.accessor('last_name', {
-        id: 'last'
-       }),
-    ]
-   }
+   columnHelper.accessor('first_name', {
+      id: 'name'
+     }),
+     columnHelper.accessor('last_name', {
+      id: 'last'
+     }),
 ]
