@@ -29,10 +29,9 @@ const FleetPageDashboard = (props: Props) => {
                 // todo FAKE DATA, to remove
                 numberOfRecords={677}
                 statusAvailable={93}
-                statusNRM={30}
                 statusOnRent={554}
+                statusNRM={30}
                 statusOther={20}
-                // loading={true}
                 loading={loadingProp}
             />
             <NRMBreakdownCard

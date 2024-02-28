@@ -8,10 +8,12 @@ type Props = any;
 
 const Blah: React.FC<any> = ({ ...rest }: Props) => {
 
+    // const myString = <>{'Util for '}<br />{'yo'}</>;
+    const myString = `test \b test`;
 
     return (
         <div {...rest}>
-  
+            {myString}
         </div>
     );
 };
