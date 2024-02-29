@@ -24,6 +24,7 @@ export const columnDefMultiFilter = [
     columnHelper.accessor((row) => `${row.first_name} ${row.last_name}`, {
         header: 'all in one',
         enableColumnFilter: false,
+        enableGlobalFilter: false
     }),
 ];
 

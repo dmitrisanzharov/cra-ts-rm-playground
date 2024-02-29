@@ -1,5 +1,5 @@
 import React from 'react';
-import { useReactTable, TableOptions, flexRender, getCoreRowModel } from '@tanstack/react-table';
+import { useReactTable, TableOptions, flexRender, getCoreRowModel, getSortedRowModel, SortingState } from '@tanstack/react-table';
 import TableMUI from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -8,17 +8,26 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import jsonData from './tableData.json';
-import { columns, Person } from './columnDef';
+import { columns, Person, columnsSort } from './columnDef';
 
 type Props = {};
 
-const BasicTableRev1 = (props: Props) => {
+const SortTable1 = (props: Props) => {
     const dataFinal: Person[] = React.useMemo(() => jsonData, [jsonData]);
-    const columnsFinal = React.useMemo(() => columns, [columns]);
+    const columnsFinal = React.useMemo(() => columnsSort, [columnsSort]);
+
+    const [sorting, setSorting] = React.useState<SortingState>([{ id: 'id', desc: true }]);
+    const sortingLabel: any = { asc: ' -UP', desc: ' -DOWN', noSort: ' -X' };
+
     const { getHeaderGroups, getRowModel } = useReactTable({
         data: dataFinal,
         columns: columnsFinal,
         getCoreRowModel: getCoreRowModel(),
+        getSortedRowModel: getSortedRowModel(),
+        state: {
+            sorting: sorting,
+        },
+        onSortingChange: setSorting,
     } as TableOptions<Person>);
 
     return (
@@ -34,7 +43,14 @@ const BasicTableRev1 = (props: Props) => {
                                 <TableRow key={headerGroup.id} sx={{ fontWeight: 'bold', backgroundColor: 'lightgray' }}>
                                     {headerGroup.headers.map((column: any, idx: number) => {
                                         // console.log('column', column);
-                                        return <TableCell key={column.id}>{flexRender(column.column.columnDef.header, column.getContext())}</TableCell>;
+                                        console.log('test', column.column.getIsSorted());
+                                        console.log('test2', column.column.getIsSorted() ? column.column.getIsSorted() : 'noSort');
+                                        return (
+                                            <TableCell key={column.id} onClick={column.column.getToggleSortingHandler()} sx={{ cursor: 'pointer' }}>
+                                                {flexRender(column.column.columnDef.header, column.getContext())}
+                                                {sortingLabel[column.column.getIsSorted() ? column.column.getIsSorted() : 'noSort']}
+                                            </TableCell>
+                                        );
                                     })}
                                 </TableRow>
                             );
@@ -57,4 +73,4 @@ const BasicTableRev1 = (props: Props) => {
     );
 };
 
-export default BasicTableRev1;
+export default SortTable1;

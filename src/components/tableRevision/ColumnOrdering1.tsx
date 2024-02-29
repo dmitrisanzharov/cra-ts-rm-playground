@@ -12,13 +12,20 @@ import { columns, Person } from './columnDef';
 
 type Props = {};
 
-const BasicTableRev1 = (props: Props) => {
+const ColumnOrdering1 = (props: Props) => {
     const dataFinal: Person[] = React.useMemo(() => jsonData, [jsonData]);
     const columnsFinal = React.useMemo(() => columns, [columns]);
+
+    const [columnOrder, setColumnOrder] = React.useState<any>(['first_name', 'email', 'gender', 'yo']);
+
     const { getHeaderGroups, getRowModel } = useReactTable({
         data: dataFinal,
         columns: columnsFinal,
         getCoreRowModel: getCoreRowModel(),
+        state: {
+            columnOrder: columnOrder
+        },
+        onColumnOrderChange: setColumnOrder
     } as TableOptions<Person>);
 
     return (
@@ -57,4 +64,4 @@ const BasicTableRev1 = (props: Props) => {
     );
 };
 
-export default BasicTableRev1;
+export default ColumnOrdering1;

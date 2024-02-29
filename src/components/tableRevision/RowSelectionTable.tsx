@@ -8,21 +8,38 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import jsonData from './tableData.json';
-import { columns, Person } from './columnDef';
+import { columns, Person, columnsSelect } from './columnDef';
 
 type Props = {};
 
-const BasicTableRev1 = (props: Props) => {
+const RowSelectionTable = (props: Props) => {
     const dataFinal: Person[] = React.useMemo(() => jsonData, [jsonData]);
-    const columnsFinal = React.useMemo(() => columns, [columns]);
-    const { getHeaderGroups, getRowModel } = useReactTable({
+    const columnsFinal = React.useMemo(() => columnsSelect, [columnsSelect]);
+
+    const [rowSelection, setRowSelection] = React.useState({});
+
+    const { getHeaderGroups, getRowModel, getSelectedRowModel } = useReactTable({
         data: dataFinal,
         columns: columnsFinal,
         getCoreRowModel: getCoreRowModel(),
+        state: {
+            rowSelection: rowSelection,
+        },
+        onRowSelectionChange: setRowSelection,
+        enableRowSelection: (row: any) => row.original.id <= 10,
     } as TableOptions<Person>);
 
     return (
         <div>
+            <h1>You have selected the following rows</h1>
+            <ul>
+                {getSelectedRowModel().flatRows.map((row: any)=> {
+                    return (
+                        <li key={row.id}>{JSON.stringify(row.original)}</li>
+                    )
+                })}
+            </ul>
+            <hr />
             <h1>Basic Table Stuff</h1>
             <hr />
             <TableContainer component={Paper}>
@@ -57,4 +74,4 @@ const BasicTableRev1 = (props: Props) => {
     );
 };
 
-export default BasicTableRev1;
+export default RowSelectionTable;

@@ -24,7 +24,15 @@ import BasicTreemapGoodSample from 'src/components/charts/BasicTreeMapTest/Basic
 import MaintenanceAlertsCard from 'src/components/cards/MaintenanceAlertsCard';
 
 // * REVISION
-import BasicTableRev1 from 'src/components/tableRevision/BasicTableRev1'; 
+import BasicTableRev1 from 'src/components/tableRevision/BasicTableRev1';
+import SortTable1 from 'src/components/tableRevision/SortTable1'; 
+import GlobalFilterTable from 'src/components/tableRevision/GlobalFilterTable'; 
+import ColumnFilteringTable2 from 'src/components/tableRevision/ColumnFilteringTable';
+import ColumnFilterPerColumn from 'src/components/tableRevision/ColumnFilterPerColumn';
+import PaginationTable1 from 'src/components/tableRevision/PaginationTable1';
+import RowSelectionTable1 from 'src/components/tableRevision/RowSelectionTable';
+import ColumnOrdering1 from 'src/components/tableRevision/ColumnOrdering1';
+import GetFacetedValues from 'src/components/tableRevision/GetFacetedValues';
 
 
 
@@ -71,14 +79,28 @@ function App() {
             sx={{
                 py: 3,
                 position: 'relative',
-                paddingLeft: `${isSideMenuOpen ? 345 : 113}px`,
+                // paddingLeft: `${isSideMenuOpen ? 345 : 113}px`,
+                paddingLeft: '25px',
                 paddingRight: '15px',
             }}
         >
-            <SideMenu
+            {/* <SideMenu
                 sideMenuControl={setSessionStorageFn}
                 isSideMenuOpen={isSideMenuOpen}
-            />
+            /> */}
+
+            {/* =============== TAN STACK REVISION 4 =============== */}
+            {/* <BasicTableRev1 /> */}
+            {/* <SortTable1 /> */}
+            {/* <GlobalFilterTable /> */}
+            {/* <ColumnFilteringTable2 /> */}
+            {/* <ColumnFilterPerColumn /> */}
+            {/* <PaginationTable1 /> */}
+            {/* <RowSelectionTable1 /> */}
+            {/* <ColumnOrdering1 /> */}
+            <GetFacetedValues />
+
+
             {/* <Box className='' sx={{width: '862px'}}>
                 <MaintenanceAlertsCard />
             </Box> */}
@@ -102,8 +124,7 @@ function App() {
             {/* <HidingColumnsTable /> */}
             {/* <FilteringColumnTableBasicInput /> */}
 
-            {/* REVISION 4 */}
-            <BasicTableRev1 />
+
         </Box>
     );
 }

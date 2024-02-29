@@ -1,5 +1,5 @@
 import React from 'react';
-import { useReactTable, TableOptions, flexRender, getCoreRowModel } from '@tanstack/react-table';
+import { useReactTable, TableOptions, flexRender, getCoreRowModel, getFilteredRowModel } from '@tanstack/react-table';
 import TableMUI from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -12,14 +12,25 @@ import { columns, Person } from './columnDef';
 
 type Props = {};
 
-const BasicTableRev1 = (props: Props) => {
+const ColumnFilterPerColumn = (props: Props) => {
+    const [columnFilters, setColumnFilters] = React.useState([]);
+
+    const defaultColumn = { laLand: 'mah man'}; 
+
     const dataFinal: Person[] = React.useMemo(() => jsonData, [jsonData]);
     const columnsFinal = React.useMemo(() => columns, [columns]);
-    const { getHeaderGroups, getRowModel } = useReactTable({
+    const { getHeaderGroups, getRowModel, getPreFilteredRowModel, getGlobalFacetedRowModel } = useReactTable({
         data: dataFinal,
         columns: columnsFinal,
         getCoreRowModel: getCoreRowModel(),
+        getFilteredRowModel: getFilteredRowModel(),
+        defaultColumn: defaultColumn,
     } as TableOptions<Person>);
+
+    // React.useEffect(() => {
+    //     console.log('table test', getPreFilteredRowModel());
+    //     console.log('table test2', getGlobalFacetedRowModel());
+    // }, [getPreFilteredRowModel(), getGlobalFacetedRowModel()]);
 
     return (
         <div>
@@ -33,8 +44,11 @@ const BasicTableRev1 = (props: Props) => {
                             return (
                                 <TableRow key={headerGroup.id} sx={{ fontWeight: 'bold', backgroundColor: 'lightgray' }}>
                                     {headerGroup.headers.map((column: any, idx: number) => {
-                                        // console.log('column', column);
-                                        return <TableCell key={column.id}>{flexRender(column.column.columnDef.header, column.getContext())}</TableCell>;
+                                        console.log('column', column);
+                                        return <TableCell key={column.id}>
+                                            {column.column.getCanFilter() && <input type='text' value={column.column.getFilterValue()} onChange={e => column.column.setFilterValue(e.target.value)} /> }
+                                            <>{flexRender(column.column.columnDef.header, column.getContext())}</>
+                                        </TableCell>;
                                     })}
                                 </TableRow>
                             );
@@ -57,4 +71,4 @@ const BasicTableRev1 = (props: Props) => {
     );
 };
 
-export default BasicTableRev1;
+export default ColumnFilterPerColumn;

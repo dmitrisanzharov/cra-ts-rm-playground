@@ -1,5 +1,5 @@
 import React from 'react';
-import { useReactTable, TableOptions, flexRender, getCoreRowModel } from '@tanstack/react-table';
+import { useReactTable, TableOptions, flexRender, getCoreRowModel, getFilteredRowModel } from '@tanstack/react-table';
 import TableMUI from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -12,18 +12,41 @@ import { columns, Person } from './columnDef';
 
 type Props = {};
 
-const BasicTableRev1 = (props: Props) => {
+const ColumnFilteringTable = (props: Props) => {
     const dataFinal: Person[] = React.useMemo(() => jsonData, [jsonData]);
     const columnsFinal = React.useMemo(() => columns, [columns]);
-    const { getHeaderGroups, getRowModel } = useReactTable({
+    const { getHeaderGroups, getRowModel, getAllColumns } = useReactTable({
         data: dataFinal,
         columns: columnsFinal,
         getCoreRowModel: getCoreRowModel(),
+        getFilteredRowModel: getFilteredRowModel(),
     } as TableOptions<Person>);
+
+    const [filterId, setFilterId] = React.useState<string>('');
+    const [filterValue, setFilterValue] = React.useState<string>('');
+
+    function handleRunFilter(){
+        let allColumns = getAllColumns();
+        console.log("allColumns: ", allColumns);
+
+        let column = allColumns.filter(el=> el.id === filterId)[0];
+        console.log("column: ", column);
+ 
+        column.setFilterValue(filterValue);
+        console.log('all done');
+    }
 
     return (
         <div>
             <h1>Basic Table Stuff</h1>
+            <hr />
+            <select value={filterId} onChange={(e) => setFilterId(e.target.value)}>
+                {['', 'id', 'first_name', 'last_name', 'email', 'gender'].map((item: string) => {
+                    return <option key={item}>{item}</option>;
+                })}
+            </select>
+            <input type='text' value={filterValue} onChange={e => setFilterValue(e.target.value)} />
+            <button onClick={handleRunFilter} type='button'>run filter</button>
             <hr />
             <TableContainer component={Paper}>
                 <TableMUI sx={{ minWidth: 650 }}>
@@ -57,4 +80,4 @@ const BasicTableRev1 = (props: Props) => {
     );
 };
 
-export default BasicTableRev1;
+export default ColumnFilteringTable;
