@@ -8,13 +8,13 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import jsonData from './tableData.json';
-import { columns, Person } from './columnDef';
+import { columns, Person, columnsFace } from './columnDef';
 
 type Props = {};
 
 const GetFacetedValues = (props: Props) => {
     const dataFinal: Person[] = React.useMemo(() => jsonData, [jsonData]);
-    const columnsFinal = React.useMemo(() => columns, [columns]);
+    const columnsFinal = React.useMemo(() => columnsFace, [columnsFace]);
     const { getHeaderGroups, getRowModel } = useReactTable({
         data: dataFinal,
         columns: columnsFinal,
@@ -30,7 +30,12 @@ const GetFacetedValues = (props: Props) => {
     } as TableOptions<Person>);
 
     // React.useEffect(() => {
-    //     console.log('test', table);
+    //     table.getAllColumns().map((column: any)=> {
+    //         console.log('column', column.getFacetedRowModel());
+    //         column.getFacetedRowModel().rows.map((row: any)=> {
+    //             console.log('row', row.getValue('gender'))
+    //         })
+    //     });
     // }, []);
 
     return (
@@ -45,6 +50,7 @@ const GetFacetedValues = (props: Props) => {
                             return (
                                 <TableRow key={headerGroup.id} sx={{ fontWeight: 'bold', backgroundColor: 'lightgray' }}>
                                     {headerGroup.headers.map((column: any, idx: number) => {
+                                        // console.log('column', column);
                                         return <TableCell key={column.id}>{flexRender(column.column.columnDef.header, column.getContext())}</TableCell>;
                                     })}
                                 </TableRow>
@@ -52,10 +58,22 @@ const GetFacetedValues = (props: Props) => {
                         })}
                     </TableHead>
                     <TableBody>
-                        {getRowModel().rows.map((row: any) => {
+                        {getRowModel().rows.map((row: any, idx: any) => {
+                            // if(idx === 1){
+                            //     console.log('row', row)
+                            //     console.log('value', row.getValue('gender'))
+                            //     console.log('renderValue', row.renderValue('gender'))
+                            // }
                             return (
                                 <TableRow key={row.id}>
-                                    {row.getVisibleCells().map((cell: any) => {
+                                    {row.getVisibleCells().map((cell: any, idx: any) => {
+
+                                        if(cell.id === '0_gender' || cell.id === '1_gender'){
+                                            console.log('cell', cell)
+                                            console.log('cell flex', cell.column.getFacetedUniqueValues());
+                                        }
+
+
                                         return <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>;
                                     })}
                                 </TableRow>

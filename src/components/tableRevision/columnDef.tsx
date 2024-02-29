@@ -16,9 +16,6 @@ type Blah = {
 const columnHelper = createColumnHelper<Person>();
 
 export const columns: ColumnDef<Person, any>[] = [
-  columnHelper.accessor('email', {
-    header: 'Email'
-   }),
    columnHelper.accessor('id', {
     header: 'id', 
     blah: 'blah'
@@ -30,11 +27,36 @@ export const columns: ColumnDef<Person, any>[] = [
    columnHelper.accessor('last_name', {
     header: 'Last Name'
    }),
-
+   columnHelper.accessor('email', {
+    header: 'Email'
+   }),
    columnHelper.accessor('gender', {
     header: 'Gender',
     enableColumnFilter: false
    }),
+]
+
+
+export const columnsFace: ColumnDef<Person, any>[] = [
+  columnHelper.accessor('id', {
+   header: 'id', 
+   blah: 'blah'
+  } as ColumnDef<Person, any>),
+  columnHelper.accessor('first_name', {
+   header: 'First Name',
+   filterFn: 'includesStringSensitive',
+  }),
+  columnHelper.accessor('last_name', {
+   header: 'Last Name'
+  }),
+  columnHelper.accessor('email', {
+   header: 'Email'
+  }),
+  columnHelper.accessor('gender', {
+   header: 'Gender',
+   enableColumnFilter: false,
+   cell: (info: any) => info.getValue() === 'Male' ? 'mahMan' : 'rest'
+  }),
 ]
 
 export const columnsSort = [
