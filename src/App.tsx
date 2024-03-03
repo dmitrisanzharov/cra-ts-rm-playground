@@ -34,6 +34,7 @@ import RowSelectionTable1 from 'src/components/tableRevision/RowSelectionTable';
 import ColumnOrdering1 from 'src/components/tableRevision/ColumnOrdering1';
 import GetFacetedValues from 'src/components/tableRevision/GetFacetedValues';
 import ColumnVisibility1 from 'src/components/tableRevision/ColumnVisibility1';
+import GroupTable1 from 'src/components/tableRevision/GroupTable1';
 
 
 
@@ -100,7 +101,8 @@ function App() {
             {/* <RowSelectionTable1 /> */}
             {/* <ColumnOrdering1 /> */}
             {/* <GetFacetedValues /> */}
-            <ColumnVisibility1 />
+            {/* <ColumnVisibility1 /> */}
+            <GroupTable1 />
 
 
             {/* <Box className='' sx={{width: '862px'}}>
