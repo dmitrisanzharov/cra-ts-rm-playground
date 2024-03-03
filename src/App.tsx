@@ -33,6 +33,7 @@ import PaginationTable1 from 'src/components/tableRevision/PaginationTable1';
 import RowSelectionTable1 from 'src/components/tableRevision/RowSelectionTable';
 import ColumnOrdering1 from 'src/components/tableRevision/ColumnOrdering1';
 import GetFacetedValues from 'src/components/tableRevision/GetFacetedValues';
+import ColumnVisibility1 from 'src/components/tableRevision/ColumnVisibility1';
 
 
 
@@ -98,7 +99,8 @@ function App() {
             {/* <PaginationTable1 /> */}
             {/* <RowSelectionTable1 /> */}
             {/* <ColumnOrdering1 /> */}
-            <GetFacetedValues />
+            {/* <GetFacetedValues /> */}
+            <ColumnVisibility1 />
 
 
             {/* <Box className='' sx={{width: '862px'}}>
