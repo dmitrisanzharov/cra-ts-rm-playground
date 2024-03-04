@@ -101,8 +101,8 @@ function App() {
             {/* <RowSelectionTable1 /> */}
             {/* <ColumnOrdering1 /> */}
             {/* <GetFacetedValues /> */}
-            {/* <ColumnVisibility1 /> */}
-            <GroupTable1 />
+            <ColumnVisibility1 />
+            {/* <GroupTable1 /> */}
 
 
             {/* <Box className='' sx={{width: '862px'}}>

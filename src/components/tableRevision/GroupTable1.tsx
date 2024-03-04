@@ -15,11 +15,16 @@ type Props = {};
 const GroupTable1 = (props: Props) => {
     const dataFinal: Person[] = React.useMemo(() => jsonData, [jsonData]);
     const columnsFinal = React.useMemo(() => columnsGroup, [columnsGroup]);
-    const { getHeaderGroups, getRowModel } = useReactTable({
+    const { getHeaderGroups, getRowModel, getAllLeafColumns } = useReactTable({
         data: dataFinal,
         columns: columnsFinal,
         getCoreRowModel: getCoreRowModel(),
     } as TableOptions<Person>);
+
+    React.useEffect(() => {
+        let a = getAllLeafColumns();
+        console.log('a', a);
+    }, []);
 
     return (
         <div>
@@ -33,8 +38,8 @@ const GroupTable1 = (props: Props) => {
                             return (
                                 <TableRow key={headerGroup.id} sx={{ fontWeight: 'bold', backgroundColor: 'lightgray' }}>
                                     {headerGroup.headers.map((column: any, idx: number) => {
-                                        console.log('column', column);
-                                        return <TableCell key={column.id}>{flexRender(column.column.columnDef.header, column.getContext())}</TableCell>;
+                                        // console.log('column', column);
+                                        return column.isPlaceholder ? null : <TableCell key={column.id} colSpan={column.colSpan}>{flexRender(column.column.columnDef.header, column.getContext())}</TableCell>;
                                     })}
                                 </TableRow>
                             );
