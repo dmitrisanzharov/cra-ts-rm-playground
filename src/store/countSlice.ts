@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState: any = {
-    countInSlice: 0
+    countFromInitialState: 0
 }
 
 
@@ -9,7 +9,6 @@ const counterSlice = createSlice({
     name: 'counterSlice',
     initialState: initialState,
     reducers: {
-        inc2: (state: any) => state.countInSlice = state.countInSlice + 1,
         inc: (state: any) => {
             state.countInSlice = state.countInSlice + 1
         },
@@ -19,8 +18,8 @@ const counterSlice = createSlice({
     }
 } as any);
 
-console.log('counterSlice object', counterSlice); 
+// console.log('counterSlice object', counterSlice); 
 
 export const counterSliceActions = counterSlice.actions;
 
-export const counterSliceReducer = counterSlice.reducer;
+export const counterSliceState = counterSlice.reducer;

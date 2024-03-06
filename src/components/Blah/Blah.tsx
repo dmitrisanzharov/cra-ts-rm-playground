@@ -13,11 +13,9 @@ const Blah: React.FC<any> = ({ ...rest }: Props) => {
     const dispatch = useDispatch();
 
     const countInSliceState = useSelector((state: any) => {
-        console.log(state); 
-        return state.counterInStore.countInSlice;
+        console.log('counterInStore from Blah', state);
+        return state.counterStatesFromStore.countFromInitialState;
     });
-
-    console.log('counterSliceObject: ', counterSliceActions);
 
 
     return (

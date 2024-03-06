@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { counterSliceReducer } from './countSlice'; 
+import { counterSliceState } from './countSlice'; 
+import { listArraySliceReducer } from './listArraySlice';
 
 
 const configStore = configureStore({
     reducer: {
-        counterInStore: counterSliceReducer
+        counterStatesFromStore: counterSliceState,
+        listArrayInStore: listArraySliceReducer
     }
 });
 

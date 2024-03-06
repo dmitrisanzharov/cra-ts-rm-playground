@@ -7,5 +7,13 @@ const initialState = {
 
 
 const listArraySlice = createSlice({
-    name: 'listArraySlice'
-} as any)
+    name: 'listArraySlice',
+    initialState: initialState,
+    reducers: {
+        addToArray: (state: any, action: any) => void(state.list = [...state.list, action.payload])
+    }
+} as any);
+
+
+export const listArraySliceReducer = listArraySlice.reducer; // it is inside the Slice Object
+export const listArraySliceActions = listArraySlice.actions; // it is indside the Slice Object too
