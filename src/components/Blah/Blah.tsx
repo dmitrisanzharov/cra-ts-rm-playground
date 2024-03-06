@@ -13,16 +13,15 @@ const Blah: React.FC<any> = ({ ...rest }: Props) => {
     const dispatch = useDispatch();
 
     const countInSliceState = useSelector((state: any) => {
-        console.log('counterInStore from Blah', state);
+        // console.log('counterInStore from Blah', state);
         return state.counterStatesFromStore.countFromInitialState;
     });
-
 
     return (
         <div {...rest}>
             <h1>Store is here</h1>
             <h2>This is count: {countInSliceState}</h2>
-            <button onClick={()=> dispatch(counterSliceActions.inc('test'))}>inc</button>
+            <button onClick={()=> dispatch(counterSliceActions.inc({}))}>inc</button>
         </div>
     );
 };

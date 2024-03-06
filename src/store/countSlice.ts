@@ -10,15 +10,18 @@ const counterSlice = createSlice({
     initialState: initialState,
     reducers: {
         inc: (state: any) => {
-            state.countInSlice = state.countInSlice + 1
+            console.log('triggered');
+            state.countFromInitialState = state.countFromInitialState + 1
         },
         dec: (state: any) => {
-            state.countInSlice = state.countInSlice - 1
+            state.countFromInitialState = state.countFromInitialState - 1
         }
     }
 } as any);
 
-// console.log('counterSlice object', counterSlice); 
+console.log('counterSlice object', counterSlice); 
+
+console.log('getInitialState', )
 
 export const counterSliceActions = counterSlice.actions;
 
