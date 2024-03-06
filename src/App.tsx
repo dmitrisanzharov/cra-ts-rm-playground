@@ -4,7 +4,7 @@ import { Box } from '@mui/material';
 
 // * STORE
 import { Provider } from 'react-redux';
-import configStore from 'src/store/configStore';
+import configStore from 'src/store';
 
 // * TanStack Table Examples
 import BasicTable from 'src/components/table/BasicTable';
