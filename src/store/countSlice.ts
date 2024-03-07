@@ -21,8 +21,10 @@ const counterSlice = createSlice({
 
 console.log('counterSlice object', counterSlice); 
 
-console.log('getInitialState', )
+console.log('getInitialState', counterSlice.getInitialState())
 
 export const counterSliceActions = counterSlice.actions;
 
 export const counterSliceState = counterSlice.reducer;
+
+export const getInitialStateFromCounterSlice = counterSlice.getInitialState(); 

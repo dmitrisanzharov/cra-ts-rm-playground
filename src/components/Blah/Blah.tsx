@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, Skeleton, Typography } from '@mui/material';
 // store stuff
 import { useSelector, useDispatch } from 'react-redux'; 
-import { counterSliceActions } from 'src/store/countSlice';
+import { counterSliceActions, getInitialStateFromCounterSlice } from 'src/store/countSlice';
 
 
 
@@ -16,6 +16,8 @@ const Blah: React.FC<any> = ({ ...rest }: Props) => {
         // console.log('counterInStore from Blah', state);
         return state.counterStatesFromStore.countFromInitialState;
     });
+
+    console.log('initialState', getInitialStateFromCounterSlice);
 
     return (
         <div {...rest}>
