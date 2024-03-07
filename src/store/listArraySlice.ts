@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 
 const initialState = {
-    list: []
+    list: ['one']
 }
 
 
@@ -14,6 +14,7 @@ const listArraySlice = createSlice({
     }
 } as any);
 
+// console.log('list object', listArraySlice);
 
 export const listArraySliceReducer = listArraySlice.reducer; // it is inside the Slice Object
 export const listArraySliceActions = listArraySlice.actions; // it is indside the Slice Object too

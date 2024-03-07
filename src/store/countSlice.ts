@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createSelector } from '@reduxjs/toolkit';
 
 const initialState: any = {
     countFromInitialState: 0
@@ -19,12 +19,23 @@ const counterSlice = createSlice({
     }
 } as any);
 
-console.log('counterSlice object', counterSlice); 
-
-console.log('getInitialState', counterSlice.getInitialState())
-
-export const counterSliceActions = counterSlice.actions;
+// console.log('counterSlice object', counterSlice); 
 
 export const counterSliceState = counterSlice.reducer;
 
+export const counterSliceActions = counterSlice.actions;
+
 export const getInitialStateFromCounterSlice = counterSlice.getInitialState(); 
+
+
+
+const selectSelf = (state: any) => {
+    console.log('selectSelf state', state); // this gives access to the STORE config reducers, so I can select the correct InitialState
+    return state;
+};
+
+// Selectors
+export const countFromCounterSlice = createSelector(selectSelf, (state: any) => {
+    console.log('state in createSelector fn2', state); // this is basically: state.counterStatesFromStore... i.e. the store Config
+    return state.counterStatesFromStore.countFromInitialState
+}); 
