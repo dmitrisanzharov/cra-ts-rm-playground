@@ -6,6 +6,10 @@ import { Box } from '@mui/material';
 import { Provider } from 'react-redux';
 import configStore from 'src/store';
 
+// * PERSISTOR
+import { PersistGate } from 'redux-persist/integration/react';
+import { persistStore } from 'redux-persist';
+
 // * TanStack Table Examples
 import BasicTable from 'src/components/table/BasicTable';
 import HeaderGroupingTable from 'src/components/table/HeaderGroupingTable';
@@ -26,6 +30,9 @@ import Blah from 'src/components/Blah/Blah';
 import BasicTreemapTestMessy from 'src/components/charts/BasicTreeMapTest/BasicTreemapTestMessy';
 import BasicTreemapGoodSample from 'src/components/charts/BasicTreeMapTest/BasicTreemapGoodSample';
 import MaintenanceAlertsCard from 'src/components/cards/MaintenanceAlertsCard';
+
+// * PERSISTOR consts
+let persistorConst = persistStore(configStore); // STORE object goes here, i.e. the configStore one
 
 function App() {
     const localStorageItemName = 'iAfg4HrIUPmMEqd_isOpen';
@@ -63,6 +70,8 @@ function App() {
 
     return (
         <Provider store={configStore}>
+            <PersistGate persistor={persistorConst}>
+                {/* MY APP STUFF */}
             <Box
                 sx={{
                     py: 3,
@@ -94,6 +103,7 @@ function App() {
                 {/* <HidingColumnsTable /> */}
                 {/* <FilteringColumnTableBasicInput /> */}
             </Box>
+            </PersistGate>
         </Provider>
     );
 }
