@@ -63,17 +63,17 @@ function App() {
 
     return (
         <Box
-            sx={{
-                py: 3,
-                position: 'relative',
-                paddingLeft: `${isSideMenuOpen ? 345 : 113}px`,
-                paddingRight: '15px',
-            }}
+            // sx={{
+            //     py: 3,
+            //     position: 'relative',
+            //     paddingLeft: `${isSideMenuOpen ? 345 : 113}px`,
+            //     paddingRight: '15px',
+            // }}
         >
-            <SideMenu
+            {/* <SideMenu
                 sideMenuControl={setSessionStorageFn}
                 isSideMenuOpen={isSideMenuOpen}
-            />
+            /> */}
             {/* <Box className='' sx={{width: '862px'}}>
                 <MaintenanceAlertsCard />
             </Box> */}
