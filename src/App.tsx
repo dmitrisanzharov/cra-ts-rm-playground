@@ -35,6 +35,7 @@ import ColumnOrdering1 from 'src/components/tableRevision/ColumnOrdering1';
 import GetFacetedValues from 'src/components/tableRevision/GetFacetedValues';
 import ColumnVisibility1 from 'src/components/tableRevision/ColumnVisibility1';
 import GroupTable1 from 'src/components/tableRevision/GroupTable1';
+import BasicTablePlayGround from 'src/components/tableRevision/BasicTablePlayGround';
 
 
 
@@ -91,20 +92,6 @@ function App() {
                 isSideMenuOpen={isSideMenuOpen}
             /> */}
 
-            {/* =============== TAN STACK REVISION 4 =============== */}
-            {/* <BasicTableRev1 /> */}
-            {/* <SortTable1 /> */}
-            {/* <GlobalFilterTable /> */}
-            {/* <ColumnFilteringTable2 /> */}
-            {/* <ColumnFilterPerColumn /> */}
-            {/* <PaginationTable1 /> */}
-            {/* <RowSelectionTable1 /> */}
-            {/* <ColumnOrdering1 /> */}
-            {/* <GetFacetedValues /> */}
-            <ColumnVisibility1 />
-            {/* <GroupTable1 /> */}
-
-
             {/* <Box className='' sx={{width: '862px'}}>
                 <MaintenanceAlertsCard />
             </Box> */}
@@ -128,7 +115,19 @@ function App() {
             {/* <HidingColumnsTable /> */}
             {/* <FilteringColumnTableBasicInput /> */}
 
-
+            {/* =============== TAN STACK REVISION 4 =============== */}
+            {/* <BasicTableRev1 /> */}
+            {/* <SortTable1 /> */}
+            {/* <GlobalFilterTable /> */}
+            {/* <ColumnFilteringTable2 /> */}
+            {/* <ColumnFilterPerColumn /> */}
+            {/* <PaginationTable1 /> */}
+            {/* <RowSelectionTable1 /> */}
+            {/* <ColumnOrdering1 /> */}
+            {/* <GetFacetedValues /> */}
+            {/* <ColumnVisibility1 /> */}
+            {/* <GroupTable1 /> */}
+            <BasicTablePlayGround />
         </Box>
     );
 }
