@@ -1,6 +1,7 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import { counterSliceState } from './countSlice'; 
 import { listArraySliceReducer } from './listArraySlice';
+import { apiSliceFleetReportReducerForStore } from 'src/store/apiSliceFleetReport';
 
 // persistor stuff
 import storage from 'redux-persist/lib/storage';
@@ -16,7 +17,8 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
     counterStatesFromStore: counterSliceState, // you can NOT access Action from here only Initial State
-    listArrayInStore: listArraySliceReducer
+    listArrayInStore: listArraySliceReducer,
+    apiSliceFleetReportInitialState: apiSliceFleetReportReducerForStore
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer); 

@@ -30,12 +30,12 @@ export const getInitialStateFromCounterSlice = counterSlice.getInitialState();
 
 
 const selectSelf = (state: any) => {
-    console.log('selectSelf state', state); // this gives access to the STORE config reducers, so I can select the correct InitialState
+    // console.log('selectSelf state', state); // this gives access to the STORE config reducers, so I can select the correct InitialState
     return state;
 };
 
 // Selectors
 export const countFromCounterSlice = createSelector(selectSelf, (state: any) => {
-    console.log('state in createSelector fn2', state); // this is basically: state.counterStatesFromStore... i.e. the store Config
+    // console.log('state in createSelector fn2', state); // this is basically: state.counterStatesFromStore... i.e. the store Config
     return state.counterStatesFromStore.countFromInitialState
 }); 
