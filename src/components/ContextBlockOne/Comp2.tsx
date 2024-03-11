@@ -7,12 +7,12 @@ type Props = {}
 const Comp2 = (props: Props) => {
 
     const values = React.useContext(ContextBlockOneContext)
-    console.log("values: ", values);
+    // console.log("values: ", values);
 
     const globalVal = React.useContext(GlobalContext); 
-    console.log("globalVal: ", globalVal);
+    // console.log("globalVal: ", globalVal);
 
-    console.log('re-rendered');
+    // console.log('re-rendered');
 
   return (
     <div>
@@ -22,4 +22,4 @@ const Comp2 = (props: Props) => {
   )
 }
 
-export default Comp2
+export default Comp2;

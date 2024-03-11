@@ -26,6 +26,9 @@ import MaintenanceAlertsCard from 'src/components/cards/MaintenanceAlertsCard';
 // context
 import ContextBlockOne from 'src/components/ContextBlockOne/ContextBlockOne';
 import GlobalContextWrapper from 'src/components/GlobalContext/GlobalContextWrapper'; 
+import BlockOneMainComp1 from  'src/components/ReusableContext/BlockOneMain';
+import BlockTwoMain from 'src/components/ReusableContext/BlockTwoMain';
+import BlockOneMain from 'src/components/ReusableContext/BlockOneMain';
 
 function App() {
     const localStorageItemName = 'iAfg4HrIUPmMEqd_isOpen';
@@ -77,7 +80,9 @@ function App() {
             /> */}
 
                 {/* CONTEXT STUFF */}
-                <ContextBlockOne />
+                {/* <ContextBlockOne /> */}
+                <BlockOneMain />
+                <BlockTwoMain />
 
                 {/* <Box className='' sx={{width: '862px'}}>
                 <MaintenanceAlertsCard />
