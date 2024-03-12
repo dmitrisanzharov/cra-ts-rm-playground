@@ -78,7 +78,7 @@ function App() {
                 <MaintenanceAlertsCard />
             </Box> */}
            
-            <Blah className='drr' />
+            <Blah />
             {/* <BasicTreemapTestMessy /> */}
             {/* <BasicTreemapGoodSample /> */}
             {/* <hr /> */}
