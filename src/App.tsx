@@ -30,6 +30,7 @@ import Blah from 'src/components/Blah/Blah';
 import BasicTreemapTestMessy from 'src/components/charts/BasicTreeMapTest/BasicTreemapTestMessy';
 import BasicTreemapGoodSample from 'src/components/charts/BasicTreeMapTest/BasicTreemapGoodSample';
 import MaintenanceAlertsCard from 'src/components/cards/MaintenanceAlertsCard';
+import Blah2 from 'src/components/Blah2';
 
 // * PERSISTOR consts
 let persistorConst = persistStore(configStore); // STORE object goes here, i.e. the configStore one
@@ -73,18 +74,19 @@ function App() {
             <PersistGate persistor={persistorConst}>
                 {/* MY APP STUFF */}
             <Box
-                sx={{
-                    py: 3,
-                    position: 'relative',
-                    paddingLeft: `${isSideMenuOpen ? 345 : 113}px`,
-                    paddingRight: '15px',
-                }}
+                // sx={{
+                //     py: 3,
+                //     position: 'relative',
+                //     paddingLeft: `${isSideMenuOpen ? 345 : 113}px`,
+                //     paddingRight: '15px',
+                // }}
             >
-                <SideMenu sideMenuControl={setSessionStorageFn} isSideMenuOpen={isSideMenuOpen} />
+                {/* <SideMenu sideMenuControl={setSessionStorageFn} isSideMenuOpen={isSideMenuOpen} /> */}
                 {/* <Box className='' sx={{width: '862px'}}>
                 <MaintenanceAlertsCard />
             </Box> */}
-                <Blah className='drr' />
+                {/* <Blah className='drr' /> */}
+                <Blah2 />
                 {/* <BasicTreemapTestMessy /> */}
                 {/* <BasicTreemapGoodSample /> */}
                 {/* <hr /> */}
