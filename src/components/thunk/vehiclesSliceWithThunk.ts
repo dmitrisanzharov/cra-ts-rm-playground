@@ -11,10 +11,10 @@ function consoleLog(process: string, state: any, action: any){
 }
 
 // this is basically Axios wrapper, cause you can NOT use Axios inside Redux Actions/Reducer functions directly
-export const fetchData = createAsyncThunk(
+export const fetchData: any = createAsyncThunk(
     'thisIsPrefixForActionType', // action Object in extraReducers will have TYPE in the object, which can be /pending or /fulfilled... so this is a Prefix to it, so it becomes:  thisIsPrefixForActionType/pending
     async (arg1, arg2) => {
-        console.log('arg1', arg1); // does nothing
+        console.log('arg1', arg1); // argument that I pass into the Thunk Function
         console.log('arg2', arg2); // useless object, BUT has requestID and getState() in it
         console.log('test', arg2.getState()); // will return STORE object with access to all STORE states in it
         const responds = await axios.get(urlToUse);

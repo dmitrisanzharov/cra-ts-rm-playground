@@ -15,7 +15,7 @@ const Blah: React.FC<any> = (props: Props) => {
 
 
     React.useEffect(() => {
-        dispatch(fetchData() as any);
+        dispatch(fetchData('myArg') as any); // note: you can NOT pass arguments into fetchData(), it will NOT work
     }, []);
 
     return <div>hello</div>;
