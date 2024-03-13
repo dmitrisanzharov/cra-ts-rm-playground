@@ -3,22 +3,29 @@ import { Box, Skeleton, Typography } from '@mui/material';
 // @ts-ignore
 import { useSelector, useDispatch } from 'react-redux'
 // @ts-ignore
-import { fetchData } from 'src/components/thunk/vehiclesSliceWithThunk'; 
+import { fetchData } from 'src/components/thunk/vehiclesSliceWithThunk';
+
 
 type Props = any;
 
+
 const Blah: React.FC<any> = (props: Props) => {
 
-    const dispatch = useDispatch();
-    const data = useSelector((state: any)=> state.vehiclesSliceState.data)
-    console.log("data: ", data);
+
+   const dispatch = useDispatch();
+   const data = useSelector((state: any)=> state.vehiclesSliceState.data)
+   console.log("data: ", data);
 
 
-    React.useEffect(() => {
-        dispatch(fetchData('myArg') as any); // note: you can NOT pass arguments into fetchData(), it will NOT work
-    }, []);
 
-    return <div>hello</div>;
+
+   React.useEffect(() => {
+       dispatch(fetchData('myArg') as any); // note: you can NOT pass arguments into fetchData(), it will NOT work
+   }, []);
+
+
+   return <div>hello</div>;
 };
+
 
 export default Blah;
