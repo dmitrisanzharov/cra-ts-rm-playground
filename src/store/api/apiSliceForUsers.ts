@@ -9,7 +9,7 @@ export const apiSliceForUsers = createApi({
         console.log('builder', builder);
         return {
             getAll: builder.query({
-                query: () => ({url: '/'}),
+                query: () => '/',
             }),
             getOneById: builder.query({
                 query: (id: number) => `/${id}`,
@@ -19,5 +19,7 @@ export const apiSliceForUsers = createApi({
 } as any);
 
 console.log('apiSliceForUsers', apiSliceForUsers); // this will NOT run until I added them to a Provider OR Store as middleWare ... cause nothing to run them
+
+export const { useGetAllQuery } = apiSliceForUsers as any; 
 
 export default apiSliceForUsers;
