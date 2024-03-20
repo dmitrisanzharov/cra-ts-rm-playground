@@ -227,6 +227,18 @@ function priorityAccessorFn(row: any) {
     return priorityObject[4].priorityNumber;
 }
 
+
+function prioritySortingFn(rowA: any, rowB: any, columnId: any){
+    console.log('rowA', rowA);
+    console.log('rowB', rowB);
+    console.log('columnId', columnId);
+    console.log('row value', rowB.getValue(columnId));
+    console.log('============================');
+    return 1; 
+}
+
+
+
 export const columnDefPriority = [
     columnHelper.accessor('first_name', {
         header: 'First Name',
@@ -237,9 +249,10 @@ export const columnDefPriority = [
     columnHelper.accessor(priorityAccessorFn, {
         header: 'Priority',
         cell: (info) => {
-            console.log('info', info);
+            // console.log('info', info);
             return <PriorityCellRenderer value={info.getValue()} cell={info.cell} />
-        }
+        },
+        sortingFn: prioritySortingFn
     }),
     columnHelper.accessor('email', {
         header: 'Email',
