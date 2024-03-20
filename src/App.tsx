@@ -14,6 +14,7 @@ import RowSelectionTable from 'src/components/table/RowSelectionTable';
 import ColumnOrderingTable from 'src/components/table/ColumnOrderingTable';
 import HidingColumnsTable from 'src/components/table/HidingColumnsTable';
 import FilteringColumnTableBasicInput from 'src/components/table/FilteringColumnTableBasicInput';
+import PriorityColumnsTable from 'src/components/table/PriorityColumnsTable';
 
 // * COMPONENTS
 import FleetPageDashboard from 'src/components/pages/FleetDashboardPage/FleetPageDashboard';
@@ -78,7 +79,7 @@ function App() {
                 <MaintenanceAlertsCard />
             </Box> */}
            
-            <Blah />
+            {/* <Blah /> */}
             {/* <BasicTreemapTestMessy /> */}
             {/* <BasicTreemapGoodSample /> */}
             {/* <hr /> */}
@@ -96,6 +97,7 @@ function App() {
             {/* <ColumnOrderingTable /> */}
             {/* <HidingColumnsTable /> */}
             {/* <FilteringColumnTableBasicInput /> */}
+            <PriorityColumnsTable />
         </Box>
     );
 }
