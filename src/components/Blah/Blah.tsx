@@ -5,26 +5,29 @@ import { Box, Skeleton, Typography } from "@mui/material";
 type Props = any;
 
 const Blah: React.FC<any> = (props: Props) => {
-	const [reRender, setReRender] = React.useState(0);
-	const myVar1 = React.useRef<any>({ count: 0 });
 
+	const myRef = React.useRef<any>({});
 
-	let myVar2 = 0;
+	const focusButton: any = () => myRef.current.innerHTML = 'yo';
 	
 
 	return (
 		<div>
-			<h1>Hello</h1>
-			<h2>myVar1: {myVar1.current.count}</h2>
-            <h2>ReRender: {reRender}</h2>
-			<h2>myVar2: {myVar2}</h2>
-			<button onClick={() => {
-                setReRender(reRender + 1);
-                myVar1.current.count++;
-                myVar2++;
-            }}>reRender</button>
+			<FancyButton ref={myRef} />
+			<button onClick={focusButton}>Focus the Fancy Button</button>
 		</div>
 	);
 };
 
 export default Blah;
+
+
+const FancyButton: React.FC<any> = React.forwardRef((props, ref) => {
+	console.log('props in child: ', props);
+	console.log('ref', ref);
+	return (
+		<div>
+			<h1 ref={ref as any}>anything else</h1>
+		</div>
+	)
+});
