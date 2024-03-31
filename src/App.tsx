@@ -1,103 +1,116 @@
-import React from 'react';
-import './App.css';
-import { Box } from '@mui/material';
+import React from "react";
+import "./App.css";
+import { Box } from "@mui/material";
 
 // * TanStack Table Examples
-import BasicTable from 'src/components/table/BasicTable';
-import HeaderGroupingTable from 'src/components/table/HeaderGroupingTable';
-import SortedTable from 'src/components/table/SortedTable';
-import GlobalFilteringTable from 'src/components/table/GlobalFilteringTable';
-import ColumnFilteringTable from 'src/components/table/ColumnFilteringTable';
-import GlobalFilteringTableWithDefaultColumn from 'src/components/table/GlobalFilteringTableWithDefaultColumn';
-import PaginationTable from 'src/components/table/PaginationTable';
-import RowSelectionTable from 'src/components/table/RowSelectionTable';
-import ColumnOrderingTable from 'src/components/table/ColumnOrderingTable';
-import HidingColumnsTable from 'src/components/table/HidingColumnsTable';
-import FilteringColumnTableBasicInput from 'src/components/table/FilteringColumnTableBasicInput';
+import BasicTable from "src/components/table/BasicTable";
+import HeaderGroupingTable from "src/components/table/HeaderGroupingTable";
+import SortedTable from "src/components/table/SortedTable";
+import GlobalFilteringTable from "src/components/table/GlobalFilteringTable";
+import ColumnFilteringTable from "src/components/table/ColumnFilteringTable";
+import GlobalFilteringTableWithDefaultColumn from "src/components/table/GlobalFilteringTableWithDefaultColumn";
+import PaginationTable from "src/components/table/PaginationTable";
+import RowSelectionTable from "src/components/table/RowSelectionTable";
+import ColumnOrderingTable from "src/components/table/ColumnOrderingTable";
+import HidingColumnsTable from "src/components/table/HidingColumnsTable";
+import FilteringColumnTableBasicInput from "src/components/table/FilteringColumnTableBasicInput";
 
 // * COMPONENTS
-import FleetPageDashboard from 'src/components/pages/FleetDashboardPage/FleetPageDashboard';
-import SideMenu from 'src/components/SideMenu/SideMenu';
-import Blah from 'src/components/Blah/Blah';
-import BasicTreemapTestMessy from 'src/components/charts/BasicTreeMapTest/BasicTreemapTestMessy';
-import BasicTreemapGoodSample from 'src/components/charts/BasicTreeMapTest/BasicTreemapGoodSample';
-import MaintenanceAlertsCard from 'src/components/cards/MaintenanceAlertsCard'
+import FleetPageDashboard from "src/components/pages/FleetDashboardPage/FleetPageDashboard";
+import SideMenu from "src/components/SideMenu/SideMenu";
+import Blah from "src/components/Blah/Blah";
+import BasicTreemapTestMessy from "src/components/charts/BasicTreeMapTest/BasicTreemapTestMessy";
+import BasicTreemapGoodSample from "src/components/charts/BasicTreeMapTest/BasicTreemapGoodSample";
+import MaintenanceAlertsCard from "src/components/cards/MaintenanceAlertsCard";
+
+// * Context
+import MainContextSyntax1 from "src/components/ContextSyntax1/MainContext";
+import MainContextWrapperSyntax2 from "src/components/ContextSyntax2/MainContextWrapper";
+import Comp1Syntax2 from 'src/components/ContextSyntax2/Comp1Syntax2';
+import Comp2Syntax2 from 'src/components/ContextSyntax2/Comp2Syntax2';
 
 function App() {
-    const localStorageItemName = 'iAfg4HrIUPmMEqd_isOpen';
+	const localStorageItemName = "iAfg4HrIUPmMEqd_isOpen";
 
-    const [isSideMenuOpen, setIsSideMenuOpen] = React.useState(false);
+	const [isSideMenuOpen, setIsSideMenuOpen] = React.useState(false);
 
-    function setSessionStorageFn() {
-        const itemFromLocal = sessionStorage.getItem(localStorageItemName);
-        if (itemFromLocal === 'true') {
-            sessionStorage.setItem(localStorageItemName, 'false');
-            setIsSideMenuOpen(false);
-        } else {
-            sessionStorage.setItem(localStorageItemName, 'true');
-            setIsSideMenuOpen(true);
-        }
-    }
+	function setSessionStorageFn() {
+		const itemFromLocal = sessionStorage.getItem(localStorageItemName);
+		if (itemFromLocal === "true") {
+			sessionStorage.setItem(localStorageItemName, "false");
+			setIsSideMenuOpen(false);
+		} else {
+			sessionStorage.setItem(localStorageItemName, "true");
+			setIsSideMenuOpen(true);
+		}
+	}
 
-    function loadTheTreeMapCDNScript() {
-        const treeMapScriptExistsInWindow =
-            document.getElementById('treeMapScript');
+	function loadTheTreeMapCDNScript() {
+		const treeMapScriptExistsInWindow =
+			document.getElementById("treeMapScript");
 
-        if (treeMapScriptExistsInWindow) {
-            return;
-        }
+		if (treeMapScriptExistsInWindow) {
+			return;
+		}
 
-        const addTreeMapScriptToWindow = document.createElement('script');
-        addTreeMapScriptToWindow.setAttribute(
-            'src',
-            'https://cdn.jsdelivr.net/npm/chartjs-chart-treemap@0.2.3'
-        );
-        addTreeMapScriptToWindow.setAttribute('id', 'treeMapScript');
-        document.head.appendChild(addTreeMapScriptToWindow);
-    }
+		const addTreeMapScriptToWindow = document.createElement("script");
+		addTreeMapScriptToWindow.setAttribute(
+			"src",
+			"https://cdn.jsdelivr.net/npm/chartjs-chart-treemap@0.2.3"
+		);
+		addTreeMapScriptToWindow.setAttribute("id", "treeMapScript");
+		document.head.appendChild(addTreeMapScriptToWindow);
+	}
 
-    React.useEffect(() => {
-        setSessionStorageFn();
-        loadTheTreeMapCDNScript();
-    }, []);
+	React.useEffect(() => {
+		setSessionStorageFn();
+		loadTheTreeMapCDNScript();
+	}, []);
 
-    return (
-        <Box
-            // sx={{
-            //     py: 3,
-            //     position: 'relative',
-            //     paddingLeft: `${isSideMenuOpen ? 345 : 113}px`,
-            //     paddingRight: '15px',
-            // }}
-        >
-            {/* <SideMenu
+	return (
+		// <MainContextWrapperSyntax2>
+			<Box
+			// sx={{
+			//     py: 3,
+			//     position: 'relative',
+			//     paddingLeft: `${isSideMenuOpen ? 345 : 113}px`,
+			//     paddingRight: '15px',
+			// }}
+			>
+				{/* CONTEXT */}
+				{/* <MainContextSyntax1 /> */}
+                {/* <Comp1Syntax2 />
+                <Comp2Syntax2 /> */}
+
+				{/* <SideMenu
                 sideMenuControl={setSessionStorageFn}
                 isSideMenuOpen={isSideMenuOpen}
             /> */}
-            {/* <Box className='' sx={{width: '862px'}}>
+				{/* <Box className='' sx={{width: '862px'}}>
                 <MaintenanceAlertsCard />
             </Box> */}
-           
-            <Blah />
-            {/* <BasicTreemapTestMessy /> */}
-            {/* <BasicTreemapGoodSample /> */}
-            {/* <hr /> */}
-            {/* <FleetPageDashboard /> */}
 
-            {/* ============ TANSTACK TABLE ====================== */}
-            {/* <BasicTable /> */}
-            {/* <HeaderGroupingTable /> */}
-            {/* <SortedTable /> */}
-            {/* <GlobalFilteringTable /> */}
-            {/* <ColumnFilteringTable /> */}
-            {/* <GlobalFilteringTableWithDefaultColumn /> */}
-            {/* <PaginationTable /> */}
-            {/* <RowSelectionTable /> */}
-            {/* <ColumnOrderingTable /> */}
-            {/* <HidingColumnsTable /> */}
-            {/* <FilteringColumnTableBasicInput /> */}
-        </Box>
-    );
+				<Blah><h1>hello</h1></Blah>
+				{/* <BasicTreemapTestMessy /> */}
+				{/* <BasicTreemapGoodSample /> */}
+				{/* <hr /> */}
+				{/* <FleetPageDashboard /> */}
+
+				{/* ============ TANSTACK TABLE ====================== */}
+				{/* <BasicTable /> */}
+				{/* <HeaderGroupingTable /> */}
+				{/* <SortedTable /> */}
+				{/* <GlobalFilteringTable /> */}
+				{/* <ColumnFilteringTable /> */}
+				{/* <GlobalFilteringTableWithDefaultColumn /> */}
+				{/* <PaginationTable /> */}
+				{/* <RowSelectionTable /> */}
+				{/* <ColumnOrderingTable /> */}
+				{/* <HidingColumnsTable /> */}
+				{/* <FilteringColumnTableBasicInput /> */}
+			</Box>
+		// </MainContextWrapperSyntax2>
+	);
 }
 
 export default App;
