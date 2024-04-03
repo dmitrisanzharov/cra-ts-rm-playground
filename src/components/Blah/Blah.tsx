@@ -2,8 +2,23 @@ import React from "react";
 // store stuff
 import { useSelector, useDispatch } from "react-redux";
 import { countSliceActions, selectCount } from "src/store/countSlice";
+import usersApiSlice from 'src/store/api/usersApiSlice';
 
 type Props = any;
+
+
+const Child = React.memo(() => {
+
+		// api stuff
+		console.log('usersApiSlice', usersApiSlice);
+
+		const userData = usersApiSlice.useGetAllUsersQuery({});
+		console.log("userData: ", userData);
+
+	return <h1>This is child</h1>
+})
+
+
 
 const Blah: React.FC<any> = (props: Props) => {
 	const dispatch = useDispatch();
@@ -13,6 +28,9 @@ const Blah: React.FC<any> = (props: Props) => {
 	// });
 
 	const count = useSelector(selectCount);
+
+
+
 
 	return (
 		<div>
@@ -33,6 +51,8 @@ const Blah: React.FC<any> = (props: Props) => {
 			>
 				add 5
 			</button>
+			<hr />
+			<Child />
 		</div>
 	);
 };
