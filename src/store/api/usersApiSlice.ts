@@ -6,9 +6,17 @@ const usersApiSlice = createApi({
         baseUrl: 'https://jsonplaceholder.typicode.com/users',
     }),
     endpoints: (builder: any) => {
+        // console.log('builder', builder);
         return {
             getAllUsers: builder.query({
-                query: () => '/'
+                query: () => ({
+                    url: '/'
+                })
+            }),
+            getOneById: builder.query({
+                query: (id: number) => ({
+                    url: `/${id}`
+                })
             })
         }
     }

@@ -2,6 +2,8 @@ import React from "react";
 // store stuff
 import { useSelector, useDispatch } from "react-redux";
 import { countSliceActions, selectCount } from "src/store/countSlice";
+
+// api stuff
 import usersApiSlice from 'src/store/api/usersApiSlice';
 
 type Props = any;
@@ -10,10 +12,22 @@ type Props = any;
 const Child = React.memo(() => {
 
 		// api stuff
-		console.log('usersApiSlice', usersApiSlice);
+		// console.log('usersApiSlice', usersApiSlice);
 
 		const userData = usersApiSlice.useGetAllUsersQuery({});
-		console.log("userData: ", userData);
+		// console.log("userData: ", userData);
+
+		const usersDataOne = usersApiSlice.useLazyGetOneByIdQuery();
+		console.log("usersDataOne: ", usersDataOne);
+
+		// React.useEffect(() => {
+		// 	usersDataOne[0](2)
+		// }, []);
+
+		React.useEffect(() => {
+			console.log('data', usersDataOne[1].data);
+		}, [usersDataOne[1].data]);
+
 
 	return <h1>This is child</h1>
 })

@@ -29,14 +29,14 @@ const countSlice = createSlice({
     }
 });
 
-console.log('countSlice', countSlice);
+// console.log('countSlice', countSlice);
 
 export const countSliceReducer = countSlice.reducer;
 export const countSliceActions = countSlice.actions;
 
 // selectors
 const selectSelf = (state: any) => {
-    console.log('selfSelect', state);
+    // console.log('selfSelect', state);
     return state.countSliceState;
 };
 

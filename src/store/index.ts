@@ -8,7 +8,7 @@ import { countSliceReducer } from "./countSlice";
 
 // api reducers
 import usersApiSlice from 'src/store/api/usersApiSlice';
-console.log("usersApiSlice: ", usersApiSlice);
+// console.log("usersApiSlice: ", usersApiSlice);
 
 const persistConfig = {
 	key: "userData",
