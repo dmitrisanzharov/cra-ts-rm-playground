@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createSelector } from "@reduxjs/toolkit";
 
 const initialState = {
 	countInCountSliceState: 0,
@@ -21,7 +21,15 @@ export const countSlice = createSlice({
 	},
 });
 
-console.log("countSlice in the countSlice file: ", countSlice);
+// console.log("countSlice in the countSlice file: ", countSlice);
 
 export const countSliceReducer = countSlice.reducer;
 export const countSliceActions = countSlice.actions;
+
+// selectors
+const selectSelf = (state: any) => {
+	return state.countSliceStoreConfigReducer;
+}
+
+export const countAsASelector = createSelector(selectSelf, (state: any) => state.countInCountSliceState);
+export const arrAsASelector = createSelector(selectSelf, (state: any) => state.arrInCountSliceState);
