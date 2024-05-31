@@ -23,6 +23,10 @@ import BasicTreemapTestMessy from 'src/components/charts/BasicTreeMapTest/BasicT
 import BasicTreemapGoodSample from 'src/components/charts/BasicTreeMapTest/BasicTreemapGoodSample';
 import MaintenanceAlertsCard from 'src/components/cards/MaintenanceAlertsCard'
 
+// Context
+import ContextVersionOneComponent from 'src/context/ContextVersionOne';
+import ContextAsBlockComponent from 'src/context3/ContextAsBlock';
+
 function App() {
     const localStorageItemName = 'iAfg4HrIUPmMEqd_isOpen';
 
@@ -77,8 +81,14 @@ function App() {
             {/* <Box className='' sx={{width: '862px'}}>
                 <MaintenanceAlertsCard />
             </Box> */}
-           
-            <Blah />
+            <ContextAsBlockComponent contextValues={{name: 'Dmitri'}}>
+                <Blah />
+            </ContextAsBlockComponent>
+
+            <ContextAsBlockComponent contextValues={{name: 'Razagul'}}>
+                <Blah />
+            </ContextAsBlockComponent>
+
             {/* <BasicTreemapTestMessy /> */}
             {/* <BasicTreemapGoodSample /> */}
             {/* <hr /> */}
@@ -96,6 +106,7 @@ function App() {
             {/* <ColumnOrderingTable /> */}
             {/* <HidingColumnsTable /> */}
             {/* <FilteringColumnTableBasicInput /> */}
+            <ContextVersionOneComponent />
         </Box>
     );
 }
