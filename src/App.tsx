@@ -19,6 +19,7 @@ import FilteringColumnTableBasicInput from 'src/components/table/FilteringColumn
 import FleetPageDashboard from 'src/components/pages/FleetDashboardPage/FleetPageDashboard';
 import SideMenu from 'src/components/SideMenu/SideMenu';
 import Blah from 'src/components/Blah/Blah';
+import Blah2 from 'src/components/Blah/Blah2';
 import BasicTreemapTestMessy from 'src/components/charts/BasicTreeMapTest/BasicTreemapTestMessy';
 import BasicTreemapGoodSample from 'src/components/charts/BasicTreeMapTest/BasicTreemapGoodSample';
 import MaintenanceAlertsCard from 'src/components/cards/MaintenanceAlertsCard'
@@ -77,8 +78,8 @@ function App() {
             {/* <Box className='' sx={{width: '862px'}}>
                 <MaintenanceAlertsCard />
             </Box> */}
-           
-            <Blah />
+            {/* <Blah /> */}
+            <Blah2 />
             {/* <BasicTreemapTestMessy /> */}
             {/* <BasicTreemapGoodSample /> */}
             {/* <hr /> */}
