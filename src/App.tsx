@@ -20,6 +20,7 @@ import FleetPageDashboard from 'src/components/pages/FleetDashboardPage/FleetPag
 import SideMenu from 'src/components/SideMenu/SideMenu';
 import Blah from 'src/components/Blah/Blah';
 import Blah2 from 'src/components/Blah/Blah2';
+import Blah3 from 'src/components/Blah/Blah3';
 import BasicTreemapTestMessy from 'src/components/charts/BasicTreeMapTest/BasicTreemapTestMessy';
 import BasicTreemapGoodSample from 'src/components/charts/BasicTreeMapTest/BasicTreemapGoodSample';
 import MaintenanceAlertsCard from 'src/components/cards/MaintenanceAlertsCard'
@@ -79,7 +80,8 @@ function App() {
                 <MaintenanceAlertsCard />
             </Box> */}
             {/* <Blah /> */}
-            <Blah2 />
+            {/* <Blah2 /> */}
+            <Blah3 />
             {/* <BasicTreemapTestMessy /> */}
             {/* <BasicTreemapGoodSample /> */}
             {/* <hr /> */}
