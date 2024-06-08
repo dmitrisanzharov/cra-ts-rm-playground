@@ -78,8 +78,8 @@ function App() {
             {/* <Box className='' sx={{width: '862px'}}>
                 <MaintenanceAlertsCard />
             </Box> */}
-           <CountComponent />
-            {/* <Blah /> */}
+           {/* <CountComponent /> */}
+            <Blah />
             {/* <BasicTreemapTestMessy /> */}
             {/* <BasicTreemapGoodSample /> */}
             {/* <hr /> */}

@@ -12,7 +12,12 @@ export const usersApiSlice = createApi({
                 query: () => ({url: '/'})
             }),
             getOneUserById: builder.query({
-                query: (id: number) => ({url: `/${id}`})
+                query: (params: any) => {
+                    return {
+                        url: '/',
+                        params: params
+                    }
+                }
             })
         }
     }
