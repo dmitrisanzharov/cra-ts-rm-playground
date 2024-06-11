@@ -1,6 +1,5 @@
 import { createTheme, colors } from '@mui/material';
 
-
 const myTheme = createTheme({
     palette: {
         primary: {
@@ -9,7 +8,8 @@ const myTheme = createTheme({
         }
     },
     customVar: { // this is a CUSTOM VALUE that can be accessed via useTheme hook
-        varYellow: colors.yellow[800]
+        varYellow: colors.yellow[800],
+        varGreen: colors.green[500]
     }
 } as any);
 

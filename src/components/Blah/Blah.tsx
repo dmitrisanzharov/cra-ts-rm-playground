@@ -9,6 +9,9 @@ import myTheme from "src/components/Blah/myTheme";
 type Props = any;
 
 const Blah: React.FC<any> = (props: Props) => {
+
+    console.log('myTheme', myTheme);
+
 	return (
 		<ThemeProvider theme={myTheme}>
 			<div>hello badge</div>
@@ -29,8 +32,9 @@ const Child: any = () => {
 
     const themeHook: any = useTheme();
 
+
     return (
-        <Box sx={{color: themeHook.customVar.varYellow}}>
+        <Box sx={{color: (myTheme as any).customVar.varGreen}}>
             <h1>child</h1>
         </Box>
     )
