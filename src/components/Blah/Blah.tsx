@@ -7,15 +7,15 @@ type Props = any;
 const Blah: React.FC<any> = (props: Props) => {
     const filmsData = React.useMemo(
         () => [
-            // { label: 'The Shawshank Redemption', year: 1994 },
-            // { label: 'The Godfather', year: 1972 },
-            // { label: 'The Godfather: Part II', year: 1974 },
+            { label: 'The Shawshank Redemption', year: 1994 },
+            { label: 'The Godfather', year: 1972 },
+            { label: 'The Godfather: Part II', year: 1974 },
             // { label: 'The Dark Knight', year: 2008 },
             // { label: '12 Angry Men', year: 1957 },
             // { label: "Schindler's List", year: 1993 },
             // { label: 'Pulp Fiction', year: 1994 },
-            {label: 'foo'},
-            {label: 'bar'},
+            // {label: 'foo'},
+            // {label: 'bar'},
         ],
         []
     );
@@ -35,7 +35,7 @@ const Blah: React.FC<any> = (props: Props) => {
                 // freeSolo={true}
                 options={filmsData}
                 sx={{ width: 300 }}
-                clearOnBlur={false}
+                clearOnBlur={true}
                 renderInput={(params) => {
                     // console.log('params', params);
                     return <TextField {...params} placeholder='select a movie' label={'movies'} />;
@@ -48,33 +48,54 @@ const Blah: React.FC<any> = (props: Props) => {
                 onChange={(e, newDropDownValue)=> setDropDownValue(newDropDownValue)}
 
                 filterOptions={(options: any, state: any)=> {
-                    console.log('options', options);
-                    console.log('state', state);
 
-                    if(state.inputValue === 'one'){
+                    if(state.inputValue === 'hidden'){
                         return [{label: 'hidden'}]
                     }
+
+                    if(state.inputValue === 'one'){
+                        return [{label: 'one'}]
+                    }
+
+                    if(state.inputValue === 'two'){
+                        return [{label: 'two'}]
+                    }
+
+                    if(state.inputValue === 'three'){
+                        return [{label: 'three'}]
+                    }
+
+                    // if(state.inputValue === 'male'){
+                    //     return [{label: 'foo'}]
+                    // }
                     return options;
                 }}
+
                 
-                isOptionEqualToValue={(option: any, value: any) => {
-                    // console.log('option', option);
-                    // console.log('value', value);
+                
+                isOptionEqualToValue={(originalOptionsArray: any, selectedDropDownValue: any) => {
+                   
 
-                    return value.label == option.label;
+                    console.log('originalOptionsArray', originalOptionsArray);
+                    console.log('selectedDropDownValue', selectedDropDownValue);
 
-                    // if(value.label === 'one' && option.label === 'foo'){
-                    //     return true;
-                    // }
+                    if(originalOptionsArray.label === selectedDropDownValue.label){
+                        return true;
+                    }
 
-                    // if(value.label === 'two' && option.label === 'bar'){
-                    //     return true;
-                    // }
+                    if(selectedDropDownValue.label === 'one' && originalOptionsArray.label === 'The Shawshank Redemption'){
+                        return true;
+                    }
 
-                    // return false;
+                    if(selectedDropDownValue.label === 'two' && originalOptionsArray.label === 'The Godfather: Part II'){
+                        return true;
+                    }
+
+                    return false;
 
                 }}
-                // freeSolo
+                freeSolo
+                // disableCloseOnSelect
             />
         </Box>
     );
