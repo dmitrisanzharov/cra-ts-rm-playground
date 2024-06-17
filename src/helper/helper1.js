@@ -1,10 +1,10 @@
-function boom1(){
-    return 1;
-}
+let c = [1,2];
+let d = c;
+console.log(d === c);
+console.log(d == c);
 
-function boom2(){
-    return 1;
-}
 
-let test1 = boom1() === boom2();
-console.log("test1: ", test1);
+let a = [4,5];
+let b = [4,5];
+console.log(a === b);
+console.log(a == b);

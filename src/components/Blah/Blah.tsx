@@ -6,54 +6,26 @@ type Props = any;
 
 const Blah: React.FC<any> = (props: Props) => {
 
-    const [number, setNumber] = React.useState(1);
-
-    const primitiveOne = 'hello';
-    const myArr = React.useMemo(()=> ['a', 'b', 'c'], []);
-    const myFunction1 = React.useCallback((arg: any) => {
-        return arg
-    }, [])
+    const {number, handleClick} = useMyHook('hello');
 
 
     return <div>
         <h1>Parent component, count is: {number}</h1>
-        <button onClick={()=> setNumber(number+1)}>inc</button>
+        <button onClick={handleClick}>inc</button>
         <hr />
-        <Child primitiveOne={primitiveOne} myArr={myArr} myFunction1={myFunction1} />
     </div>;
 };
 
+const useMyHook = (arg: any) => {
+    const [number, setNumber] = React.useState(0);
 
-const Child: any = (props: any) => {
+    function handleClick(){
+        setNumber(number + 1);
+    }
 
-    console.log('============================');
-    
-    React.useEffect(() => {
-        console.log('primitiveOne NO update')
-    }, [props.primitiveOne]);
+    console.log('arg', arg);
 
-    React.useEffect(() => {
-        console.log('myArr Updates')
-    }, [props.myArr]);
-
-    React.useEffect(()=> {
-        console.log('function by itself UPDATES');
-    }, [props.myFunction1])
-
-    React.useEffect(()=> {
-        console.log('function return primitive will NOT update');
-    }, [props.myFunction1(1)])
-
-
-    React.useEffect(()=> {
-        console.log('function returning array will update');
-    }, [props.myFunction1(['yo'])])
-    
-    
-
-    return<>
-        <h2>Child</h2>
-    </>
+    return {number, handleClick}
 }
 
 export default Blah;
