@@ -1,9 +1,15 @@
-import React from 'react';
+import React from "react";
 
-export const useCountIncrease = (state: any, setState: any) => {
-    setState(state + 1);
-};
+export const useMyStuff = () => {
+	const [number, setNumber] = React.useState(0);
 
-export const incCount2 = (state: any, setState: any): any => {
-    setState(state + 1);
+    console.log('============================');
+
+	function handleClick() {
+        console.log('trigger')
+		setNumber(number + 1);
+	}
+
+    console.log('number', number)
+	return { number, handleClick }
 };
