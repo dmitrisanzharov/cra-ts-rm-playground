@@ -10,6 +10,10 @@ const userApiSlice = createApi({
     baseQuery: fetchBaseQuery({ // this is used to create a BASE API url, does NOT work without it
         baseUrl: 'https://jsonplaceholder.typicode.com/users'
     }),
+    extractRehydrationInfo(action: any, info: any): any{
+        console.log('action', action);
+        console.log('info', info);
+    },
     endpoints: (builder: any) => { // every SLICE, just like normal store has 'actions' in it, only here they are ENDPOINTS function that returns an object with all the 'actions / api queries' in it
         console.log('builder', builder);
         return {  
