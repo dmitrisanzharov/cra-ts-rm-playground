@@ -8,7 +8,7 @@ type Props = any;
 const Blah: React.FC<any> = (props: Props) => {
 
     const allUsers = userApiSlice.useGetAllUsersQuery({}); // this is much easier to use, cause you just call the Hook and then all is Gucci... it does NOT re-fetch, if the request if fulfilled...
-    console.log("allUsers: ", allUsers); // 5NMn-8qrAbOqRbnC3GbPG
+    // console.log("allUsers: ", allUsers); // 5NMn-8qrAbOqRbnC3GbPG
 
     // const oneDude = userApiSlice.useGetOneByIdQuery({id: '2'});
     // console.log("oneDude: ", oneDude);
@@ -22,7 +22,7 @@ const Blah: React.FC<any> = (props: Props) => {
     const dispatch = useDispatch();
 
     React.useEffect(() => {
-        // allUsers.refetch();
+        allUsers.refetch();
         // oneDude.refetch();
     }, []);
 

@@ -1,4 +1,4 @@
-import { configureStore, combineReducers  } from '@reduxjs/toolkit';
+import { configureStore, combineReducers, createListenerMiddleware  } from '@reduxjs/toolkit';
 import { REHYDRATE } from 'redux-persist';
 
 // persistor
@@ -20,18 +20,22 @@ const persistConfig = {
     storage: storage
 }
 
-// const appReducer = (state = {}, action: any) => {
-//     console.log('action', action)
-//     switch (action.type) {
-//       case REHYDRATE:
-//         return {
-//           ...state,
-//           ...action.payload.app, // assuming the persisted state for this reducer is in action.payload.app
-//         };
-//       default:
-//         return state;
-//     }
-//   };
+const listenerMiddleware = createListenerMiddleware();
+
+
+listenerMiddleware.startListening({
+    // predicate: (action, currentState, previousState) => true, // will listen to ALL
+    type: 'countSliceName/incCountByAmount',
+    effect: (action: any, listenerApi: any) => {
+        console.log('============================');
+        console.log('action', action);
+        console.log('listenerApi', listenerApi);
+        console.log('store state', listenerApi.getState());
+        listenerApi.dispatch(countSlice.actions.incCount());
+    }
+});
+
+
 
 const rootReducer: any = combineReducers({
     // app: appReducer,
@@ -46,7 +50,7 @@ const storeConfig: any = configureStore({
     reducer: persistedReducer,
     middleware: (getDefaultMiddleware: any) => getDefaultMiddleware({
         serializableCheck: false
-      }).concat([userApiSlice.middleware]), // here we also need to add: middleware, for the apiSlice ... 
+      }).concat([userApiSlice.middleware]).prepend(listenerMiddleware.middleware) // here we also need to add: middleware, for the apiSlice ... 
 } as any);
 
 export default storeConfig;

@@ -14,6 +14,11 @@ const countSlice: any = createSlice({
     name: 'countSliceName',
     initialState: initialState,
     reducers: { // these are actually ACTION FUNCTIONS, called ACTIONS
+        arrAddStuff: (state, action) => {
+            // console.log('state', state);
+            // console.log('action', action);
+            state.countArr = [...state.countArr, action.payload];
+        },
         incCount: (state) => {
             state.count = state.count + 1;
         },
@@ -21,13 +26,10 @@ const countSlice: any = createSlice({
             state.count = state.count - 1;
         },
         incCountByAmount: (state, action) => { // action is actually a PACKAGE
-            console.log('action', action);
+            // console.log('action', action);
             state.count = state.count + action.payload;
         },
-        arrAddStuff: (state, action) => {
-            console.log('action', action);
-            state.countArr = [...state.countArr, action.payload];
-        }
+
     }
 });
 
