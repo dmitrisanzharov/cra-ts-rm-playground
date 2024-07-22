@@ -24,21 +24,32 @@ const listenerMiddleware = createListenerMiddleware();
 
 
 listenerMiddleware.startListening({
-    // predicate: (action, currentState, previousState) => true, // will listen to ALL
-    type: 'countSliceName/incCountByAmount',
+    predicate: (action, currentState, previousState) => true, // will listen to ALL
+    // type: 'countSliceName/incCountByAmount',
     effect: (action: any, listenerApi: any) => {
-        console.log('============================');
-        console.log('action', action);
-        console.log('listenerApi', listenerApi);
-        console.log('store state', listenerApi.getState());
-        listenerApi.dispatch(countSlice.actions.incCount());
+        // console.log('============================');
+        // console.log('action', action);
+        // console.log('listenerApi', listenerApi);
+        // console.log('store state', listenerApi.getState());
+        // listenerApi.dispatch(countSlice.actions.incCount());
     }
 });
 
+const appReducer = (state={}, action: any) => {
+    console.log('++++++++++++++++++++++++++++');
+    console.log('state', state);
+    console.log('action', action);
+
+    if(action.type === 'persist/PERSIST'){
+        console.log('blah blah');
+        return {...state, foo: 'bar'}
+    }
+    return state;
+}
 
 
 const rootReducer: any = combineReducers({
-    // app: appReducer,
+    api: appReducer,
     countSliceStates: countSlice.reducer, // these are actually STATES from Slices, NOT reducers
     [userApiSlice.reducerPath]: userApiSlice.reducer // apiSlice import is identical, only we use reducer.Pathname for the name, from the slice.
 });
@@ -54,3 +65,5 @@ const storeConfig: any = configureStore({
 } as any);
 
 export default storeConfig;
+
+

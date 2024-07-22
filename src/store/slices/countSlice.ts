@@ -1,4 +1,5 @@
 import { createSlice, createSelector } from '@reduxjs/toolkit';
+import { REHYDRATE } from 'redux-persist';
 
 type InitialState = {
     count: number,
@@ -29,8 +30,7 @@ const countSlice: any = createSlice({
             // console.log('action', action);
             state.count = state.count + action.payload;
         },
-
-    }
+    },
 });
 
 const selectSelf: any = (state: any) => state.countSliceStates;
