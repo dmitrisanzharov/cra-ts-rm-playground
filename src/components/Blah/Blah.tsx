@@ -6,7 +6,9 @@ type Props = any;
 
 const Blah: React.FC<any> = (props: Props) => {
 
-    return <div>hello</div>;
+    return <div>
+        <h1>Hello</h1>
+    </div>;
 };
 
 export default Blah;
