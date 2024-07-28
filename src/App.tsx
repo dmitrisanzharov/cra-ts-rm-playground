@@ -23,6 +23,9 @@ import BasicTreemapTestMessy from 'src/components/charts/BasicTreeMapTest/BasicT
 import BasicTreemapGoodSample from 'src/components/charts/BasicTreeMapTest/BasicTreemapGoodSample';
 import MaintenanceAlertsCard from 'src/components/cards/MaintenanceAlertsCard'
 
+// context stuff
+import ContextOneWrapper from './components/ContextOne/ContextOneWrapper'
+
 function App() {
     const localStorageItemName = 'iAfg4HrIUPmMEqd_isOpen';
 
@@ -70,6 +73,7 @@ function App() {
             //     paddingRight: '15px',
             // }}
         >
+            <ContextOneWrapper />
             {/* <SideMenu
                 sideMenuControl={setSessionStorageFn}
                 isSideMenuOpen={isSideMenuOpen}
@@ -78,7 +82,7 @@ function App() {
                 <MaintenanceAlertsCard />
             </Box> */}
            
-            <Blah />
+            {/* <Blah /> */}
             {/* <BasicTreemapTestMessy /> */}
             {/* <BasicTreemapGoodSample /> */}
             {/* <hr /> */}
