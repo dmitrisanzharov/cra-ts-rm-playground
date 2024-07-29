@@ -6,10 +6,14 @@ export const usersApiSlice = createApi({
         baseUrl: 'https://jsonplaceholder.typicode.com/users'
     }),
     endpoints: (builder: any) => {
-        console.log('builder', builder);
+        // console.log('builder', builder);
         return {
             getAllUsers: builder.query({
-                query: () => ({url: '/'})
+                query: () => ({url: '/'}),
+                transformResponse: (response: any) => {
+                    console.log('response in API', response);
+                    return [...response, {foo: 'foo'}]
+                }
             }),
             getOneUserById: builder.query({
                 query: (params: any) => {
@@ -17,7 +21,11 @@ export const usersApiSlice = createApi({
                         url: '/',
                         params: params
                     }
-                }
+                },
+                transformResponse: (response: any) => {
+                    console.log('response', response);
+                    return {bar: 'bar', orig: response};
+                  },
             })
         }
     }
