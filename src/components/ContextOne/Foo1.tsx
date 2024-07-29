@@ -6,10 +6,10 @@ type Props = {}
 const Foo1 = (props: Props) => {
 
     const data = React.useContext(MyContextOneWrapper);
-    console.log("data: ", data);
+    // console.log("data: ", data);
 
     data.blah = 'yo';
-    console.log("data: ", data);
+    // console.log("data: ", data);
 
   return (
     <div>

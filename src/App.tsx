@@ -25,6 +25,9 @@ import MaintenanceAlertsCard from 'src/components/cards/MaintenanceAlertsCard'
 
 // context stuff
 import ContextOneWrapper from './components/ContextOne/ContextOneWrapper'
+import Rex from './components/Rex';
+import Block1 from './components/ReusableContext/Block1';
+import Block2 from './components/ReusableContext/Block2';
 
 function App() {
     const localStorageItemName = 'iAfg4HrIUPmMEqd_isOpen';
@@ -73,7 +76,7 @@ function App() {
             //     paddingRight: '15px',
             // }}
         >
-            <ContextOneWrapper />
+            {/* <ContextOneWrapper /> */}
             {/* <SideMenu
                 sideMenuControl={setSessionStorageFn}
                 isSideMenuOpen={isSideMenuOpen}
@@ -81,7 +84,14 @@ function App() {
             {/* <Box className='' sx={{width: '862px'}}>
                 <MaintenanceAlertsCard />
             </Box> */}
+
+            <Block1 />
+            <hr />
+            <Block2 />
+
+
            
+           {/* <Rex /> */}
             {/* <Blah /> */}
             {/* <BasicTreemapTestMessy /> */}
             {/* <BasicTreemapGoodSample /> */}
