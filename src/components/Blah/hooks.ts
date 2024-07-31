@@ -1,9 +1,17 @@
 import React from 'react';
 
-export const useCountIncrease = (state: any, setState: any) => {
-    setState(state + 1);
-};
 
-export const incCount2 = (state: any, setState: any): any => {
-    setState(state + 1);
-};
+export const useMyHook = (slowFn: (arg: number)=> number) => {
+    const [count, setCount] = React.useState(0);
+
+    const data = React.useMemo(() => {
+        
+        const myObj = {name: 'victor'};
+
+        const fnReturn = slowFn(2);
+    
+        return {myObj, fnReturn}
+    }, [slowFn]);
+
+    return {count, setCount, data}
+    }

@@ -1,13 +1,12 @@
-const obj1 = {
-    foo1: 'foo',
-    bar: {
-        blah: 'blah'
-    }
-}
-
-const obj2 = {
-    foo2: 'foo2'
-}
-
-let test = obj1?.bar?.blah2;
-console.log("test: ", test);
+function boom1(){
+    return 1;
+   }
+   
+   
+   function boom2(){
+    return 1;
+   }
+   
+   
+   let test1 = boom1() === boom2();
+   console.log("test1: ", test1);
