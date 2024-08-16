@@ -18,9 +18,10 @@ const root = ReactDOM.createRoot(
 );
 root.render(
 	<Provider store={storeConfig}>
-		<PersistGate persistor={persistorConst}>
-			<App />
-		</PersistGate>
+        <App />
+		{/* <PersistGate persistor={persistorConst}>
+			
+		</PersistGate> */}
 	</Provider>
 );
 

@@ -23,6 +23,7 @@ import BasicTreemapTestMessy from 'src/components/charts/BasicTreeMapTest/BasicT
 import BasicTreemapGoodSample from 'src/components/charts/BasicTreeMapTest/BasicTreemapGoodSample';
 import MaintenanceAlertsCard from 'src/components/cards/MaintenanceAlertsCard'
 import CountComponent from 'src/components/CountComponent';
+import Foo from 'src/components/Blah/Foo';
 
 function App() {
     const localStorageItemName = 'iAfg4HrIUPmMEqd_isOpen';
@@ -79,7 +80,8 @@ function App() {
                 <MaintenanceAlertsCard />
             </Box> */}
            {/* <CountComponent /> */}
-            <Blah />
+            {/* <Blah /> */}
+            <Foo />
             {/* <BasicTreemapTestMessy /> */}
             {/* <BasicTreemapGoodSample /> */}
             {/* <hr /> */}

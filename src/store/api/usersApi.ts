@@ -31,6 +31,6 @@ export const usersApiSlice = createApi({
     }
 });
 
-console.log('usersApiSlice in the usersApi file', usersApiSlice);
+// console.log('usersApiSlice in the usersApi file', usersApiSlice);
 
 export default usersApiSlice;

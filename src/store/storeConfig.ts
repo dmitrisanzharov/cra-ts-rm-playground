@@ -10,6 +10,7 @@ import { countSliceReducer } from 'src/store/countSlice';
 // api slice reducers
 import usersApiSlice from 'src/store/api/usersApi';
 import myApiSlice from 'src/store/api/myApi';
+import expressUsersApi from 'src/store/api/expressUsersApi'
 
 const persistConfig = {
     key: 'rootStore',
@@ -20,16 +21,19 @@ const persistConfig = {
 const rootReducer = combineReducers({
     countSliceStoreConfigReducer: countSliceReducer,
     [usersApiSlice.reducerPath]: usersApiSlice.reducer,
-    [myApiSlice.reducerPath]: myApiSlice.reducer
+    [myApiSlice.reducerPath]: myApiSlice.reducer,
+    [expressUsersApi.reducerPath]: expressUsersApi.reducer
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const storeConfig = configureStore({
-    reducer: persistedReducer,
+    reducer: {
+        [expressUsersApi.reducerPath]: expressUsersApi.reducer
+    },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({
         serializableCheck: false
-      }).concat([usersApiSlice.middleware, myApiSlice.middleware])
+      }).concat([/* usersApiSlice.middleware, myApiSlice.middleware, */ expressUsersApi.middleware])
 });
 
 export default storeConfig;
