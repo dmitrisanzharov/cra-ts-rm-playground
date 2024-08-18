@@ -1,6 +1,7 @@
 import React from 'react'
 
 import youtubeUsersApi from 'src/store/api/youtubeUsersApi';
+import youtubeUsersApiExtended from 'src/store/api/injectorDemo'
 
 type Props = {}
 
@@ -8,10 +9,10 @@ const Bar = (props: Props) => {
 
     const [inputState, setInputState] = React.useState('');
 
-    const allData: any = youtubeUsersApi.useGetAllUsersQuery({});
+    const allData: any = youtubeUsersApiExtended.useGetAllUsersQuery({});
     console.log("allData: ", allData);
 
-    const postData: any = youtubeUsersApi.usePostNewUserMutation({});
+    const postData: any = youtubeUsersApiExtended.usePostNewUserMutation({});
     console.log("postData: ", postData);
 
     function handleAddPost(){
