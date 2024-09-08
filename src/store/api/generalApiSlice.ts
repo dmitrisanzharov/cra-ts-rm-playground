@@ -1,5 +1,4 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { info } from 'console';
 
 
 export const generalApiSlice: any = createApi({
@@ -13,16 +12,16 @@ export const generalApiSlice: any = createApi({
             return headers;
         }
     }),
-    tagTypes: ['myTagOne'],
+    tagTypes: ['MyTagName'],
     endpoints: (builder: any) => {
-        console.log('builder', builder);
+        // console.log('builder', builder);
         return {
             getTest: builder.query({
                 query: (myArg: any) => ({
                     url: 'test1',
                     method: 'GET'
                 }),
-                providesTags: ['myTagOne']
+                providesTags: ['MyTagName']
             }),
             postTest: builder.mutation({
                 query: (myArg: any) => {
@@ -33,7 +32,7 @@ export const generalApiSlice: any = createApi({
                         params: { wow: true, foo: 'fooValueObj'},
                     }
                 },
-                invalidatesTags: ['myTagOne']
+                invalidatesTags: ['MyTagName']
             })
         }
     }

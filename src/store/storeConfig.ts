@@ -7,24 +7,13 @@ import countSlice from "./countSlice";
 // query slices
 import generalApiSlice from './api/generalApiSlice';
 
-const appReducer = (state = {}, action: any) => {
-	// console.log("++++++++++++++++++++++++++++");
-	// console.log("state", state);
-	// console.log("action", action);
-	if (action.type === "countSlice/inc") {
-		// console.log("triggered");
-	}
-	return state;
-};
 
 const persistConfig: any = {
 	key: "myPersistorKey",
-	storage: storage,
-	blacklist: [generalApiSlice.reducerPath]
+	storage: storage
 };
 
 const rootReducer = combineReducers({
-	app: appReducer,
 	countSliceStoreObj: countSlice.reducer,
     [generalApiSlice.reducerPath]: generalApiSlice.reducer
 });
@@ -32,7 +21,10 @@ const rootReducer = combineReducers({
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const storeConfig: any = configureStore({
-	reducer: persistedReducer,
+	reducer: {
+		countSliceStoreObj: countSlice.reducer,
+		[generalApiSlice.reducerPath]: generalApiSlice.reducer
+	},
     middleware: (getDefaultMiddleware: any) => getDefaultMiddleware({
         serializableCheck: {
           // Ignore actions from redux-persist
