@@ -8,9 +8,9 @@ import countSlice from "./countSlice";
 import generalApiSlice from './api/generalApiSlice';
 
 const appReducer = (state = {}, action: any) => {
-	console.log("++++++++++++++++++++++++++++");
-	console.log("state", state);
-	console.log("action", action);
+	// console.log("++++++++++++++++++++++++++++");
+	// console.log("state", state);
+	// console.log("action", action);
 	if (action.type === "countSlice/inc") {
 		// console.log("triggered");
 	}
@@ -20,6 +20,7 @@ const appReducer = (state = {}, action: any) => {
 const persistConfig: any = {
 	key: "myPersistorKey",
 	storage: storage,
+	blacklist: [generalApiSlice.reducerPath]
 };
 
 const rootReducer = combineReducers({

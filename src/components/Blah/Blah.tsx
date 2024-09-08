@@ -12,8 +12,26 @@ const Blah: React.FC<any> = (props: Props) => {
     const count = useSelector((storeStateObj: any) => storeStateObj.countSliceStoreObj.count);
     const count2 = useSelector(countSelector);
 
-    const data = generalApiSlice.useGetTestQuery({});
+    const data = generalApiSlice.useGetTestQuery();
     console.log("data: ", data);
+
+    // const dataLazy = generalApiSlice.useLazyGetTestQuery();
+    // console.log("dataLazy: ", dataLazy);
+
+    const dataPost = generalApiSlice.usePostTestMutation();
+    console.log("dataPost: ", dataPost);
+
+    // React.useEffect(() => {
+    //     dataPost[0]({mahMan: 'mahMan'});
+    // }, []);
+
+    // React.useEffect(() => {
+    //     dataLazy[0]()
+    // }, []);
+
+    function triggerPost(){
+        dataPost[0]({letter: 'd1'});
+    }
 
 
 
@@ -22,6 +40,9 @@ const Blah: React.FC<any> = (props: Props) => {
         <button onClick={()=> dispatch(countSlice.actions.inc({}))}>inc</button>
         <button onClick={()=> dispatch(countSlice.actions.dec({}))}>dec</button>
         <button onClick={()=> dispatch(countSlice.actions.incByArgNum(10))}>inc by 10</button>
+
+        <button onClick={triggerPost}>trigger post</button>
+        {JSON.stringify(data?.data?.myArr)}
     </div>;
 };
 
