@@ -6,6 +6,7 @@ import countSlice from "./countSlice";
 
 // query slices
 import generalApiSlice from './api/generalApiSlice';
+import postsApiSlice from './api/postsApiSlice';
 
 
 const persistConfig: any = {
@@ -23,14 +24,15 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 const storeConfig: any = configureStore({
 	reducer: {
 		countSliceStoreObj: countSlice.reducer,
-		[generalApiSlice.reducerPath]: generalApiSlice.reducer
+		[generalApiSlice.reducerPath]: generalApiSlice.reducer,
+    [postsApiSlice.reducerPath]: postsApiSlice.reducer
 	},
     middleware: (getDefaultMiddleware: any) => getDefaultMiddleware({
         serializableCheck: {
           // Ignore actions from redux-persist
           ignoredActions: ['persist/PERSIST']
         },
-      }).concat([generalApiSlice.middleware]),
+      }).concat([generalApiSlice.middleware, postsApiSlice.middleware]),
 });
 
 export default storeConfig;
