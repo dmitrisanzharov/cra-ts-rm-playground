@@ -6,6 +6,7 @@ import countSlice from "./countSlice";
 
 // query slices
 import generalApiSlice from './api/generalApiSlice';
+import postsApiSlice from './api/postsApiSlice';
 
 
 // const persistConfig: any = {
@@ -23,7 +24,8 @@ import generalApiSlice from './api/generalApiSlice';
 const storeConfig: any = configureStore({
 	reducer: {
 		countSliceStoreObj: countSlice.reducer,
-		[generalApiSlice.reducerPath]: generalApiSlice.reducer
+		[generalApiSlice.reducerPath]: generalApiSlice.reducer,
+    [postsApiSlice.reducerPath]: postsApiSlice.reducer
 	},
     middleware: (getDefaultMiddleware: any) => getDefaultMiddleware().concat([generalApiSlice.middleware]),
 });

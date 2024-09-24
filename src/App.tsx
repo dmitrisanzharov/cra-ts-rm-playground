@@ -22,6 +22,7 @@ import Blah from 'src/components/Blah/Blah';
 import BasicTreemapTestMessy from 'src/components/charts/BasicTreeMapTest/BasicTreemapTestMessy';
 import BasicTreemapGoodSample from 'src/components/charts/BasicTreeMapTest/BasicTreemapGoodSample';
 import MaintenanceAlertsCard from 'src/components/cards/MaintenanceAlertsCard'
+import PostsComp from 'src/components/PostsComp';
 
 function App() {
     const localStorageItemName = 'iAfg4HrIUPmMEqd_isOpen';
@@ -77,8 +78,8 @@ function App() {
             {/* <Box className='' sx={{width: '862px'}}>
                 <MaintenanceAlertsCard />
             </Box> */}
-           
-            <Blah />
+           <PostsComp />
+            {/* <Blah /> */}
             {/* <BasicTreemapTestMessy /> */}
             {/* <BasicTreemapGoodSample /> */}
             {/* <hr /> */}
