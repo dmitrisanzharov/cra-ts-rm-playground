@@ -12,7 +12,7 @@ import storeConfig from "./store/storeConfig";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistStore } from "redux-persist";
 
-let persistorConst = persistStore(storeConfig);
+// let persistorConst = persistStore(storeConfig);
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 root.render(

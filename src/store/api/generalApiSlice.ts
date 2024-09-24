@@ -12,7 +12,7 @@ export const generalApiSlice: any = createApi({
             return headers;
         }
     }),
-    tagTypes: ['MyTagName'],
+    tagTypes: ['User'],
     endpoints: (builder: any) => {
         // console.log('builder', builder);
         return {
@@ -21,7 +21,7 @@ export const generalApiSlice: any = createApi({
                     url: 'test1',
                     method: 'GET'
                 }),
-                providesTags: ['MyTagName']
+                providesTags: ['User']
             }),
             postTest: builder.mutation({
                 query: (myArg: any) => {
@@ -32,7 +32,18 @@ export const generalApiSlice: any = createApi({
                         params: { wow: true, foo: 'fooValueObj'},
                     }
                 },
-                invalidatesTags: ['MyTagName']
+                invalidatesTags: ['User'],
+                async onQueryStarted(arg: any, info: any) {
+                    try {
+                        console.log('arg', arg);
+                        console.log('info', info)
+                      let final = await info.queryFulfilled;
+                      console.log('final', final)
+                      console.log('POST request successful, invalidating User tag')
+                    } catch (error) {
+                      console.error('POST request failed', error)
+                    }
+                  },
             })
         }
     }

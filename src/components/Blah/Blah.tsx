@@ -17,8 +17,8 @@ const Blah: React.FC<any> = (props: Props) => {
 	console.log("dataPost: ", dataPost);
 
 	function triggerPost() {
-		dataPost[0]({ letter: "b2" });
-        // dispatch(generalApiSlice.util.invalidateTags(['MyTagName']));
+		dataPost[0]({ letter: "b5" });
+        // dispatch(generalApiSlice.util.invalidateTags(['User']));
 	}
 
 	return (
