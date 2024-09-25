@@ -28,6 +28,8 @@ import MaintenanceAlertsCard from "src/components/cards/MaintenanceAlertsCard";
 import Blah2 from "./components/Blah2";
 import Block1Context from './components/Block1/Block1Context';
 
+import GlobalContextWrapper from './components/GlobalContextWrapper';
+
 function App() {
 	const localStorageItemName = "iAfg4HrIUPmMEqd_isOpen";
 
@@ -64,12 +66,15 @@ function App() {
 
 	return (
 		<Box>
-			{/* <UseContextOne>
+			<UseContextOne>
 				<Blah />
                 <hr />
 				<Blah2 />
-			</UseContextOne> */}
+			</UseContextOne>
+			<GlobalContextWrapper bar={'foo'}>
 			<Block1Context />
+			</GlobalContextWrapper>
+	
 		</Box>
 	);
 }
