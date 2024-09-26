@@ -8,8 +8,8 @@ import Foo from 'src/components/Foo';
 function App() {
     return (
         <Box>
-            {/* <Blah /> */}
-            <Foo />
+            <Blah />
+            {/* <Foo /> */}
         </Box>
     );
 }

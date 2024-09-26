@@ -1,7 +1,7 @@
 import React from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { Box, Skeleton, Typography } from '@mui/material';
-const LazyMyComp: any = React.lazy(() => delayForDemo(import('./MyComp')));
+const LazyMyComp: any = React.lazy(() => delayForDemo(import('./MyComp')) as any);
 // @ts-ignore
 
 type Props = any;
@@ -23,8 +23,6 @@ export default Blah;
 
 function delayForDemo(component: any) {
     return new Promise((resolve) => {
-        setTimeout(resolve, 2000);
-    }).then(() => {
-        return component;
-    });
+        setTimeout(()=> resolve(component), 2000);
+    })
 }
