@@ -1,13 +1,9 @@
-const obj1 = {
-    foo1: 'foo',
-    bar: {
-        blah: 'blah'
-    }
+
+function myDelay(){
+    return new Promise((resolve, reject) =>{
+        setTimeout(resolve, 2000)
+    })
 }
 
-const obj2 = {
-    foo2: 'foo2'
-}
-
-let test = obj1?.bar?.blah2;
-console.log("test: ", test);
+let a = myDelay();
+console.log(a);
