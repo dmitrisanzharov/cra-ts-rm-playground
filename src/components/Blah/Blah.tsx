@@ -15,13 +15,8 @@ const Blah: React.FC<any> = (props: Props) => {
 					display: "flex",
 					flexDirection: "row",
                     flexWrap: "wrap",
-					gap: 1,
-					p: 0.25,
-					pt: 1,
-					// not relevant
-					// justifyContent: "stretch",
-					// alignItems: "flex-start",
-                    // overflowY: "auto",
+					gap: 2,
+					p: 2,
 				}}
 			>
 				<Box sx={{ border: "1px solid red", flex: 1 }}>
