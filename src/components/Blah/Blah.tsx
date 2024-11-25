@@ -11,19 +11,20 @@ const Blah: React.FC<any> = (props: Props) => {
 			<hr />
 			<Box
 				sx={{
-					overflowY: "auto",
+					border: "1px solid yellow",
 					display: "flex",
 					flexDirection: "row",
-					flexWrap: "wrap",
-					// justifyContent: "stretch",
-					// alignItems: "flex-start",
+                    flexWrap: "wrap",
 					gap: 1,
 					p: 0.25,
-					flex: 1,
 					pt: 1,
+					// not relevant
+					// justifyContent: "stretch",
+					// alignItems: "flex-start",
+                    // overflowY: "auto",
 				}}
 			>
-				<Box sx={{ border: "1px solid red", flex: 1 }} >
+				<Box sx={{ border: "1px solid red", flex: 1 }}>
 					Jelly sweet roll jelly beans biscuit pie macaroon chocolate donut. Carrot cake caramels pie sweet apple pie tiramisu carrot cake. Marzipan marshmallow
 					croissant tootsie roll lollipop. Cupcake lemon drops bear claw gummies. Jelly bear claw gummi bears lollipop cotton candy gummi bears chocolate bar cake
 					cookie. Cupcake muffin danish muffin cookie gummies. Jelly beans tiramisu pudding. Toffee soufflé chocolate cake pastry brownie. Oat cake halvah sweet roll
