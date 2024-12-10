@@ -2,7 +2,7 @@ import * as React from 'react';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
-import { styled, SxProps } from '@mui/material';
+import { SxProps } from '@mui/material';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -12,10 +12,10 @@ interface TabPanelProps {
 
 const tabsSx: SxProps = {
     '& .MuiButtonBase-root.MuiTab-root.Mui-selected': { // same as: textColor
-        color: 'orange', 
+        color: 'red', 
     },
     '& .MuiTabs-indicator': { // same as: indicatorColor
-        backgroundColor: 'green',
+        backgroundColor: 'pink',
     },
  };
  
