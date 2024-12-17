@@ -2,13 +2,22 @@ import React from 'react';
 import { Box, Skeleton, Typography } from '@mui/material';
 // @ts-ignore
 
+
+// all tables
+import BasicTable from './BasicTable';
+
+
+
+
 type Props = any;
 
 const Blah: React.FC<any> = (props: Props) => {
 
-    return <div>
+    return <Box sx={{p: 2}}>
         <h1>Hello</h1>
-    </div>;
+        <hr />
+        <BasicTable />
+    </Box>;
 };
 
 export default Blah;
