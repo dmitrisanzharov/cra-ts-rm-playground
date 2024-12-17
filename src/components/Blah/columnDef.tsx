@@ -6,7 +6,7 @@ export const columnDefMain = [
         header: 'big id'
     }, 
     {
-        accessorKey: 'first_name',
+        accessorFn: (data: any) => 'yo',
         header: 'name'
     }, 
     {
