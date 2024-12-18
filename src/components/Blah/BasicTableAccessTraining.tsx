@@ -17,7 +17,15 @@ const BasicTable = (props: Props) => {
 		getFilteredRowModel: getFilteredRowModel(),
 		getFacetedUniqueValues: getFacetedUniqueValues(),
 		getFacetedRowModel: getFacetedRowModel(),
+        anyKey: 'hello'
 	} as any);
+
+    React.useMemo(() => {
+        let a = table.getRowModel().rows.map((row: any)=> {
+            console.log('row', row.getVisibleCells())
+        });
+        // console.log("a", a);
+    }, []);
 
 	return (
 		<TableContainer component={Paper}>

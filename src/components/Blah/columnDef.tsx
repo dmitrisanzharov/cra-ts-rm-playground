@@ -3,10 +3,12 @@ export {}
 export const columnDefMain = [
     {
         accessorKey: 'id',
-        header: 'big id'
+        header: 'big id', 
+        id: 'id'
     }, 
     {
-        accessorFn: (data: any) => 'yo',
+        accessorKey: 'first_name',
+        id: 'first_name',
         header: 'name'
     }, 
     {
