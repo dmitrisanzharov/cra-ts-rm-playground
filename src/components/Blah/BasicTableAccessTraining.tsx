@@ -21,10 +21,14 @@ const BasicTable = (props: Props) => {
 	} as any);
 
     React.useMemo(() => {
-        let a = table.getRowModel().rows.map((row: any)=> {
-            console.log('row', row.getVisibleCells())
-        });
+        // let a = table.getRowModel().rows.map((row: any)=> {
+        //     console.log('row', row.getValue('email'));
+        // });
         // console.log("a", a);
+
+		table.getAllColumns().map((column: any)=> {
+			console.log('column', column);
+		})
     }, []);
 
 	return (
@@ -52,7 +56,7 @@ const BasicTable = (props: Props) => {
 						return (
 							<TableRow key={row.id} sx={{ "&:hover": { backgroundColor: "lightpink" } }}>
 								{row.getVisibleCells().map((cell: any) => {
-									return <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>;
+									return <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())} {' or'} {cell.getValue(cell.id)}</TableCell>;
 								})}
 							</TableRow>
 						);

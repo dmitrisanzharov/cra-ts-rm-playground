@@ -1,11 +1,29 @@
-export {}
+import { createColumnHelper } from "@tanstack/react-table";
 
-export const columnDefMain = [
-    {
-        accessorKey: 'id',
-        header: 'big id', 
-        id: 'id'
-    }, 
+
+export type Person = {
+    id: number,
+    first_name: string,
+    last_name: string,
+    email: string,
+    mahMan: string
+}
+
+const columnHelper = createColumnHelper<Person>();
+
+const columnDefMain = [
+    columnHelper.accessor((data: any, idx: any)=> <div>{'blah'}{idx}</div>, {
+        header: (table: any) => {
+            console.log('table', table)
+            return 'big id'
+        },
+        id: 'id',
+        mahMan: 'omg',
+        cell: (data: any) => {
+            // console.log(data.getValue(data.column.id))
+            return data.getValue(data.column.id)
+        }
+    } as any),
     {
         accessorKey: 'first_name',
         id: 'first_name',
@@ -15,8 +33,10 @@ export const columnDefMain = [
         accessorKey: 'last_name',
         header: 'last'
     }, 
-    {
-        accessorKey: 'email',
-        header: 'email'
-    }, 
-]
+    columnHelper.display({
+        id: 'email',
+        header: 'theeEmails'
+    })
+];
+
+export {columnDefMain}; 
