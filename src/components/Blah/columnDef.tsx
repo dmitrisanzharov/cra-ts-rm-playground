@@ -15,7 +15,7 @@ const columnDefMain = [
     columnHelper.accessor((data: any, idx: any)=> <div>{'blah'}{idx}</div>, {
         header: (table: any) => {
             console.log('table', table)
-            return 'big id'
+            return ''
         },
         id: 'id',
         mahMan: 'omg',
