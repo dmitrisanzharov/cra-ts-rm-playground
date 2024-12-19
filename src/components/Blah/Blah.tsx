@@ -6,6 +6,7 @@ import { Box, Skeleton, Typography } from '@mui/material';
 // all tables
 import BasicTable from './BasicTable';
 import BasicTableAccessTraining from './BasicTableAccessTraining';
+import GroupingHeaders from './GroupingHeaders';
 
 
 
@@ -18,7 +19,7 @@ const Blah: React.FC<any> = (props: Props) => {
         <h1>Hello</h1>
         <hr />
         {/* <BasicTable /> */}
-        <BasicTableAccessTraining />
+        <GroupingHeaders />
     </Box>;
 };
 

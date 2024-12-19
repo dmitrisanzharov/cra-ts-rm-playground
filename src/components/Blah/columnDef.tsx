@@ -11,18 +11,13 @@ export type Person = {
 
 const columnHelper = createColumnHelper<Person>();
 
-const columnDefMain = [
-    columnHelper.accessor((data: any, idx: any)=> <div>{'blah'}{idx}</div>, {
-        header: (table: any) => {
-            console.log('table', table)
-            return ''
-        },
+export const columnDefMain = [
+    columnHelper.accessor((data: any, idx: any)=> {
+        return data.first_name + data.id
+    }, {
+        header: 'mainId',
         id: 'id',
-        mahMan: 'omg',
-        cell: (data: any) => {
-            // console.log(data.getValue(data.column.id))
-            return data.getValue(data.column.id)
-        }
+        mahMan: 'omg'
     } as any),
     {
         accessorKey: 'first_name',
@@ -39,4 +34,31 @@ const columnDefMain = [
     })
 ];
 
-export {columnDefMain}; 
+export const columnDefGroupingHeaders = [
+    {
+        header: 'theId',
+        id: 'id',
+        accessorKey: 'id'
+    },
+    {
+        header: 'all names',
+        id: 'allNames',
+        columns: [
+            {
+                accessorKey: 'first_name',
+                id: 'firstName',
+                header: 'first name'
+            },
+            {
+                accessorKey: 'last_name',
+                id: 'lastName',
+                header: 'last name'
+            }
+        ]
+    },
+    {
+        id: 'email',
+        header: 'email',
+        accessorKey: 'email'
+    }
+]

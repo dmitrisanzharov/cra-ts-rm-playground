@@ -7,6 +7,12 @@ import { TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody
 type Props = {};
 
 const BasicTable = (props: Props) => {
+	const initialColumnVisibility = {
+		email: false,
+	};
+
+	const [vis, setVis] = React.useState(initialColumnVisibility);
+
 	const dataMemo = useMemo(() => data, [data]);
 	const columnsMemo = useMemo(() => columnDefMain, [columnDefMain]);
 
@@ -17,22 +23,28 @@ const BasicTable = (props: Props) => {
 		getFilteredRowModel: getFilteredRowModel(),
 		getFacetedUniqueValues: getFacetedUniqueValues(),
 		getFacetedRowModel: getFacetedRowModel(),
-        anyKey: 'hello'
+		anyKey: "hello",
+		state: {
+			columnVisibility: vis,
+		},
+		onColumnVisibilityChange: setVis,
 	} as any);
 
-    React.useMemo(() => {
-        // let a = table.getRowModel().rows.map((row: any)=> {
-        //     console.log('row', row.getValue('email'));
-        // });
-        // console.log("a", a);
+	React.useMemo(() => {
+		// let a = table.getRowModel().rows.map((row: any)=> {
+		//     console.log('row', row.getValue('email'));
+		// });
+		// console.log("a", a);
 
-		table.getAllColumns().map((column: any)=> {
-			console.log('column', column);
-		})
-    }, []);
+		table.getAllColumns().map((column: any) => {
+			console.log("column", column);
+		});
+	}, []);
 
 	return (
 		<TableContainer component={Paper}>
+			<button onClick={() => setVis({ ...vis, email: !vis.email })}>toggle</button>
+			<hr />
 			<Table>
 				<TableHead>
 					{
@@ -52,11 +64,23 @@ const BasicTable = (props: Props) => {
 					}
 				</TableHead>
 				<TableBody>
-					{table.getRowModel().rows.map((row: any) => {
+					{table.getRowModel().rows.map((row: any, idx: number) => {
 						return (
-							<TableRow key={row.id} sx={{ "&:hover": { backgroundColor: "lightpink" } }}>
+							<TableRow
+								key={row.id}
+								sx={{
+									"&:hover": {
+										backgroundColor: "lightpink",
+									},
+									backgroundColor: idx % 2 === 0 ? "lightblue" : undefined,
+								}}
+							>
 								{row.getVisibleCells().map((cell: any) => {
-									return <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())} {' or'} {cell.getValue(cell.id)}</TableCell>;
+									return (
+										<TableCell key={cell.id}>
+											{flexRender(cell.column.columnDef.cell, cell.getContext())}
+										</TableCell>
+									);
 								})}
 							</TableRow>
 						);
