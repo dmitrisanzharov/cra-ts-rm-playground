@@ -13,11 +13,12 @@ const columnHelper = createColumnHelper<Person>();
 
 export const columnDefMain = [
     columnHelper.accessor((data: any, idx: any)=> {
-        return data.first_name + data.id
+        return data.id
     }, {
         header: 'mainId',
         id: 'id',
-        mahMan: 'omg'
+        mahMan: 'omg',
+        filterFn: 'equalsString'
     } as any),
     {
         accessorKey: 'first_name',

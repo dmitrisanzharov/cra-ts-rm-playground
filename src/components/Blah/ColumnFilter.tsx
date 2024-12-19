@@ -10,6 +10,9 @@ const BasicTable = (props: Props) => {
 	const dataMemo = useMemo(() => data, [data]);
 	const columnsMemo = useMemo(() => columnDefMain, [columnDefMain]);
 
+	const [filterId, setFilterId] = React.useState<string>("");
+	const [filterValue, setFilterValue] = React.useState<string>("");
+
 	const table = useReactTable({
 		data: dataMemo,
 		columns: columnsMemo,
@@ -19,8 +22,23 @@ const BasicTable = (props: Props) => {
 		getFacetedRowModel: getFacetedRowModel(),
 	} as any);
 
+    function handleFilterChange(){
+        table.setColumnFilters([{id: filterId, value: filterValue}])
+    }
+
+
 	return (
 		<TableContainer component={Paper}>
+			<hr />
+			<select value={filterId} onChange={(e) => setFilterId(e.target.value)}>
+				// below is list of IDS from table, i.e. KEYS from the DATA objects
+				{["", "id", "first_name", "last_name", "email"].map((item: string) => {
+					return <option key={item}>{item}</option>;
+				})}
+			</select>
+            <input type="text" value={filterValue} onChange={e => setFilterValue(e.target.value)} />
+            <button onClick={handleFilterChange} type='button'>run filter</button>
+			<hr />
 			<Table>
 				<TableHead>
 					{
@@ -28,9 +46,15 @@ const BasicTable = (props: Props) => {
 							return (
 								<TableRow key={headerRows.id} sx={{ border: "1px solid red", outline: "1px solid red" }}>
 									{headerRows.headers.map((headerCell: any) => {
+										console.log("headerCell", headerCell);
 										return (
 											<TableCell key={headerCell.id} sx={{ backgroundColor: "lightgray", fontWeight: "bold" }}>
 												{flexRender(headerCell.column.columnDef.header, headerCell.getContext())}
+												<input
+													type="text"
+													value={headerCell.column.getFilterValue() || ""}
+													onChange={(e) => headerCell.column.setFilterValue(e.target.value)}
+												/>
 											</TableCell>
 										);
 									})}
