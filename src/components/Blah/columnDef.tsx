@@ -62,3 +62,27 @@ export const columnDefGroupingHeaders = [
         accessorKey: 'email'
     }
 ]
+
+export const columnDefSorting = [
+    columnHelper.accessor((data: any, idx: any)=> {
+        return data.first_name + data.id
+    }, {
+        header: 'mainId',
+        id: 'id',
+        mahMan: 'omg'
+    } as any),
+    {
+        accessorKey: 'first_name',
+        id: 'first_name',
+        header: 'name'
+    }, 
+    {
+        accessorKey: 'last_name',
+        header: 'last'
+    }, 
+    {
+        id: 'email',
+        header: 'theeEmails',
+        accessorKey: 'email',
+    }
+];

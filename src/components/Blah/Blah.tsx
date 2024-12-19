@@ -7,6 +7,9 @@ import { Box, Skeleton, Typography } from '@mui/material';
 import BasicTable from './BasicTable';
 import BasicTableAccessTraining from './BasicTableAccessTraining';
 import GroupingHeaders from './GroupingHeaders';
+import SortingTable from './SortingTable';
+import GlobalFilter from './GlobalFilter';
+import ColumnFilter from './ColumnFilter';
 
 
 
@@ -19,7 +22,7 @@ const Blah: React.FC<any> = (props: Props) => {
         <h1>Hello</h1>
         <hr />
         {/* <BasicTable /> */}
-        <GroupingHeaders />
+        <ColumnFilter />
     </Box>;
 };
 
