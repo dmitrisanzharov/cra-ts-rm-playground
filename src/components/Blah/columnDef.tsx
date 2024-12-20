@@ -87,3 +87,29 @@ export const columnDefSorting = [
         accessorKey: 'email',
     }
 ];
+
+
+export const columnDefColumnFilters = [
+    columnHelper.accessor((data: any, idx: any)=> {
+        return data.id
+    }, {
+        header: 'mainId',
+        id: 'id',
+        mahMan: 'omg',
+        filterFn: 'equalsString'
+    } as any),
+    {
+        accessorKey: 'first_name',
+        id: 'first_name',
+        header: 'name',
+        filterFn: 'arrIncludesSome'
+    }, 
+    {
+        accessorKey: 'last_name',
+        header: 'last'
+    }, 
+    columnHelper.display({
+        id: 'email',
+        header: 'theeEmails'
+    })
+];

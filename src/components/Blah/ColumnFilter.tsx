@@ -1,14 +1,18 @@
 import React, { useMemo, useCallback, useEffect, useState } from "react";
 import { useReactTable, flexRender, getCoreRowModel, getFilteredRowModel, getFacetedUniqueValues, getFacetedRowModel } from "@tanstack/react-table";
 import data from "../table/data";
-import { columnDefMain } from "./columnDef";
+import { columnDefColumnFilters } from "./columnDef";
 import { TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody } from "@mui/material";
 
 type Props = {};
 
 const BasicTable = (props: Props) => {
 	const dataMemo = useMemo(() => data, [data]);
-	const columnsMemo = useMemo(() => columnDefMain, [columnDefMain]);
+	const columnsMemo = useMemo(() => columnDefColumnFilters, [columnDefColumnFilters]);
+	const defaultColumnMemo = React.useMemo(() => ({
+        victor: "yo",
+        }), []);
+
 
 	const [filterId, setFilterId] = React.useState<string>("");
 	const [filterValue, setFilterValue] = React.useState<string>("");
@@ -20,12 +24,16 @@ const BasicTable = (props: Props) => {
 		getFilteredRowModel: getFilteredRowModel(),
 		getFacetedUniqueValues: getFacetedUniqueValues(),
 		getFacetedRowModel: getFacetedRowModel(),
+		defaultColumn: defaultColumnMemo,
 	} as any);
 
     function handleFilterChange(){
-        table.setColumnFilters([{id: filterId, value: filterValue}])
+        table.setColumnFilters([{id: filterId, value: []}]);
     }
 
+	React.useEffect(() => {
+		console.log('table', table.getAllColumns())
+	}, []);
 
 	return (
 		<TableContainer component={Paper}>
@@ -46,15 +54,10 @@ const BasicTable = (props: Props) => {
 							return (
 								<TableRow key={headerRows.id} sx={{ border: "1px solid red", outline: "1px solid red" }}>
 									{headerRows.headers.map((headerCell: any) => {
-										console.log("headerCell", headerCell);
+										// console.log("headerCell", headerCell);
 										return (
 											<TableCell key={headerCell.id} sx={{ backgroundColor: "lightgray", fontWeight: "bold" }}>
 												{flexRender(headerCell.column.columnDef.header, headerCell.getContext())}
-												<input
-													type="text"
-													value={headerCell.column.getFilterValue() || ""}
-													onChange={(e) => headerCell.column.setFilterValue(e.target.value)}
-												/>
 											</TableCell>
 										);
 									})}
