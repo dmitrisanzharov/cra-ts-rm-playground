@@ -30,6 +30,7 @@ export const columnDefMain = [
 	{
 		accessorKey: "last_name",
 		header: "last",
+        enableHiding: false
 	},
 	columnHelper.display({
 		id: "email",
@@ -164,8 +165,9 @@ export const columnDefColumnSelector = [
 		accessorKey: "last_name",
 		header: "last",
 	},
-	columnHelper.display({
+	{
 		id: "email",
 		header: "theeEmails",
-	}),
+        accessorKey: "email",
+	}
 ];

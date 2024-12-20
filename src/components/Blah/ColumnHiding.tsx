@@ -1,16 +1,14 @@
 import React, { useMemo, useCallback, useEffect, useState } from "react";
 import { useReactTable, flexRender, getCoreRowModel, getFilteredRowModel, getFacetedUniqueValues, getFacetedRowModel } from "@tanstack/react-table";
 import data from "../table/data";
-import { columnDefColumnSelector } from "./columnDef";
+import { columnDefMain } from "./columnDef";
 import { TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody } from "@mui/material";
 
 type Props = {};
 
 const BasicTable = (props: Props) => {
 	const dataMemo = useMemo(() => data, [data]);
-	const columnsMemo = useMemo(() => columnDefColumnSelector, [columnDefColumnSelector]);
-
-    const [rowSelection, setRowSelection] = React.useState({0: true, 1: true})
+	const columnsMemo = useMemo(() => columnDefMain, [columnDefMain]);
 
 	const table = useReactTable({
 		data: dataMemo,
@@ -19,46 +17,23 @@ const BasicTable = (props: Props) => {
 		getFilteredRowModel: getFilteredRowModel(),
 		getFacetedUniqueValues: getFacetedUniqueValues(),
 		getFacetedRowModel: getFacetedRowModel(),
-        state: {
-            rowSelection: rowSelection,
-            columnOrder: ['email']
-        },
-        onRowSelectionChange: setRowSelection,
-        enableRowSelection: (row: any) => {
-            // console.log('row', row);
-            if(row.id === '3'){
-                return false
-            }
-            return true
-        }
 	} as any);
 
-		// React.useEffect(() => {
-		// 	console.log('table', table);
-		// }, []);
-
-        // React.useEffect(() => {
-		// 	console.log('rowSelection', rowSelection);
-		// }, [rowSelection]);
-
-        React.useEffect(() => {
-            table.getAllColumns().map((col: any) => {
-                if(!col.getFacetedUniqueValues()){ // need this to DODGE columnHelper.display LENGTH error
-                    return
-                }
-                let showsAnArrayOfAllRowValuesInAColumn = Array.from(col.getFacetedUniqueValues().keys()).sort();
-                console.log('showsAnArrayOfAllRowValuesInAColumn', showsAnArrayOfAllRowValuesInAColumn);
-            })
-        }, []);
-     
-     
-     
+		React.useEffect(() => {
+			console.log('table', table);
+		}, []);
 
 	return (
 		<TableContainer component={Paper}>
+            <h1>see all columns</h1>
+            <input type='checkbox' checked={table.getIsAllColumnsVisible()} onChange={table.getToggleAllColumnsVisibilityHandler()} />{" "}
+            <hr />
             <ul>
-                {table.getSelectedRowModel().flatRows.map((row: any)=> {
-                    return <li key={row.id}>{JSON.stringify(row.original)}</li>
+                {table.getAllLeafColumns().map((column) => {
+                    if(!column.getCanHide()){
+                        return
+                    }
+                    return <li key={column.id}><input type='checkbox' checked={column.getIsVisible()} onChange={column.getToggleVisibilityHandler()} /> {column.id}</li>;
                 })}
             </ul>
             <hr />

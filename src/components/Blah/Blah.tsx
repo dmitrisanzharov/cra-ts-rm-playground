@@ -12,6 +12,7 @@ import GlobalFilter from './GlobalFilter';
 import ColumnFilter from './ColumnFilter';
 import Pagination from './Pagination';
 import RowSelection from './RowSelection';
+import ColumnHiding from './ColumnHiding';
 
 
 
@@ -24,7 +25,7 @@ const Blah: React.FC<any> = (props: Props) => {
         <h1>Hello</h1>
         <hr />
         {/* <BasicTable /> */}
-        <RowSelection />
+        <ColumnHiding />
     </Box>;
 };
 
