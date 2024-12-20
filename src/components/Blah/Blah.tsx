@@ -10,6 +10,8 @@ import GroupingHeaders from './GroupingHeaders';
 import SortingTable from './SortingTable';
 import GlobalFilter from './GlobalFilter';
 import ColumnFilter from './ColumnFilter';
+import Pagination from './Pagination';
+import RowSelection from './RowSelection';
 
 
 
@@ -22,7 +24,7 @@ const Blah: React.FC<any> = (props: Props) => {
         <h1>Hello</h1>
         <hr />
         {/* <BasicTable /> */}
-        <ColumnFilter />
+        <RowSelection />
     </Box>;
 };
 
