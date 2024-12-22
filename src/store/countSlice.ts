@@ -18,7 +18,10 @@ export const countSlice: any = createSlice({
         resetCount: (state) => {
             state.countInSlice = 0;
         },
+
         addToArrInCount: (state, action) => { // action is actually packageObject with payload in it
+            console.log('state', state);
+            console.log('action', action);
             state.arrInSlice = [...state.arrInSlice, action.payload] as any;
         }
     }

@@ -8,7 +8,10 @@ type Props = any;
 
 const Blah: React.FC<any> = (props: Props) => {
 
-    const count = useSelector((state: any)=> state.storeConfigCountSlice.countInSlice);
+    const count = useSelector((state: any)=> {
+        console.log('storeState', state);
+        return state.storeConfigCountSlice.countInSlice
+    });
     const myArr = useSelector((state: any)=> state.storeConfigCountSlice.arrInSlice);
     const dispatch = useDispatch();
 
