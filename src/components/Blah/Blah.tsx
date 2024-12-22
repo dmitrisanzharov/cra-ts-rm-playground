@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, Skeleton, Typography } from '@mui/material';
 // store stuff
 import { useSelector, useDispatch } from 'react-redux'
-import countSlice from '../../store/countSlice';
+import countSlice, {countSelector, countSelectorLong} from '../../store/countSlice';
 
 type Props = any;
 
@@ -12,11 +12,13 @@ const Blah: React.FC<any> = (props: Props) => {
         console.log('storeState', state);
         return state.storeConfigCountSlice.countInSlice
     });
+    const count2 = useSelector(countSelectorLong);
+
     const myArr = useSelector((state: any)=> state.storeConfigCountSlice.arrInSlice);
     const dispatch = useDispatch();
 
     return <div>
-        <h1>Hello, this is count: {count}</h1>
+        <h1>Hello, this is count: {count2}</h1>
         <h1>{JSON.stringify(myArr)}</h1>
         <hr />
         <button onClick={()=> dispatch(countSlice.actions.incCount())}>inc</button>
