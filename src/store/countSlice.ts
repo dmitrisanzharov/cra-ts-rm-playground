@@ -27,7 +27,7 @@ export const countSlice: any = createSlice({
     }
 });
 
-console.log('countSlice', countSlice);
+// console.log('countSlice', countSlice);
 
 const selectSelf = (state: any) => {
     return state.storeConfigCountSlice;
