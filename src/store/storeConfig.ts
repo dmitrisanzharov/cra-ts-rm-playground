@@ -43,8 +43,6 @@ const rootReducer = combineReducers({
     [usersApiSlice.reducerPath]: usersApiSlice.reducer
 });
 
-console.log('root', rootReducer)
-
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 

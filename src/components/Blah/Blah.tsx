@@ -21,11 +21,23 @@ const Blah: React.FC<any> = (props: Props) => {
     const dispatch = useDispatch();
 
     // store api slices
-    const data = usersApiSlice.useGetAllUsersQuery({});
+    const data = usersApiSlice.useLazyGetAllUsersQuery({}); // { data, currentData, isLoading } ... { triggerFn, {data, currentData, isLoading}, originalArgs }
+    const singleUser = usersApiSlice.useGetAllUsersQuery({id: 1});
 
     React.useEffect(() => {
         console.log('data', data);
-    }, [JSON.stringify(data.data)]);
+        console.log('data actual', data[1].data);
+    }, [JSON.stringify(data[1].status)]);
+
+    
+    // React.useEffect(() => {
+    //     console.log('singleUser', singleUser);
+    // }, [JSON.stringify(singleUser.data)]);
+
+    function myFunction(){
+        console.log('triggered')
+        data[0]({myArg: 'alalalal'})
+    }
     
 
 
@@ -37,6 +49,8 @@ const Blah: React.FC<any> = (props: Props) => {
         <button onClick={()=> dispatch(countSlice.actions.decCount())}>dec</button>
         <button onClick={()=> dispatch(countSlice.actions.resetCount())}>reset</button>
         <button onClick={()=> dispatch(countSlice.actions.addToArrInCount('omg'))}>add to array</button>
+        <hr />
+        <button onClick={myFunction}>refetch</button>
     </div>;
 };
 
