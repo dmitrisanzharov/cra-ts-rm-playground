@@ -14,7 +14,7 @@ const persistConfig = {
     key: 'myPersistorKeyForLocalStorage',
     version: 1,
     storage: storage,
-    blacklist: ['storeConfigCountSlice']
+    blacklist: [usersApiSlice.reducerPath]
  }
  
 

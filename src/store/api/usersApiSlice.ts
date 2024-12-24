@@ -3,19 +3,29 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 export const usersApiSlice: any = createApi({
     reducerPath: 'usersApi',
     baseQuery: fetchBaseQuery({
-        baseUrl: 'https://jsonplaceholder.typicode.com/users/'
+        baseUrl: 'https://jsonplaceholder.typicode.com/users/',
+        prepareHeaders: (headers: any, info: any) => {
+            // console.log('headers', headers);
+            // console.log('info', info);
+            // const token = (info.getState()).auth.token;
+            headers.set('Yo-Yo_YoYo', 'anyKey'); // Yo-Yo_yoyo
+            return headers;
+        }
     }),
     endpoints: (builder: any) => {
         console.log('builder', builder);
         return {
             getAllUsers: builder.query({
                 query: (params?: any) => {
-                    console.log('queryArgs', params)
                     return {
-                        url: `${params.myArg}`,
+                        url: '',
                         method: 'GET',
                         params: params
                     }
+                },
+                transformResponse: (response: any) => {
+                    console.log('response', response);
+                    return [1,2,3]
                 }
             }),
             getUserById: builder.query({
