@@ -13,7 +13,6 @@ export const usersApiSlice: any = createApi({
         }
     }),
     endpoints: (builder: any) => {
-        console.log('builder', builder);
         return {
             getAllUsers: builder.query({
                 query: (params?: any) => {
@@ -24,7 +23,6 @@ export const usersApiSlice: any = createApi({
                     }
                 },
                 transformResponse: (response: any) => {
-                    console.log('response', response);
                     return [1,2,3]
                 }
             }),
@@ -40,6 +38,6 @@ export const usersApiSlice: any = createApi({
     }
 } as any);
 
-console.log('usersApiSlice', usersApiSlice); // export { useGetAllUsersQuery, useGetAllUsersQuery } = usersApiSlice;
+// console.log('usersApiSlice', usersApiSlice); // export { useGetAllUsersQuery, useGetAllUsersQuery } = usersApiSlice;
 
 export default usersApiSlice; 
