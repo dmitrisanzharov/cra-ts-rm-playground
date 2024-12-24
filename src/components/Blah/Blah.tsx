@@ -4,8 +4,10 @@ import { Box, Skeleton, Typography } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux'
 import countSlice, { countSelector, countSelectorLong } from '../../store/countSlice';
 
+
 // api stuff
 import usersApiSlice from '../../store/api/usersApiSlice';
+import mutationApiSlice from '../../store/api/mutationApiSlice'
 
 type Props = any;
 
@@ -22,7 +24,7 @@ const Blah: React.FC<any> = (props: Props) => {
 
     // store api slices
     const data = usersApiSlice.useLazyGetAllUsersQuery({}); // { data, currentData, isLoading } ... { triggerFn, {data, currentData, isLoading}, originalArgs }
-    const singleUser = usersApiSlice.useGetAllUsersQuery({id: 1});
+    const singleUser = usersApiSlice.useGetAllUsersQuery({id: 1}, { useCache: true });
 
     React.useEffect(() => {
         console.log('data', data);
@@ -38,7 +40,20 @@ const Blah: React.FC<any> = (props: Props) => {
         console.log('triggered')
         data[0]({myArg: 'alalalal'})
     }
+
+
+    // mutation
+
+    const postMeQuery = mutationApiSlice.usePostOneUserMutation();
+
+    function triggerPost(){
+        console.log('postMeQuery', postMeQuery);
+        postMeQuery[0]({name: 'vic', age: 30})
+    }
     
+    React.useEffect(() => {
+        console.log('postMeQuery', postMeQuery);
+    }, [postMeQuery[1].status]);
 
 
     return <div>
@@ -51,6 +66,7 @@ const Blah: React.FC<any> = (props: Props) => {
         <button onClick={()=> dispatch(countSlice.actions.addToArrInCount('omg'))}>add to array</button>
         <hr />
         <button onClick={myFunction}>refetch</button>
+        <button onClick={triggerPost}>post</button>
     </div>;
 };
 

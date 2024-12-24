@@ -7,6 +7,7 @@ import countSlice from './countSlice';
 
 // api slices
 import usersApiSlice from './api/usersApiSlice'
+import mutationApiSlice from './api/mutationApiSlice';
 
 // persistor
 
@@ -40,7 +41,8 @@ const appReducer = (state: any = {}, action: any) => {
 const rootReducer = combineReducers({
     app: appReducer,
     storeConfigCountSlice: countSlice.reducer,
-    [usersApiSlice.reducerPath]: usersApiSlice.reducer
+    [usersApiSlice.reducerPath]: usersApiSlice.reducer,
+    [mutationApiSlice.reducerPath]: mutationApiSlice.reducer
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -53,6 +55,6 @@ const storeConfig = configureStore({
         serializableCheck: {
             ignoredActions: ['persist/PERSIST']
         }
-    }).prepend(listenerMiddleware.middleware).concat([usersApiSlice.middleware])
+    }).prepend(listenerMiddleware.middleware).concat([usersApiSlice.middleware, mutationApiSlice.middleware])
 })
 export default storeConfig;
