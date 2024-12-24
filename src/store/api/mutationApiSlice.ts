@@ -27,7 +27,16 @@ export const mutationApiSlice: any = createApi({
                         body: obj,
                     }
                 },
-                invalidatesTags: theTag
+                invalidatesTags: theTag,
+                async onQueryStarted(arg: any, info: any) { 
+                    try {
+                      console.log('info', info)
+                      await info.queryFulfilled
+                    } catch (error) {
+                      console.error('POST request failed', error)
+                    }
+                  },
+ 
             })
         }
     }

@@ -12,7 +12,8 @@ const Foo = (props: Props) => {
 
 
     function addPostFn(){
-        addPost[0]({title: input})
+        const toAvoidTheObjectBug = {title: input};
+        addPost[0](toAvoidTheObjectBug)
         setInput('')
     }
 
