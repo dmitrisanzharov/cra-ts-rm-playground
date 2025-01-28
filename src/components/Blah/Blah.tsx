@@ -1,6 +1,5 @@
 import React from 'react';
 import { Box, Skeleton, Typography } from '@mui/material';
-import { boxSizing } from '@mui/system';
 // @ts-ignore
 
 type Props = any;
