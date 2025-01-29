@@ -6,20 +6,24 @@ type Props = any;
 
 // SX
 const containerSx: any = {
-    // display: 'flex',
-    // border: '10px solid black',
-    // height: '90vh',
-    // alignItems: 'center'
+    margin: '15px',
+    boxSizing: 'border-box',
+    border: '5px solid orange',
+    height: '90vh',
+    display: 'flex',
+    flexDirection: 'row',
+    // flexWrap: 'wrap',
+    // alignContent: 'start'
 }
 
 const boxSx: any = {
     width: '150px',
     height: '150px',
-    fontSize: '8rem',
+    fontSize: '2rem',
     borderRadius: '15px',
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
 }
 
 const Blah: React.FC<any> = (props: Props) => {
@@ -28,7 +32,7 @@ const Blah: React.FC<any> = (props: Props) => {
         <Box sx={{...boxSx, backgroundColor: 'red'}}>1</Box>
         <Box sx={{...boxSx, backgroundColor: 'yellow'}}>2</Box>
         <Box sx={{...boxSx, backgroundColor: 'green'}}>3</Box>
-        <Box sx={{...boxSx, backgroundColor: 'blue'}}>4</Box>
+        <Box sx={{...boxSx, backgroundColor: 'blue', flexShrink: 1}}>4</Box>
     </Box>;
 };
 
