@@ -9,9 +9,8 @@ type Props = any;
 // SX
 const containerSx: any = {
     display: 'flex',
-    justifyContent: 'right',
-    // border: '10px solid black',
-    // height: '90vh',
+    border: '10px solid black',
+    height: '90vh',
     // alignItems: 'center',
     // margin: '10px'
 
