@@ -5,11 +5,17 @@ type Props = {}
 
 const CompInTwo = (props: Props) => {
 
-    const compInTwoValues = React.useContext(Context2Const);
-    console.log("compInTwoValues: ", compInTwoValues);
+    const compInTwoValues = React.useContext(Context2Const) as any;
+
+    console.log("comp 1: before", compInTwoValues);
+   
+
+    compInTwoValues.newKey = 'newVal';
+
+    console.log("comp 1: after", compInTwoValues);
 
   return (
-    <div>CompInTwo</div>
+    <div>Comp1</div>
   )
 }
 
