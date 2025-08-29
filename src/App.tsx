@@ -7,13 +7,15 @@ import MainContextWrapper from 'src/components/context';
 
 import Context2 from 'src/components/context2';
 
+import Context3 from 'src/components/context3/Context3';
+
 function App() {
     return (
         <Box>
+            <Blah />
             {/* <MainContextWrapper>
-                <Blah />
             </MainContextWrapper> */}
-            <Context2 />
+            {/* <Context2 /> */}
         </Box>
     );
 }

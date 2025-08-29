@@ -9,13 +9,11 @@ export const Context2Const = React.createContext({});
 
 const Context2 = (props: Props) => {
 
-    React.useEffect(() => {
-        console.log('context useEffect');
-    }, []);
+    const [state, setState] = React.useState({ lala: 'omg' });
 
 
     return (
-        <Context2Const.Provider value={{ lala: 'omg' }}>
+        <Context2Const.Provider value={{state, setState}}>
             {/* comp 2 */}
             <CompInTwoB /> 
             {/* comp 1 */}

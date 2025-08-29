@@ -9,14 +9,6 @@ const CompInTwoB = (props: Props) => {
 
     console.log("comp two: ", compB);
 
-    React.useEffect(() => {
-        console.log("comp two: useEffect", compB);
-    }, [compB]);
-
-    React.useEffect(() => {
-        console.log('comp one useEffect');
-    }, []);
-
     return (
         <div>comp two: {JSON.stringify(compB)}</div>
     )

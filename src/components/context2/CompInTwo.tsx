@@ -7,12 +7,11 @@ const CompInTwo = (props: Props) => {
 
     const compInTwoValues = React.useContext(Context2Const) as any;
 
-    console.log("comp 1: before", compInTwoValues);
-   
+   compInTwoValues.setState({...compInTwoValues.state, newKey: 'newVal'});
 
-    compInTwoValues.newKey = 'newVal';
-
-    console.log("comp 1: after", compInTwoValues);
+    // React.useEffect(() => {
+    //   compInTwoValues.setState({...compInTwoValues.state, newKey: 'newVal'});
+    // }, []);
 
   return (
     <div>Comp1</div>
