@@ -5,6 +5,7 @@ type Props = {}
 export const Context4Const = React.createContext({});
 
 const Context4 = (props: any) => {
+    console.log("props: ", props);
 
     const valueIn4 = { someValue4: 'value4' };
 
