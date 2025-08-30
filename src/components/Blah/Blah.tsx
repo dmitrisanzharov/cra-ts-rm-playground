@@ -8,18 +8,20 @@ let a = 1;
 const Blah: React.FC<any> = (props: Props) => {
 
 
-   console.log('parent mounted');
+    const [count, setCount] = React.useState(0);
 
+    function changeCount() {
+        setCount((prevCount) => prevCount + 12);
+        setCount((prevCount) => prevCount + 1);
+        setCount((prevCount) => prevCount + 2);
 
-   React.useEffect(() => {
-       console.log('parent useEffect ran');
-   }, []);
+    }
 
+    return <div>
+        <h1>Hello</h1>
+        <button onClick={changeCount}>Increment {count}</button>
 
-   return <div>
-       <h1>Hello</h1>
-       <Child1 />
-   </div>;
+    </div>;
 };
 
 
@@ -31,15 +33,15 @@ export default Blah;
 const Child1 = (props: any) => {
 
 
-   console.log('child mounted');
+    console.log('child mounted');
 
 
-   React.useEffect(() => {
-       console.log('child useEffect ran');
-   }, []);
+    React.useEffect(() => {
+        console.log('child useEffect ran');
+    }, []);
 
 
-   return <div>
-       <h1>Child1</h1>
-   </div>;
+    return <div>
+        <h1>Child1</h1>
+    </div>;
 }
