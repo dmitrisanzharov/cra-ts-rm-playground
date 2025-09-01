@@ -9,7 +9,7 @@ const Blah: React.FC<any> = (props: Props) => {
     const htmlElement = React.useRef<HTMLDivElement>(null);
     console.log("htmlElement: ", htmlElement);
 
-    
+
 
 
     return <div>
