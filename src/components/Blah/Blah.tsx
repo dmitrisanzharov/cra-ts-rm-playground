@@ -5,31 +5,26 @@ type Props = any;
 
 const Blah: React.FC<any> = (props: Props) => {
 
-    // const [count, setCount] = React.useState(0);
+ 
+    const count = React.useRef(0);
+    const elementRef = React.useRef<HTMLDivElement>(null);
 
-    const count = React.useRef(0)
-
-
-    const htmlElement = React.useRef<HTMLDivElement>(null);
-    console.log("htmlElement: ", htmlElement);
-
-    // htmlElement.current.style.color = "red";
+    const [stateCount, setStateCount] = React.useState(0);
 
 
-    React.useEffect(() => {
-        if(htmlElement.current){
-            htmlElement.current.style.color = "red";
+    function myFn() {
+        count.current = count.current + 1;
+        console.log(count.current);
+        if(elementRef.current){
+            elementRef.current.innerText = count.current.toString();
         }
-    }, []);
-
-    React.useEffect(() => {
-        console.log("Count changed: ", count);
-    }, [count]);
-
+        
+    }
 
     return <div>
-        <h1 ref={htmlElement}>Hello</h1>
-        <button onClick={() => count.current = count.current + 1}>Increment</button>
+        <h1>Hello</h1>
+        <div ref={elementRef}>0</div>
+        <button onClick={myFn}>Increment</button>
     </div>;
 };  
 
