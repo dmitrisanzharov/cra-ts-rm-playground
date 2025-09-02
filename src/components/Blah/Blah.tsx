@@ -3,29 +3,41 @@ import React from 'react';
 
 type Props = any;
 
-const Blah: React.FC<any> = (props: Props) => {
 
- 
-    const count = React.useRef(0);
-    const elementRef = React.useRef<HTMLDivElement>(null);
-
-    const [stateCount, setStateCount] = React.useState(0);
+const Child = React.forwardRef((props: any, ref: any) => {
+    console.log("ref: ", ref);
 
 
-    function myFn() {
-        count.current = count.current + 1;
-        console.log(count.current);
-        if(elementRef.current){
-            elementRef.current.innerText = count.current.toString();
+    React.useEffect(() => {
+        if (ref.ref1.current) {
+            ref.ref1.current.style.color = 'red';
         }
-        
-    }
+
+        if (ref.ref2.current) {
+            ref.ref2.current.style.color = 'green';
+        }
+    }, []);
 
     return <div>
-        <h1>Hello</h1>
-        <div ref={elementRef}>0</div>
-        <button onClick={myFn}>Increment</button>
+        <div>This is child!</div>
+        <input {...props} ref={ref.ref1} />
+        <h1 ref={ref.ref2}>ref2</h1>
     </div>;
-};  
+})
+
+const Blah: React.FC<any> = (props: Props) => {
+
+    const childRef = React.useRef<any>(null);
+    const childRef2 = React.useRef<any>(null);
+
+    return <div>
+        <div>This is parent!</div>
+        <hr />
+        <Child {...{ name: 'helloDmitri', defaultValue: 'omg it worked' }} ref={{ ref1: childRef, ref2: childRef2 } as any} />
+    </div>;
+};
 
 export default Blah;
+
+
+
