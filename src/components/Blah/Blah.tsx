@@ -2,6 +2,7 @@ import React from 'react';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
+import { createFilterOptions } from '@mui/material';
 // @ts-ignore
 
 type Props = any;
@@ -31,9 +32,12 @@ const Blah: React.FC<any> = (props: Props) => {
     const [textFieldValue, setTextFieldValue] = React.useState<string>("");
     const [dropDownValue, setDropdownValue] = React.useState<any>(null);
 
+    const asConfig = createFilterOptions({ limit: 4 })
+
 
     React.useEffect(() => {
         console.log('textFieldValue', textFieldValue);
+        console.log('dropDownValue', dropDownValue);
     }, [textFieldValue]);
 
 
@@ -54,8 +58,23 @@ const Blah: React.FC<any> = (props: Props) => {
             onChange={(e, newSelectedValue) => setDropdownValue(newSelectedValue)}
 
             // custom label options
-            getOptionLabel={(option: any) => {
-                return option.name;
+            // getOptionLabel={(option: any) => {
+            //     return option.name;
+            // }}
+
+            // custom dropdown options
+            filterOptions={()=> ['a', 'b', 'c', 'd', 'e', 'f']}
+
+            isOptionEqualToValue={(orgValue: any, selectedValue: any)=> {
+
+                console.log('orgValue', orgValue);
+                console.log('selectedValue', selectedValue);
+
+                if(orgValue.name === 'Pulp Fiction' && selectedValue === 'a') {
+                    return true;
+                }
+
+                return false;
             }}
 
         />
