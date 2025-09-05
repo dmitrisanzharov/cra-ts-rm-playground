@@ -58,23 +58,21 @@ const Blah: React.FC<any> = (props: Props) => {
             onChange={(e, newSelectedValue) => setDropdownValue(newSelectedValue)}
 
             // custom label options
-            // getOptionLabel={(option: any) => {
-            //     return option.name;
-            // }}
+            getOptionLabel={(option: any) => {
+                return option.name;
+            }}
 
             // custom dropdown options
-            filterOptions={()=> ['a', 'b', 'c', 'd', 'e', 'f']}
+            // filterOptions={()=> ['a', 'b', 'c', 'd', 'e', 'f']}
 
-            isOptionEqualToValue={(orgValue: any, selectedValue: any)=> {
+            isOptionEqualToValue={(orgValue: any, selectedValue: any) => {
 
-                console.log('orgValue', orgValue);
-                console.log('selectedValue', selectedValue);
-
-                if(orgValue.name === 'Pulp Fiction' && selectedValue === 'a') {
+                if (!selectedValue) {
                     return true;
                 }
 
-                return false;
+                return orgValue.name === selectedValue.name;
+
             }}
 
         />
