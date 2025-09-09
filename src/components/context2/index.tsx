@@ -12,7 +12,6 @@ const Context2 = (props: Props) => {
         name: 'myName'
     }
 
-
     return (
         <Context2Const.Provider value={valueObj}>
             <Comp1 />  
