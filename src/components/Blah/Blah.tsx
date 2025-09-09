@@ -7,8 +7,6 @@ type Props = any;
 let a = 1;
 
 
-
-
 const Blah: React.FC<any> = (props: Props) => {
 
     console.log('Comp1');
