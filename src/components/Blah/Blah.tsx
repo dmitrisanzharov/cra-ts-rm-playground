@@ -6,19 +6,28 @@ type Props = any;
 
 const Blah: React.FC<any> = (props: Props) => {
 
-    const [count, setCount] = React.useState(0);
+    let a = 5;
 
-    const myObj1 = React.useMemo(()=> ({}), []);
+    const { number, handleClick } = useCustomHook(a);
 
-    React.useEffect(() => {
-        console.log('re-rendering');
-        setCount(count + 1);
-    }, [myObj1]);
 
     return <div>
-        <h1>Hello</h1>
+        <h1>Parent component, count is: {number}</h1>
+        <button onClick={handleClick}>inc</button>
+        <>{useCustomHook(3).number}</>
+        <hr />
     </div>;
 };
 
-export default Blah;
+const useCustomHook = (a: number) => {
+    console.log('a', a);
+    const [number, setNumber] = React.useState(0);
 
+    function handleClick() {
+        setNumber(number + 1);
+    }
+
+    return { number, handleClick };
+}
+
+export default Blah;
