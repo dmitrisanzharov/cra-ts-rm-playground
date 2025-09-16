@@ -46,7 +46,7 @@ const Blah = () => {
                 return obj;
             });
 
-            console.log(data);
+            console.log(data); // [ { name: 'victor', second: 'sarov' }, { name: 'dmitri', second: 'sanzharov } ]
             setData(data);
 
         };
