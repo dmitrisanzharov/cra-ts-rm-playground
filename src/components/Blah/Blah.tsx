@@ -3,52 +3,56 @@ import { useEffect, useState } from 'react';
 // DOCS: https://chatgpt.com/share/68c95994-e170-8009-b988-d1fbe646cef6
 // sheet example: https://docs.google.com/spreadsheets/d/1-tffkTHziGUtE8yt4_E4ZB86Q9dNyvouHGMhNxlTGKk/edit?usp=sharing
 // sheet ID is what is between: /d  and /edit
-const SHEET_ID = '1-tffkTHziGUtE8yt4_E4ZB86Q9dNyvouHGMhNxlTGKk'; 
-const SHEET_NAME = 'Stocks, with Dividends';
+const SHEET_ID = '1-tffkTHziGUtE8yt4_E4ZB86Q9dNyvouHGMhNxlTGKk';
+const SHEET_NAME = 'SingleStocksWithDividends';
+const rowToStartAt = 3;
+
+
+// 1) Strip the JSONP wrapper and parse
+function parseGViz(text: string) {
+    const match = text.match(/google\.visualization\.Query\.setResponse\(([\s\S]*?)\)\s*;?\s*$/);
+    if (!match) {
+        throw new Error("Unexpected response format: GViz wrapper not found.");
+    }
+    return JSON.parse(match[1]);
+}
+
+// 2) Convert GViz table -> array of objects
+//    Set useFormatted=true to prefer formatted strings (e.g., "7.25%" instead of 0.0725)
+function gvizTableToObjects(gviz: any, useFormatted = false) {
+    const cols = gviz.table.cols.map((c: any) => c.label || c.id);
+    return gviz.table.rows.map((r: any) => {
+        const obj: Record<string, any> = {};
+        r.c.forEach((cell: any, i: number) => {
+            if (!cell) {
+                obj[cols[i]] = null;
+            } else {
+                obj[cols[i]] = useFormatted && cell.f != null ? cell.f : cell.v;
+            }
+        });
+        return obj;
+    });
+}
 
 const Blah = () => {
     const [data, setData] = useState([]);
 
     useEffect(() => {
         const fetchSheet = async () => {
-            const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?sheet=${SHEET_NAME}`;
+            const url =
+                `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq` +
+                `?sheet=${SHEET_NAME}&range=A${rowToStartAt}:ZZ`;
             const res = await fetch(url);
-            console.log("res: ", res);
             const text = await res.text();
-            console.log("text: ", text);
 
 
-            const json = text && JSON.parse(
-                text.match(/google\.visualization\.Query\.setResponse\(([\s\S]*)\);/)?.[1] as string
-            );
-            const table = json.table;
-            console.log("table: ", table);
-
-            const rows = table.rows.map((row: any) => {
-                const obj: any = {};
-                row.c.forEach((cell: any, i: number) => {
-                    const colName = table.cols[i].label || table.cols[i].id; // fallback to A, B, ...
-                    obj[colName as any] = cell ? cell.v : null;
-                });
-                return obj;
-            });
-
+            const gviz = parseGViz(text);           // <-- unwrap + JSON.parse
+            console.log("gviz: ", gviz);
+            // const rows = gvizTableToObjects(gviz);  // <-- array of row objects (raw values)
+            const rows = gvizTableToObjects(gviz, true); // use formatted values instead
             console.log("rows: ", rows);
 
-            const headers = rows[2];
-            console.log("headers: ", headers);
-
-            const data = rows.slice(3).map((row: any) => {
-                const obj: any = {};
-                for (const key in row) {
-                    const newKey = headers[key]; // e.g., "A" -> "name"
-                    obj[newKey] = row[key];
-                }
-                return obj;
-            })
-
-            console.log('data final: ', data); 
-            setData(data);
+            setData(rows);
 
         };
 
