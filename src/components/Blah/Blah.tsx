@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 
 // DOCS: https://chatgpt.com/share/68c95994-e170-8009-b988-d1fbe646cef6
-// sheet example: https://docs.google.com/spreadsheets/d/1OthKs92ts43hTvqp-SACwPda4wc356XbfAra6fcdVRQ/edit?gid=0#gid=0 
+// sheet example: https://docs.google.com/spreadsheets/d/1-tffkTHziGUtE8yt4_E4ZB86Q9dNyvouHGMhNxlTGKk/edit?usp=sharing
 // sheet ID is what is between: /d  and /edit
-const SHEET_ID = '1OthKs92ts43hTvqp-SACwPda4wc356XbfAra6fcdVRQ'; 
-const SHEET_NAME = 'namesdb';
+const SHEET_ID = '1-tffkTHziGUtE8yt4_E4ZB86Q9dNyvouHGMhNxlTGKk'; 
+const SHEET_NAME = 'Stocks, with Dividends';
 
 const Blah = () => {
     const [data, setData] = useState([]);
@@ -35,18 +35,19 @@ const Blah = () => {
 
             console.log("rows: ", rows);
 
-            const headers = rows[0];
+            const headers = rows[2];
+            console.log("headers: ", headers);
 
-            const data = rows.slice(1).map((row: any) => {
+            const data = rows.slice(3).map((row: any) => {
                 const obj: any = {};
                 for (const key in row) {
                     const newKey = headers[key]; // e.g., "A" -> "name"
                     obj[newKey] = row[key];
                 }
                 return obj;
-            });
+            })
 
-            console.log(data); // [ { name: 'victor', second: 'sarov' }, { name: 'dmitri', second: 'sanzharov } ]
+            console.log('data final: ', data); 
             setData(data);
 
         };
