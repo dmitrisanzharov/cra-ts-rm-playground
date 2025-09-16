@@ -48,8 +48,8 @@ const Blah = () => {
 
             const gviz = parseGViz(text);           // <-- unwrap + JSON.parse
             console.log("gviz: ", gviz);
-            // const rows = gvizTableToObjects(gviz);  // <-- array of row objects (raw values)
-            const rows = gvizTableToObjects(gviz, true); // use formatted values instead
+            const rows = gvizTableToObjects(gviz);  // <-- array of row objects (raw values)
+            // const rows = gvizTableToObjects(gviz, true); // use formatted values instead, i.e. Currency will be: "$1,000.00" as opposed to 1000
             console.log("rows: ", rows);
 
             setData(rows);
