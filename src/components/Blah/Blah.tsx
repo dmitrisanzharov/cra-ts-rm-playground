@@ -1,14 +1,65 @@
-import React from 'react';
-import { Box, Skeleton, Typography } from '@mui/material';
-// @ts-ignore
+import { useEffect, useState } from 'react';
 
-type Props = any;
+// DOCS: https://chatgpt.com/share/68c95994-e170-8009-b988-d1fbe646cef6
+// sheet example: https://docs.google.com/spreadsheets/d/1OthKs92ts43hTvqp-SACwPda4wc356XbfAra6fcdVRQ/edit?gid=0#gid=0 
+// sheet ID is what is between: /d  and /edit
+const SHEET_ID = '1OthKs92ts43hTvqp-SACwPda4wc356XbfAra6fcdVRQ'; 
+const SHEET_NAME = 'namesdb';
 
-const Blah: React.FC<any> = (props: Props) => {
+const Blah = () => {
+    const [data, setData] = useState([]);
 
-    return <div>
-        <h1>Hello</h1>
-    </div>;
-};
+    useEffect(() => {
+        const fetchSheet = async () => {
+            const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?sheet=${SHEET_NAME}`;
+            const res = await fetch(url);
+            console.log("res: ", res);
+            const text = await res.text();
+            console.log("text: ", text);
+
+
+            const json = text && JSON.parse(
+                text.match(/google\.visualization\.Query\.setResponse\(([\s\S]*)\);/)?.[1] as string
+            );
+            const table = json.table;
+            console.log("table: ", table);
+
+            const rows = table.rows.map((row: any) => {
+                const obj: any = {};
+                row.c.forEach((cell: any, i: number) => {
+                    const colName = table.cols[i].label || table.cols[i].id; // fallback to A, B, ...
+                    obj[colName as any] = cell ? cell.v : null;
+                });
+                return obj;
+            });
+
+            console.log("rows: ", rows);
+
+            const headers = rows[0];
+
+            const data = rows.slice(1).map((row: any) => {
+                const obj: any = {};
+                for (const key in row) {
+                    const newKey = headers[key]; // e.g., "A" -> "name"
+                    obj[newKey] = row[key];
+                }
+                return obj;
+            });
+
+            console.log(data);
+            setData(data);
+
+        };
+
+        fetchSheet();
+    }, []);
+
+    return (
+        <div>
+            <h1>Sheet Data</h1>
+            <pre>{JSON.stringify(data, null, 2)}</pre>
+        </div>
+    );
+}
 
 export default Blah;
