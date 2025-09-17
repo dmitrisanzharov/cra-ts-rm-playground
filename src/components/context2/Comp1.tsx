@@ -4,10 +4,10 @@ import { Context2Const } from '.';
 const Comp1 = () => {
 
   const value = React.useContext(Context2Const);
-  console.log('not in useEffect',value);
+  console.log('FIRST AND THIRD... not in useEffect',value);
 
   React.useEffect(() => {
-    console.log('in useEffect',value);
+    console.log(' FOUR ... in useEffect',value);
   }, [value]);
 
 

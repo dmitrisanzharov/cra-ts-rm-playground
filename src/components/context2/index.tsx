@@ -16,6 +16,7 @@ const Context2 = (props: Props) => {
         <Context2Const.Provider value={valueObj}>
             <Comp1 />  
             <Comp2 /> 
+            <Comp1 /> 
             {/* sequence -> comp2 changes value -> comp1 useEffect sees it, but comp1 non-useEffect code does NOT */}
         </Context2Const.Provider>
     )

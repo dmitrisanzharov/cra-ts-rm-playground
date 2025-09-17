@@ -4,7 +4,7 @@ import { Context2Const } from '.';
 const Comp2 = () => {
 
   const value: any = React.useContext(Context2Const);
-  console.log(value);
+  console.log('SECOND', value);
 
   value.boo = 'booStr'
 
