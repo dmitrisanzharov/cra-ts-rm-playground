@@ -1,6 +1,5 @@
 import React from 'react';
-import {Box} from '@mui/material';
-import { padding } from '@mui/system';
+import { Box } from '@mui/material';
 
 
 type Props = any;
@@ -9,15 +8,18 @@ type Props = any;
 // SX
 const containerSx: any = {
     border: '2px solid violet',
+    height: '80vh',
     padding: '20px',
     display: 'flex',
-    flexDirection: 'row-reverse',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    alignItems: 'start',
+    alignContent: 'start',
+    // justifyContent: 'right',
     // border: '10px solid black',
     // height: '90vh',
     // alignItems: 'center',
     // margin: '10px'
-
-
 }
 
 
@@ -34,12 +36,11 @@ const boxSx: any = {
 
 const Blah: React.FC<any> = (props: Props) => {
 
-
     return <Box sx={containerSx}>
-        <Box sx={{...boxSx, backgroundColor: 'red'}}>1</Box>
-        <Box sx={{...boxSx, backgroundColor: 'yellow'}}>2</Box>
-        <Box sx={{...boxSx, backgroundColor: 'green'}}>3</Box>
-        <Box sx={{...boxSx, backgroundColor: 'blue'}}>4</Box>
+        <Box sx={{ ...boxSx, backgroundColor: 'red' }}>1</Box>
+        <Box sx={{ ...boxSx, backgroundColor: 'yellow' }}>2</Box>
+        <Box sx={{ ...boxSx, backgroundColor: 'green' }}>3</Box>
+        <Box sx={{ ...boxSx, backgroundColor: 'blue' }}>4</Box>
     </Box>;
 };
 
