@@ -1,22 +1,28 @@
 import React, { useState } from 'react';
 import { consoleMe } from '../../helper/consoleMe';
 
-type Props = any;
-
-
-const Blah: React.FC<any> = (props: Props) => {
+const Blah: React.FC = () => {
     const [count, setCount] = useState(0);
     const [inputValue, setInputValue] = useState('');
 
     const handleIncrement = () => {
         const newCount = count + 1;
         setCount(newCount);
-        console.log(newCount);
+        consoleMe(newCount.toString());
     };
 
     const handleConsoleMe = () => {
-        consoleMe(inputValue);
-        setInputValue('');
+        const trimmedValue = inputValue.trim();
+        if (trimmedValue) {
+            consoleMe(trimmedValue);
+            setInputValue('');
+        }
+    };
+
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter') {
+            handleConsoleMe();
+        }
     };
 
     return (
@@ -30,7 +36,9 @@ const Blah: React.FC<any> = (props: Props) => {
                     type="text"
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
+                    onKeyDown={handleKeyDown}
                     placeholder="Type a string"
+                    aria-label="Text input for console logging"
                 />
                 <button onClick={handleConsoleMe} style={{ marginLeft: '10px' }}>
                     console me
