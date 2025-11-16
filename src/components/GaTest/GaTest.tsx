@@ -9,16 +9,20 @@ import Typography from "@mui/material/Typography";
 type Props = any;
 
 
-ReactGA.initialize("G-3B58WKHYG4");
+ReactGA.initialize("G-2W2DYGZ5V6");
+
+type GAEventParams = Parameters<typeof ReactGA.event>[1];
+
+const gaEventClick: GAEventParams = {
+    category: "Button",
+    action: "Click",
+    label: "My Special Button"
+}
 
 const GaTest: React.FC<any> = (props: Props) => {
     const handleClick = () => {
         console.log("clicked");
-        ReactGA.event({
-            category: "Button",
-            action: "Click",
-            label: "My Special Button"
-        });
+        ReactGA.event(gaEventClick);
     };
 
     const handleClick2 = () => {
