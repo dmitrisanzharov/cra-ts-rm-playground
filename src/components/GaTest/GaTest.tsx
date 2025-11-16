@@ -34,11 +34,21 @@ const GaTest: React.FC<any> = (props: Props) => {
         });
     };
 
+    const handleClick3 = () => {
+        console.log("clicked 3");
+        ReactGA.event({
+            category: "Button 3",
+            action: "Click3",
+            label: "Special Button 3"
+        });
+    };
+
     return (
         <div>
             <h1>Hello</h1>
             <button onClick={handleClick}>Click me</button>
             <button onClick={handleClick2}>Click me 2</button>
+            <button onClick={handleClick3}>Click me 3</button>
         </div>
     );
 };
