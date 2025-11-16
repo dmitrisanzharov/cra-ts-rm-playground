@@ -2,12 +2,12 @@ import React from 'react';
 import './App.css';
 import { Box } from '@mui/material';
 
-import Blah from 'src/components/Blah/Blah';
+import GaTest from 'src/components/GaTest/GaTest';
 
 function App() {
     return (
         <Box>
-            <Blah />
+            <GaTest />
         </Box>
     );
 }
