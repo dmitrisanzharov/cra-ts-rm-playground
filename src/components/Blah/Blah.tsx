@@ -20,7 +20,7 @@ const Blah: React.FC<any> = (props: Props) => {
     }
 
     return <div>
-        <h1>Hello</h1>
+        <h3>Hello</h3>
         <button onClick={handleClick} >Click Me</button>
     </div>;
 };
