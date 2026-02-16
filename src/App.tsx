@@ -9,10 +9,9 @@ type Props = any;
 // SX
 const containerSx: any = {
     display: 'flex',
-    flexDirection: 'column',
+    flexDirection: 'row',
     // justifyContent: 'right',
     border: '10px solid black',
-    height: '95vh',
     // flexWrap: 'wrap',
     // alignContent: 'flex-end',
     // alignItems: 'flex-start',
@@ -24,15 +23,16 @@ const containerSx: any = {
 
 
 const boxSx: any = {
-    width: '150px',
-    height: '150px',
+    // width: '150px',
+    // height: '150px',
     fontSize: '8rem',
     lineHeight: '8rem',
     borderRadius: '15px',
     // display: 'flex',
     // justifyContent: 'center',
     // alignItems: 'center',
-    flex: 1,
+    // flex: 1,
+    flexBasis: 1,
 }
 
 
