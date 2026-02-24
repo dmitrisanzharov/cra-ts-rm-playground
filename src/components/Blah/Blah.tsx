@@ -7,7 +7,7 @@ type Props = any;
 
 // @ts-ignore
 const aiClient = new Groq({
-    apiKey: "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",
+    apiKey: process.env.REACT_APP_GROK_KEY,
     dangerouslyAllowBrowser: true
 } as any);
 
