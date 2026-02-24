@@ -6,10 +6,10 @@ type Props = any;
 
 const Blah: React.FC<any> = (props: Props) => {
     const [count, setCount] = React.useState(0);
-    console.log("App render");
+    console.log("App render 1");
 
     React.useEffect(() => {
-        console.log('blah useEffect');
+        console.log('blah useEffect 4');
     }, [count]);
 
     return (
@@ -25,8 +25,10 @@ export default Blah;
 
 const Child = ({count}: any) => {
 
+     console.log('child mounted 2');
+
     useEffect(() => {
-        console.log('Child useEffect');
+        console.log('Child useEffect 3');
     }, [count]);
     
     return (<div>Child: {count}</div>);
