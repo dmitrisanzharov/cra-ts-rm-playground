@@ -9,15 +9,25 @@ const Blah: React.FC<any> = (props: Props) => {
     console.log("App render");
 
     React.useEffect(() => {
-        console.log("App useEffect");
-        setCount(count);
+        console.log('blah useEffect');
     }, [count]);
 
     return (
         <div>
             <h1>Hello: {count}</h1>
+            <button onClick={() => setCount(count + 1)}>Increment</button>
+            <Child count={count}/>
         </div>
     );
 };
 
 export default Blah;
+
+const Child = ({count}: any) => {
+
+    useEffect(() => {
+        console.log('Child useEffect');
+    }, [count]);
+    
+    return (<div>Child: {count}</div>);
+}
