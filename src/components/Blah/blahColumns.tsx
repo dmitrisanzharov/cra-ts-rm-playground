@@ -20,7 +20,8 @@ export const columnDef = [
     columnHelper.accessor('gender', {
         header: 'Gender',
         id: 'gender',
-    }),
+        omg: 'omg'
+    } as any),
     // columnHelper.accessor((row) => `${row.first_name} ${row.last_name}`, {
     //     header: 'all in one',
     // }),

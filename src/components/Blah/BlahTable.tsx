@@ -34,17 +34,19 @@ const BasicTable = (props: Props) => {
 
 
     // consoles
-    console.log('test', table.options.columns);
+    console.log('test columns', table.options.columns);
+    console.log('test a', table.getAllColumns());
     console.log('test2', table.options.data);
+    console.log('filters', table.getState().columnFilters);
 
-    // React.useEffect(() => {
-    //     table.setColumnFilters([
-    //         {
-    //         id: 'first_name',
-    //         value: 'Arlene'
-    //     }
-    //     ])
-    // }, []);
+    React.useEffect(() => {
+        table.setColumnFilters([
+            {
+            id: 'first_name',
+            value: 'Arlene'
+        }
+        ])
+    }, []);
 
     return (
         <TableContainer component={Paper}>
