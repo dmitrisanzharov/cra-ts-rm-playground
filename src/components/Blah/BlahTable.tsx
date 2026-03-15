@@ -6,7 +6,8 @@ import {
     TableOptions,
     Table,
     getCoreRowModel,
-    getFilteredRowModel
+    getFilteredRowModel,
+    getSortedRowModel
 } from '@tanstack/react-table';
 import { columnDef, columnDefWithGroup } from './blahColumns';
 import dataJson from '../table/data';
@@ -14,12 +15,12 @@ import dataJson from '../table/data';
 type Props = {};
 
 const initialColumnVisibility = {
-    first_name: false
+    first_name: true
 };
 
 const BasicTable = (props: Props) => {
     const data: any = React.useMemo(() => dataJson, []);
-    const columns: any = React.useMemo(() => columnDef, []);
+    const columns: any = React.useMemo(() => columnDefWithGroup, []);
     const [columnVisibility, setColumnVisibility] = React.useState<any>(initialColumnVisibility);
 
     const table: Table<any> = useReactTable({
@@ -30,6 +31,7 @@ const BasicTable = (props: Props) => {
         },
         getCoreRowModel: getCoreRowModel(),
         getFilteredRowModel: getFilteredRowModel(),
+        getSortedRowModel: getSortedRowModel(),
         onColumnVisibilityChange: setColumnVisibility
     } as TableOptions<any>);
 
@@ -40,33 +42,53 @@ const BasicTable = (props: Props) => {
     // console.log('filters', table.getState().columnFilters);
 
     React.useEffect(() => {
-        table.setColumnFilters([
-            {
-                id: 'first_name',
-                value: 'Arlene'
-            }
-        ]);
+        // table.setColumnFilters([
+        //     {
+        //         id: 'first_name',
+        //         value: 'Arlene'
+        //     }
+        // ]);
+
+        let a = table.getHeaderGroups();
+        // console.log('omg', a);
     }, []);
+
+    function sortingReturn(sortState: any) {
+        console.log("sortState: ", sortState);
+        return `- ${sortState || 'none'}`;
+    }
 
     return (
         <TableContainer component={Paper}>
-            <button onClick={() => setColumnVisibility({ ...columnVisibility, first_name: !columnVisibility.first_name })}>toggle first_name</button>
+            <button
+                onClick={() => setColumnVisibility({ ...columnVisibility, first_name: !columnVisibility.first_name })}
+            >
+                toggle first_name
+            </button>
             <MuiTable>
                 <TableHead sx={{ border: '3px solid red' }}>
-                    {table.getHeaderGroups().map((headerGroupEl) => {
+                    {table.getHeaderGroups().map((headerGroupItem: any) => {
                         return (
-                            <TableRow key={headerGroupEl.id}>
-                                {headerGroupEl.headers.map((columnEl) => {
+                            <TableRow key={headerGroupItem.id}>
+                                {headerGroupItem.headers.map((headerColumnItem: any) => {
+                                    // console.log('headerColumnItem', headerColumnItem.colSpan)
+                                    const headerSpan = headerColumnItem.colSpan;
+                                    const isPlaceholder = headerColumnItem.isPlaceholder;
+                                    if (isPlaceholder) {
+                                        return null;
+                                    }
                                     return (
                                         <TableCell
-                                            key={columnEl.id}
-                                            // sx={{
-                                            //     fontWeight: 'bold',
-                                            //     border: '2px solid black',
-                                            // }}
-                                            colSpan={columnEl.colSpan}
+                                            key={headerColumnItem.id}
+                                            colSpan={headerSpan}
+                                            sx={{ backgroundColor: headerSpan > 1 ? 'darkorange' : 'gray' }}
+                                            onClick={headerColumnItem.column.getToggleSortingHandler()}
                                         >
-                                            {flexRender(columnEl.column.columnDef.header, columnEl.getContext())}
+                                            {flexRender(
+                                                headerColumnItem.column.columnDef.header,
+                                                headerColumnItem.getContext()
+                                            )}
+                                            {headerSpan === 1 && sortingReturn(headerColumnItem.column.getIsSorted())}
                                         </TableCell>
                                     );
                                 })}
@@ -75,13 +97,14 @@ const BasicTable = (props: Props) => {
                     })}
                 </TableHead>
                 <TableBody>
-                    {table.getRowModel().rows.map((row) => {
+                    {table.getRowModel().rows.map((rowItem: any) => {
+                        // console.log('rowItem', rowItem)
                         return (
-                            <TableRow key={row.id}>
-                                {row.getVisibleCells().map((cell) => {
+                            <TableRow key={rowItem.id}>
+                                {rowItem.getVisibleCells().map((cellItem: any) => {
                                     return (
-                                        <TableCell key={cell.id}>
-                                            {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                                        <TableCell key={cellItem.id}>
+                                            {flexRender(cellItem.column.columnDef.cell, cellItem.getContext())}
                                         </TableCell>
                                     );
                                 })}

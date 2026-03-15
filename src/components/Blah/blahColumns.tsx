@@ -22,7 +22,7 @@ function myFn(row: any, columnId: any, filterValue: any) {
 // * BASIC TABLE
 
 export const columnDef = [
-    columnHelper.accessor('first_name', {
+    columnHelper.accessor((row: any) => `${row.first_name} ${row.last_name}`, {
         header: 'First Name',
         id: 'first_name',
         filterFn: myFn
@@ -74,12 +74,12 @@ export const columnDefWithGroup = [
         id: 'gender',
         omg: 'omg'
     } as any),
-    columnHelper.display({
-        header: 'display1',
-        id: 'display1',
-        cell: (info) => {
-            // console.log('info', info);
-            return 'test';
-        }
-    })
+    // columnHelper.display({
+    //     header: 'display1',
+    //     id: 'display1',
+    //     cell: (info) => {
+    //         // console.log('info', info);
+    //         return 'test';
+    //     }
+    // })
 ];
