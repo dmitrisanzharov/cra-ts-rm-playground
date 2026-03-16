@@ -1,5 +1,14 @@
 import React from 'react';
-import { Table as MuiTable, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Box } from '@mui/material';
+import {
+    Table as MuiTable,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TableRow,
+    Paper,
+    Box
+} from '@mui/material';
 import {
     useReactTable,
     flexRender,
@@ -23,16 +32,27 @@ const BasicTable = (props: Props) => {
     const data: any = React.useMemo(() => dataJson, []);
     const columns: any = React.useMemo(() => columnDefWithGroup, []);
     const [columnVisibility, setColumnVisibility] = React.useState<any>(initialColumnVisibility);
-    const [sorting, setSorting] = React.useState<SortingState>([{id: 'first_name', desc: true}]);
+    const [sorting, setSorting] = React.useState<SortingState>([{ id: 'first_name', desc: true }]);
     const [globalFilter, setGlobalFilter] = React.useState('');
 
     const table: Table<any> = useReactTable({
         data,
         columns,
+        // initialState: {
+        //     columnFilters: [
+        //         {
+        //             id: 'first_name',
+        //             value: 'Arlene'
+        //         }
+        //     ]
+        // },
+        defaultColumn: {
+            id: '1'
+        },
         state: {
             columnVisibility: columnVisibility,
             sorting,
-            globalFilter
+            globalFilter,
         },
         onSortingChange: setSorting,
         onColumnVisibilityChange: setColumnVisibility,
@@ -40,8 +60,7 @@ const BasicTable = (props: Props) => {
 
         getCoreRowModel: getCoreRowModel(),
         getFilteredRowModel: getFilteredRowModel(),
-        getSortedRowModel: getSortedRowModel(),
-        
+        getSortedRowModel: getSortedRowModel()
     } as TableOptions<any>);
 
     // consoles
@@ -63,18 +82,14 @@ const BasicTable = (props: Props) => {
     }, []);
 
     function sortingReturn(sortState: any) {
-        console.log("sortState: ", sortState);
+        // console.log('sortState: ', sortState);
         return `- ${sortState || 'none'}`;
     }
 
     return (
         <TableContainer component={Paper}>
             <Box>
-                <input
-                    type='text'
-                    value={globalFilter}
-                    onChange={(e) => setGlobalFilter(e.target.value)}
-                />
+                <input type='text' value={globalFilter} onChange={(e) => setGlobalFilter(e.target.value)} />
             </Box>
             <button
                 onClick={() => setColumnVisibility({ ...columnVisibility, first_name: !columnVisibility.first_name })}
@@ -90,6 +105,10 @@ const BasicTable = (props: Props) => {
                                     // console.log('headerColumnItem', headerColumnItem.colSpan)
                                     const headerSpan = headerColumnItem.colSpan;
                                     const isPlaceholder = headerColumnItem.isPlaceholder;
+                                    const canFilter = headerColumnItem.column.getCanFilter();
+                                    // console.log('============================');
+                                    // console.log('headerColumnItem', headerColumnItem.column)
+                                    // console.log('canFilter', canFilter)
                                     if (isPlaceholder) {
                                         return null;
                                     }
@@ -105,6 +124,11 @@ const BasicTable = (props: Props) => {
                                                 headerColumnItem.getContext()
                                             )}
                                             {headerSpan === 1 && sortingReturn(headerColumnItem.column.getIsSorted())}
+                                            {/* {headerColumnItem.column.getCanFilter() && <input
+                                                type='text'
+                                                value={headerColumnItem.column.getFilterValue()}
+                                                onChange={(e) => headerColumnItem.column.setFilterValue(e.target.value)}
+                                            />} */}
                                         </TableCell>
                                     );
                                 })}

@@ -37,11 +37,11 @@ export const columnDef = [
         id: 'email'
     }),
     columnHelper.accessor('gender', {
-        header: (row: any) => {
-            // console.log('row: ', row);
-            return 'Gender';
+        header: () => {
+            return 'hello';
         },
         id: 'gender'
+        // enableColumnFilter: false
     } as any)
     // columnHelper.accessor((row) => `${row.first_name} ${row.last_name}`, {
     //     header: 'all in one',
@@ -71,10 +71,10 @@ export const columnDefWithGroup = [
         id: 'email'
     }),
     columnHelper.accessor('gender', {
-        header: 'Gender',
-        id: 'gender',
-        omg: 'omg'
-    } as any),
+        header: headerFilter,
+        id: 'gender'
+        // enableColumnFilter: false
+    } as any)
     // columnHelper.display({
     //     header: 'display1',
     //     id: 'display1',
@@ -84,3 +84,17 @@ export const columnDefWithGroup = [
     //     }
     // })
 ];
+
+function headerFilter(row: any) {
+    console.log('row: ', row);
+    const { header } = row;
+    return (
+        <>
+        {header.id}
+            <input
+                value={header.column.getFilterValue()}
+                onChange={(e) => header.column.setFilterValue(e.target.value)}
+            />
+        </>
+    );
+}
