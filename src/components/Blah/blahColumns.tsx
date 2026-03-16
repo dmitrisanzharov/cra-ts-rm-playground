@@ -25,7 +25,8 @@ export const columnDef = [
     columnHelper.accessor((row: any) => `${row.first_name} ${row.last_name}`, {
         header: 'First Name',
         id: 'first_name',
-        filterFn: myFn
+        filterFn: myFn,
+        enableSorting: false
     }),
     columnHelper.accessor('last_name', {
         header: 'Last Name',

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table as MuiTable, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
+import { Table as MuiTable, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Box } from '@mui/material';
 import {
     useReactTable,
     flexRender,
@@ -7,7 +7,8 @@ import {
     Table,
     getCoreRowModel,
     getFilteredRowModel,
-    getSortedRowModel
+    getSortedRowModel,
+    SortingState
 } from '@tanstack/react-table';
 import { columnDef, columnDefWithGroup } from './blahColumns';
 import dataJson from '../table/data';
@@ -22,17 +23,25 @@ const BasicTable = (props: Props) => {
     const data: any = React.useMemo(() => dataJson, []);
     const columns: any = React.useMemo(() => columnDefWithGroup, []);
     const [columnVisibility, setColumnVisibility] = React.useState<any>(initialColumnVisibility);
+    const [sorting, setSorting] = React.useState<SortingState>([{id: 'first_name', desc: true}]);
+    const [globalFilter, setGlobalFilter] = React.useState('');
 
     const table: Table<any> = useReactTable({
         data,
         columns,
         state: {
-            columnVisibility: columnVisibility
+            columnVisibility: columnVisibility,
+            sorting,
+            globalFilter
         },
+        onSortingChange: setSorting,
+        onColumnVisibilityChange: setColumnVisibility,
+        onGlobalFilterChange: setGlobalFilter,
+
         getCoreRowModel: getCoreRowModel(),
         getFilteredRowModel: getFilteredRowModel(),
         getSortedRowModel: getSortedRowModel(),
-        onColumnVisibilityChange: setColumnVisibility
+        
     } as TableOptions<any>);
 
     // consoles
@@ -60,6 +69,13 @@ const BasicTable = (props: Props) => {
 
     return (
         <TableContainer component={Paper}>
+            <Box>
+                <input
+                    type='text'
+                    value={globalFilter}
+                    onChange={(e) => setGlobalFilter(e.target.value)}
+                />
+            </Box>
             <button
                 onClick={() => setColumnVisibility({ ...columnVisibility, first_name: !columnVisibility.first_name })}
             >
