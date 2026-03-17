@@ -21,37 +21,27 @@ function myFn(row: any, columnId: any, filterValue: any) {
 
 // * BASIC TABLE
 
-export const columnDef = [
-    columnHelper.accessor((row: any) => `${row.first_name} ${row.last_name}`, {
-        header: 'First Name',
-        id: 'first_name',
-        filterFn: myFn,
-        enableSorting: false
-    }),
-    columnHelper.accessor('last_name', {
-        header: 'Last Name',
-        id: 'last_name'
-    }),
-    columnHelper.accessor('email', {
-        header: 'Email',
-        id: 'email'
-    }),
-    columnHelper.accessor('gender', {
-        header: () => {
-            return 'hello';
-        },
-        id: 'gender'
-        // enableColumnFilter: false
-    } as any)
-    // columnHelper.accessor((row) => `${row.first_name} ${row.last_name}`, {
-    //     header: 'all in one',
-    // }),
-    // {
-    //     id: 'omg'
-    // }
-];
-
 export const columnDefWithGroup = [
+    columnHelper.display({
+        id: 'row-select',
+        header: ({ table }) => (
+            <input
+                type="checkbox"
+                checked={table.getIsAllRowsSelected()}
+                onChange={table.getToggleAllRowsSelectedHandler()}
+            />
+        ),
+        cell: ({ row }) => (
+            <input
+                type="checkbox"
+                checked={row.getIsSelected()}
+                disabled={!row.getCanSelect()}
+                onChange={row.getToggleSelectedHandler()}
+            />
+        ),
+        enableSorting: false,
+        enableColumnFilter: false
+    }),
     columnHelper.group({
         header: 'initials',
         columns: [
@@ -85,12 +75,42 @@ export const columnDefWithGroup = [
     // })
 ];
 
+export const columnDef = [
+    columnHelper.accessor((row: any) => `${row.first_name} ${row.last_name}`, {
+        header: 'First Name',
+        id: 'first_name',
+        filterFn: myFn,
+        enableSorting: false
+    }),
+    columnHelper.accessor('last_name', {
+        header: 'Last Name',
+        id: 'last_name'
+    }),
+    columnHelper.accessor('email', {
+        header: 'Email',
+        id: 'email'
+    }),
+    columnHelper.accessor('gender', {
+        header: () => {
+            return 'hello';
+        },
+        id: 'gender'
+        // enableColumnFilter: false
+    } as any)
+    // columnHelper.accessor((row) => `${row.first_name} ${row.last_name}`, {
+    //     header: 'all in one',
+    // }),
+    // {
+    //     id: 'omg'
+    // }
+];
+
 function headerFilter(row: any) {
     console.log('row: ', row);
     const { header } = row;
     return (
         <>
-        {header.id}
+            {header.id}
             <input
                 value={header.column.getFilterValue()}
                 onChange={(e) => header.column.setFilterValue(e.target.value)}
