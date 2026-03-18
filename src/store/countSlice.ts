@@ -1,7 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    count: 0
+    count: 0,
+    countArr: []
 }
 
 export const counterSlice = createSlice({
@@ -16,6 +17,12 @@ export const counterSlice = createSlice({
         },
         reset: (state) => {
             state.count = 0
+        },
+        addToArr: (state, action) => {
+            
+            console.log('action.payload', action);
+            // @ts-ignore
+            state.countArr.push(action.payload)
         }
     }
 }); 
