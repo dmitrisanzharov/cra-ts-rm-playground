@@ -22,7 +22,9 @@ export const counterSlice = createSlice({
             
             console.log('action.payload', action);
             // @ts-ignore
-            state.countArr.push(action.payload)
+            state.countArr.push(action.payload);
         }
     }
 }); 
+
+console.log('counterSlice in file', counterSlice);
