@@ -26,7 +26,7 @@ import dataJson from '../table/data';
 type Props = {};
 
 const initialColumnVisibility = {
-    first_name: true
+    first_name: false
 };
 
 const BasicTable = (props: Props) => {
@@ -51,7 +51,10 @@ const BasicTable = (props: Props) => {
             // ]
             pagination: {
                 pageSize: 3
-            }
+            },
+            // columnVisibility: {
+            //     "email": false
+            // }
         },
         // defaultColumn: {
         //     id: '1'
@@ -107,6 +110,21 @@ const BasicTable = (props: Props) => {
                 checked={table.getIsAllColumnsVisible()}
                 onChange={table.getToggleAllColumnsVisibilityHandler()}
             />
+            <Box>
+                {table.getAllLeafColumns().map((column: any) => {
+                    console.log('column', column);
+                    return (
+                        <Box key={column.id}>
+                            <input
+                                type='checkbox'
+                                checked={column.getIsVisible()}
+                                onChange={column.getToggleVisibilityHandler()}
+                            />
+                            {column.id}
+                        </Box>
+                    );
+                })}
+            </Box>
             <hr />
             <button onClick={() => setColumnOrder(['gender', 'email'])}>set column order</button>
             <hr />

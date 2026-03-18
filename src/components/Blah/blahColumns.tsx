@@ -106,7 +106,7 @@ export const columnDef = [
 ];
 
 function headerFilter(row: any) {
-    console.log('row: ', row);
+    // console.log('row: ', row);
     const { header } = row;
     return (
         <>
