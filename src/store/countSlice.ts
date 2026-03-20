@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createSelector } from '@reduxjs/toolkit';
 
 const initialState = {
     count: 0,
@@ -27,4 +27,15 @@ export const counterSlice = createSlice({
     }
 }); 
 
-console.log('counterSlice in file', counterSlice);
+// console.log('counterSlice in file', counterSlice);
+
+const selectSelf = (state: any) => {
+    console.log('selectSelf state: ', state);
+    return state.counterInStore;
+}
+
+export const countSelector = createSelector(selectSelf, (counterInStore) => {
+    console.log('selector1 counterInStore: ', counterInStore);
+    return counterInStore.count;
+});
+

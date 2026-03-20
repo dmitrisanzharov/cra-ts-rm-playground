@@ -4,7 +4,7 @@ import { Box, Skeleton, Typography } from '@mui/material';
 
 // store
 // @ts-ignore
-import { counterSlice } from '../../store/countSlice';
+import { counterSlice, countSelector } from '../../store/countSlice';
 
 
 
@@ -13,24 +13,26 @@ type Props = any;
 
 const Blah: React.FC<any> = (props: Props) => {
 
-    console.log('counterSlice', counterSlice);
+    // console.log('counterSlice', counterSlice);
 
     const dispatch = useDispatch();
 
+    const countState2 = useSelector(countSelector);
+
     const count = useSelector((state: any) => {
-        console.log("state: ", state);
+        // console.log("state: ", state);
 
         return state.counterInStore.count
     });
 
     const countArr = useSelector((state: any) => {
-        console.log("state: ", state);
+        // console.log("state: ", state);
 
         return state.counterInStore.countArr
     });
 
     return <div>
-        <h1>count: {count}</h1>
+        <h1>count: {count}, and the second one: {countState2}</h1>
         <button onClick={()=> dispatch(counterSlice.actions.increment())}>inc</button>
          <button onClick={()=> dispatch(counterSlice.actions.decrement())}>dec</button>
          <hr />
