@@ -1,8 +1,12 @@
-import { configureStore, createListenerMiddleware } from '@reduxjs/toolkit';
+import { configureStore, createListenerMiddleware, combineReducers } from '@reduxjs/toolkit';
+// @ts-ignore
+import storage from 'redux-persist/lib/storage';
+import { persistReducer } from 'redux-persist';
 
 // slices
 import { counterSlice } from './countSlice';
 // console.log('counterSlice: ', counterSlice);
+
 
 // middleware
 const listenerMiddleware = createListenerMiddleware();
@@ -42,12 +46,26 @@ const baseReducer = (state = {}, action: any) => {
 
 // store config
 
+const rootReducer = combineReducers({
+    app: baseReducer,
+    counterInStore: counterSlice.reducer
+});
+
+const persistConfig = {
+    key: 'myPersistorOne',
+    storage: storage,
+}
+
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
 const storeConfig = configureStore({
-    reducer: {
-        app: baseReducer,
-        counterInStore: counterSlice.reducer
-    },
-    middleware: (getDefaultMiddleWare: any) => getDefaultMiddleWare().prepend(listenerMiddleware.middleware)
+    reducer: persistedReducer,
+    middleware: (getDefaultMiddleWare: any) => getDefaultMiddleWare({
+        serializableCheck: {
+            ignoreActions: ['persist/PERSIST']
+        }
+    }).prepend(listenerMiddleware.middleware)
 });
 
 export default storeConfig;
