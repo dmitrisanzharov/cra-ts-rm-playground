@@ -50,6 +50,7 @@ const rootReducer = combineReducers({
     app: baseReducer,
     counterInStore: counterSlice.reducer
 });
+console.log('rootReducer', rootReducer)
 
 const persistConfig = {
     key: 'myPersistorOne',
