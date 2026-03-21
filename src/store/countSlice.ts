@@ -20,7 +20,7 @@ export const counterSlice = createSlice({
         },
         addToArr: (state, action) => {
             
-            console.log('action.payload', action);
+            // console.log('action.payload', action);
             // @ts-ignore
             state.countArr.push(action.payload);
         }
@@ -30,12 +30,12 @@ export const counterSlice = createSlice({
 // console.log('counterSlice in file', counterSlice);
 
 const selectSelf = (state: any) => {
-    console.log('selectSelf state: ', state);
+    // console.log('selectSelf state: ', state);
     return state.counterInStore;
 }
 
 export const countSelector = createSelector(selectSelf, (counterInStore) => {
-    console.log('selector1 counterInStore: ', counterInStore);
+    // console.log('selector1 counterInStore: ', counterInStore);
     return counterInStore.count;
 });
 

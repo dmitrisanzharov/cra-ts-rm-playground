@@ -5,6 +5,7 @@ import { Box, Skeleton, Typography } from '@mui/material';
 // store
 // @ts-ignore
 import { counterSlice, countSelector } from '../../store/countSlice';
+import usersApi from '../../store/api/usersApi';
 
 
 
@@ -14,6 +15,9 @@ type Props = any;
 const Blah: React.FC<any> = (props: Props) => {
 
     // console.log('counterSlice', counterSlice);
+
+    const usersData = usersApi.useGetUsersQuery();
+    console.log("usersData: ", usersData);
 
     const dispatch = useDispatch();
 
