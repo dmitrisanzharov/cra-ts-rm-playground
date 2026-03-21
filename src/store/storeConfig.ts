@@ -68,7 +68,7 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-console.log('usersApi',usersApi)
+// console.log('usersApi',usersApi)
 
 const storeConfig = configureStore({
     // non apis
@@ -77,7 +77,7 @@ const storeConfig = configureStore({
         serializableCheck: {
             ignoreActions: ['persist/PERSIST']
         }
-    }).prepend(listenerMiddleware.middleware).concat([usersApi.middleware])
+    }).prepend(listenerMiddleware.middleware).concat(usersApi.middleware)
 });
 
 export default storeConfig;

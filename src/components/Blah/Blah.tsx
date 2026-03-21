@@ -16,7 +16,11 @@ const Blah: React.FC<any> = (props: Props) => {
 
     // console.log('counterSlice', counterSlice);
 
-    const usersData = usersApi.useGetUsersQuery();
+    const skipApi = false; 
+
+    const usersData = usersApi.useGetUsersQuery({} as any, {
+        skip: skipApi
+    });
     console.log("usersData: ", usersData);
 
     const dispatch = useDispatch();

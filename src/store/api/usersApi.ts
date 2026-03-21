@@ -6,11 +6,19 @@ const usersApi = createApi({
         baseUrl: 'https://jsonplaceholder.typicode.com'
     }),
     endpoints: (builder) => {
+        console.log("builder: ", builder);
+
         return {
             getUsers: builder.query<any, void>({
-                query: () => {
+                query: (params: any) => {
                     return {
-                        url: '/users'
+                        url: '/users',
+                        method: 'GET',
+                        params: params,
+                        headers: {
+                                'Content-Type': 'application/json',
+                                Accept: 'application/json'
+                        }
                     };
                 }
             })
@@ -19,3 +27,5 @@ const usersApi = createApi({
 });
 
 export default usersApi;
+
+console.log('in apiSlice usersApi: ', usersApi);
