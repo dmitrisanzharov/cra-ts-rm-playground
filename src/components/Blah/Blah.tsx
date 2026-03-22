@@ -18,10 +18,12 @@ const Blah: React.FC<any> = (props: Props) => {
 
     const skipApi = false; 
 
-    const usersData = usersApi.useGetUsersQuery({} as any, {
-        skip: skipApi
-    });
+    const usersData = usersApi.useLazyGetUsersQuery({} as any);
     console.log("usersData: ", usersData);
+
+    React.useEffect(() => {
+        usersData[0]({} as any);
+    }, []);
 
     const dispatch = useDispatch();
 
