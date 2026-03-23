@@ -16,6 +16,7 @@ const dimApi = createApi({
             return headers;
         }
     }),
+    tagTypes: ['DimiData'],
     endpoints: (builder) => {
         console.log('builder: ', builder);
 
@@ -31,7 +32,8 @@ const dimApi = createApi({
                             Accept: 'application/json'
                         }
                     };
-                }
+                },
+                providesTags: ['DimiData']
             }),
             postOne: builder.mutation<any, void>({
                 query: (args: any) => {
@@ -45,20 +47,30 @@ const dimApi = createApi({
                             Accept: 'application/json'
                         }
                     };
-                }
-            }),
-            postParams: builder.mutation<any, void>({
-                query: () => {
-                    return {
-                        url: `/post-params/${Math.random()}`,
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            Accept: 'application/json'
-                        }
-                    };
+                },
+                invalidatesTags: ['DimiData'],
+                async onQueryStarted(arg: any, info: any) {
+                    try {
+                        console.log('info', info);
+                        await info.queryFulfilled;
+                    } catch (error) {
+                        console.error('POST request failed', error);
+                    }
                 }
             })
+            // postParams: builder.mutation<any, void>({
+            //     query: () => {
+            //         return {
+            //             url: `/post-params/${Math.random()}`,
+            //             method: 'POST',
+            //             headers: {
+            //                 'Content-Type': 'application/json',
+            //                 Accept: 'application/json'
+            //             }
+            //         };
+            //     },
+            //     invalidatesTags: ['DimiData']
+            // })
         };
     }
 });
