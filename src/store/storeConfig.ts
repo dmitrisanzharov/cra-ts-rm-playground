@@ -5,6 +5,7 @@ import { persistReducer } from 'redux-persist';
 
 // api slices
 import usersApi from './api/usersApi';
+import dimApi from './api/dimApi';
 
 // slices
 import { counterSlice } from './countSlice';
@@ -52,6 +53,7 @@ const baseReducer = (state = {}, action: any) => {
 const rootReducer = combineReducers({
     // apis
     [usersApi.reducerPath]: usersApi.reducer,
+    [dimApi.reducerPath]: dimApi.reducer,
 
     // non api
     app: baseReducer,
@@ -77,7 +79,7 @@ const storeConfig = configureStore({
         serializableCheck: {
             ignoreActions: ['persist/PERSIST']
         }
-    }).prepend(listenerMiddleware.middleware).concat(usersApi.middleware)
+    }).prepend(listenerMiddleware.middleware).concat(usersApi.middleware, dimApi.middleware)
 });
 
 export default storeConfig;

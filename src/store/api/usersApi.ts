@@ -17,7 +17,7 @@ const usersApi = createApi({
         }
     }),
     endpoints: (builder) => {
-        console.log('builder: ', builder);
+        // console.log('builder: ', builder);
 
         return {
             getUsers: builder.query<any, void>({
@@ -33,16 +33,16 @@ const usersApi = createApi({
                     };
                 },
                 transformResponse: (response: any, meta: any, arg: any) => {
-                    console.log('response: ', response);
-                    console.log('meta: ', meta);
-                    console.log('arg: ', arg);
+                    // console.log('response: ', response);
+                    // console.log('meta: ', meta);
+                    // console.log('arg: ', arg);
                     return [{ omg: 'we did it'}]
                 }
-            })
+            }),
         };
     }
 });
 
 export default usersApi;
 
-console.log('in apiSlice usersApi: ', usersApi);
+// console.log('in apiSlice usersApi: ', usersApi);

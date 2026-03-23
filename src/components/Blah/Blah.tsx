@@ -6,6 +6,7 @@ import { Box, Skeleton, Typography } from '@mui/material';
 // @ts-ignore
 import { counterSlice, countSelector } from '../../store/countSlice';
 import usersApi from '../../store/api/usersApi';
+import dimApi from '../../store/api/dimApi';
 
 
 
@@ -14,15 +15,27 @@ type Props = any;
 
 const Blah: React.FC<any> = (props: Props) => {
 
-    // console.log('counterSlice', counterSlice);
+    const postParams = dimApi.usePostParamsMutation();
+    React.useEffect(() => {
+        postParams[0]();
+    }, []);
 
-    const skipApi = false; 
+
+    // console.log('counterSlice', counterSlice);
+    const dimiApiData = dimApi.useGetDimiDataQuery({} as any);
+    console.log("dimiApiData: ", dimiApiData);
+
+    const postOne = dimApi.usePostOneMutation();
+    console.log("postOne: ", postOne);
+
+
 
     const usersData = usersApi.useLazyGetUsersQuery({} as any);
-    console.log("usersData: ", usersData);
+    // console.log("usersData: ", usersData);
 
     React.useEffect(() => {
         usersData[0]({} as any);
+        postOne[0]({ body: { name: Date.now() }, params: { id: Math.random(), anyKey: Date.now() / 1000 }} as any);
     }, []);
 
     const dispatch = useDispatch();
@@ -48,6 +61,9 @@ const Blah: React.FC<any> = (props: Props) => {
          <hr />
          <h3>{JSON.stringify(countArr)}</h3>
          <button onClick={()=> dispatch(counterSlice.actions.addToArr(count))}>add</button>
+         <hr />
+            <Typography variant='h4'>users api data:</Typography>
+            <pre>{JSON.stringify(dimiApiData.data, null, 2)}</pre>
     </div>;
 };
 
