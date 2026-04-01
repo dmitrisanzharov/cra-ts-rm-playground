@@ -3,11 +3,12 @@ import React from 'react';
 import CompOne from './CompOne';
 import CompTwo from './CompTwo';
 
-export const ContextOne: any = React.createContext({} as any);
+export const ContextOne: any = React.createContext<any>({} as any);
+console.log("ContextOne: ", ContextOne);
 
-const ContextOneWrapper: React.FC<any> = ({children}) => {
+const ContextOneWrapper: React.FC<any> = ({nameProps, children}) => {
     const myObj = {
-        name: 'Dmitri'
+        name: nameProps
     };
 
     console.log('myObj: ', myObj);

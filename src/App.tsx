@@ -7,7 +7,7 @@ import Blah from 'src/components/Blah/Blah';
 function App() {
     return (
         <Box>
-            <ContextOneWrapper>
+            <ContextOneWrapper nameProps={'Dmitri2'}>
                 <Blah />
             </ContextOneWrapper>
         </Box>
