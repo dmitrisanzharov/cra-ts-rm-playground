@@ -6,7 +6,6 @@ type Props = {}
 const CompOne: React.FC<Props> = (props: Props) => {
 
     const data = React.useContext(ContextOne);
-    console.log("data from Comp One: ", data);
 
   return (
     <div>CompOne</div>
