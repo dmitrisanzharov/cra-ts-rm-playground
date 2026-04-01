@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import { ContextOne } from 'src/context/contextOne';
 import { Box, Skeleton, Typography } from '@mui/material';
+import ContextOneWrapper from 'src/context/contextOne';
 // @ts-ignore
 
 type Props = any;
@@ -8,11 +8,10 @@ type Props = any;
 
 const Blah: React.FC<any> = (props: Props) => {
 
-    const contextOne = React.useContext(ContextOne);
-    console.log("contextOne: ", contextOne);
 
     return <div>
         <h1>Hello</h1>
+        <ContextOneWrapper />
     </div>;
 };
 
