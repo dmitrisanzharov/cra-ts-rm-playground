@@ -15,6 +15,7 @@ const Blah: React.FC<any> = (props: Props) => {
         console.log('inputRefOne', inputRefOne);
         console.log('inputRefTwo', inputRefTwo);
         inputRefTwo.current.textContent = 'This is the second ref';
+        inputRefTwo.current.style.color = 'blue'
     }, []);
 
     function handleClick(){
