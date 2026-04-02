@@ -16,9 +16,13 @@ const topFilms = [
    { label: "Pulp Fiction", year: 1994 },
 ]
 
+const myRed = '#ff0000';
+
 
 
 const Blah: React.FC<any> = (props: Props) => {
+
+    const colorsArr = ['red', 'green', 'blue', myRed] as const;
 
     return <Box sx={{ m:2, p: 2, border: '1px solid black' }}>
         <Autocomplete 
