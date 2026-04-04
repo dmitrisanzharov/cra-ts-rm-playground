@@ -27,8 +27,8 @@ const topFilms = [
 ];
 
 const Blah: React.FC<any> = (props: Props) => {
-    const [inputValueState, setInputValueState] = React.useState('');
-    const [valueState, setValueState] = React.useState<any>(null);
+    const [inputValueState, setInputValueState] = React.useState(''); // typed value
+    const [valueState, setValueState] = React.useState<any>(null); // dropdown value
 
     React.useEffect(() => {
         console.log('============================');
