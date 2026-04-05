@@ -6,7 +6,7 @@ type Props = any;
 
 const Blah: React.FC<any> = (props: Props) => {
 
-    const { number, handleClick } = useCustomHook();
+    const { number, handleClick } = useCustomHook('lala');
 
     return (
         <div>
@@ -18,7 +18,9 @@ const Blah: React.FC<any> = (props: Props) => {
 };
 
 
-const useCustomHook = () => {
+const useCustomHook = (initialValue: any) => {
+    console.log("initialValue: ", initialValue);
+
     const [number, setNumber] = React.useState(0);
 
     function handleClick() {
