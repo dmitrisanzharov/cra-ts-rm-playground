@@ -5,9 +5,37 @@ type User = {
     role: "admin" | "editor" | "viewer" | 'moderator';
 };
 
+type PropsNew = {
+    type: "success" | "error";
+};
+
 type Props = {
     user: User;
 };
+
+const Notification = ({ type }: PropsNew) => {
+    if (type === "success") {
+        return <div style={{ color: "green" }}>Success!</div>;
+    }
+
+    if (type === "error") {
+        return <div style={{ color: "red" }}>Error!</div>;
+    }
+
+    return null;
+};
+
+const notificationsObject = {
+    success: { message: "Success!", color: "green" }, error: { message: "Error!", color: "green" },
+}
+
+const Notification2 = ({ message, color }: any) => {
+    return <div style={{ color }}>{message}</div>;
+}
+
+
+
+
 
 const UserActions = ({ user }: Props) => {
 
