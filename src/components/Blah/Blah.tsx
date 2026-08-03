@@ -1,72 +1,49 @@
 import { useEffect, useState } from 'react';
 
-type User = {
-    id: number;
-    name: string;
-    email: string;
+
+const messageType: Record<string, any> = {
+    email: {
+        type: 'email',
+        text: 'email'
+    },
+    sms: {
+        type: 'sms',
+        text: 'sms'
+    }
 };
 
-export default function UserDashboard() {
-    const [users, setUsers] = useState<User[]>([]);
-    const [loading, setLoading] = useState(false);
+function messageTypeWithFallBack(type: string){
+    return messageType[type]?.text || 'unknown';
+}
+
+function useNotification(userId: number, type: string) {
+    const [message, setMessage] = useState('');
 
     useEffect(() => {
-        loadUsers();
-    }, []);
+        if (type === 'email') {
+            setMessage(`Sending email notification to user ${userId}`);
+        }
 
-    async function loadUsers() {
-        setLoading(true);
+        if (type === 'sms') {
+            setMessage(`Sending SMS notification to user ${userId}`);
+        }
+    }, [userId, type]);
 
-        const response = await fetch('/api/users');
-        const data = await response.json();
+    return message;
+}
 
-        // Business logic
-        const activeUsers = data.filter((user: any) => user.active);
-
-        // Sorting logic
-        activeUsers.sort((a: User, b: User) => a.name.localeCompare(b.name));
-
-        setUsers(activeUsers);
-        setLoading(false);
-    }
-
-    function exportToCsv() {
-        const csv = users.map((user) => `${user.name},${user.email}`).join('\n');
-
-        const blob = new Blob([csv], { type: 'text/csv' });
-        const url = URL.createObjectURL(blob);
-
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = 'users.csv';
-        link.click();
-    }
-
-    function logVisit() {
-        console.log('Dashboard visited');
-    }
+function useNotification2(userId: number, type: string) {
+    const [message, setMessage] = useState('');
 
     useEffect(() => {
-        logVisit();
-    }, []);
+        setMessage(`Sending ${messageTypeWithFallBack(type)} notification to user ${userId}`);
+    }, [userId, type]);
 
-    if (loading) {
-        return <p>Loading...</p>;
-    }
+    return message;
+}
 
-    return (
-        <div>
-            <h2>Users</h2>
+export default function UserNotification() {
+    const message = useNotification(123, 'email');
 
-            <button onClick={exportToCsv}>Export CSV</button>
-
-            <ul>
-                {users.map((user) => (
-                    <li key={user.id}>
-                        {user.name} ({user.email})
-                    </li>
-                ))}
-            </ul>
-        </div>
-    );
+    return <div>{message}</div>;
 }
