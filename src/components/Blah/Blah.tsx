@@ -1,15 +1,28 @@
-import React, { useEffect } from 'react';
-import { Box, Skeleton, Typography } from '@mui/material';
-// @ts-ignore
+import React, { useState } from 'react';
 
-type Props = any;
-
-
-const Blah: React.FC<any> = (props: Props) => {
-
-    return <div>
-        <h1>Hello</h1>
-    </div>;
+const saveUserToDatabase = (name: string) => {
+    console.log(`Saving ${name} to the database...`);
 };
 
-export default Blah;
+type User = {
+    saveUserToDatabase: (name: string) => void
+}
+
+const UserProfile = ({ saveUserToDatabase }: User) => {
+    const [name, setName] = useState('');
+
+    return (
+        <div>
+            <input
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+            />
+
+            <button onClick={()=> saveUserToDatabase(name)}>
+                Save
+            </button>
+        </div>
+    );
+};
+
+export default UserProfile;
